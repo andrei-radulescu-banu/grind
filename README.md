@@ -1,4 +1,4 @@
-# findribble
+# Tickerscrape
 Financial data scraped from the web. 
 
 Web sites that could possibly be used for scraping - along with their download times:
