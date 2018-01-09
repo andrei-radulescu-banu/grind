@@ -1,5 +1,4 @@
 import sys
-import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from tabulate import tabulate
@@ -14,19 +13,30 @@ def fund_performance_history(ticker):
     # Trim last three rows
     df.drop(df.tail(3).index,inplace=True)
 
-    # Table name is the ticker
-    df.index.name = ticker.upper()
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
 
     return df
 
 def fund_trailing_total_returns(ticker):
     # The Morningstar URL for funds
+    url = "http://performance.morningstar.com/Performance/fund/trailing-total-returns.action?t="    
+
+    df = web.get_web_page_table(url + ticker, False, 0)
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+
+    return df 
+
+def fund_trailing_total_returns2(ticker):
+    # The Morningstar URL for funds
     url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
     
     df = web.get_web_page_table(url + ticker, False, 14)
 
-    # Table name is the ticker
-    df.index.name = ticker.upper()
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
 
     return df 
 
@@ -36,8 +46,8 @@ def fund_historical_quarterly_returns(ticker):
     
     df = web.get_web_page_table(url + ticker, False, 16)
 
-    # Table name is the ticker
-    df.index.name = ticker.upper()
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
 
     return df 
 
