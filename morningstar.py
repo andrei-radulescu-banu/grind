@@ -18,6 +18,17 @@ def fund_performance_history(ticker):
 
     return df
 
+def fund_performance_history2(ticker):
+    # The Morningstar URL for funds
+    url = "http://performance.morningstar.com/Performance/fund/performance-history-1.action?&ops=clear&t="
+    
+    df = web.get_web_page_table(url + ticker, False, 0)
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+
+    return df
+
 def fund_trailing_total_returns(ticker):
     # The Morningstar URL for funds
     url = "http://performance.morningstar.com/Performance/fund/trailing-total-returns.action?t="    
@@ -40,7 +51,28 @@ def fund_trailing_total_returns2(ticker):
 
     return df 
 
-def fund_historical_quarterly_returns(ticker):
+def fund_historical_quarterly_returns(ticker, years = 5, frequency = "m"):
+    """
+    Parameters:
+    ticker - the fund or ETF ticker
+    years - the number of years. Default: 5.
+    frequency - "q" for quarterly, "m" for monthly. Default: "q"
+    """
+    # The Morningstar URL for funds
+    url = "http://performance.morningstar.com/Performance/fund/historical-returns.action?&ops=clear&y=%s&freq=%s&t=" % (years, frequency)
+    
+    df = web.get_web_page_table(url + ticker, False, 0)
+
+    df.fillna(value="", inplace=True)
+    df1 = df.drop(df.columns[[3, 4, 5, 6, 7]], axis=1)
+    df = df1
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+
+    return df 
+
+def fund_historical_quarterly_returns2(ticker):
     # The Morningstar URL for funds
     url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
     
