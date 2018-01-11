@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from tabulate import tabulate
 from tickerscrape import web
+import argparse
 
 def fund_performance_history(ticker):
     # The Morningstar URL for funds
@@ -83,16 +84,61 @@ def fund_historical_quarterly_returns2(ticker):
 
     return df 
 
+def parse_pfh_f(args):
+    df = fund_performance_history(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def parse_pfh2_f(args):
+    df = fund_performance_history2(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def parse_ttl_f(args):
+    df = fund_trailing_total_returns(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def parse_ttl2_f(args):
+    df = fund_trailing_total_returns2(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def parse_qtr_f(args):
+    df = fund_historical_quarterly_returns(args.ticker, args.years, args.frequency)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def parse_qtr2_f(args):
+    df = fund_historical_quarterly_returns2(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
 if __name__ == "__main__":
-    # execute only if run as a script
-    if (len(sys.argv) == 2):
-        #df = morningstar_fund_trailing_total_returns(sys.argv[1])
-        #print(tabulate(df, headers='keys', tablefmt='psql'))
+    parser = argparse.ArgumentParser(description='Download Morningstar data.')
 
-        #df = morningstar_fund_performance_history(sys.argv[1])        
-        #print(tabulate(df, headers='keys', tablefmt='psql'))
+    # Subparsers
+    subparsers = parser.add_subparsers(help='Sub-command help')
 
-        df = morningstar_fund_historical_quarterly_returns(sys.argv[1])        
-        print(tabulate(df, headers='keys', tablefmt='psql'))
-    else:
-        print("Usage: %s ticker_symbol" % sys.argv[0])
+    parser_pfh = subparsers.add_parser('pfh', help='Performace history')
+    parser_pfh.add_argument('ticker', help='Ticker')
+    parser_pfh.set_defaults(func=parse_pfh_f)
+
+    parser_pfh2 = subparsers.add_parser('pfh2', help='Performace history 2')
+    parser_pfh2.add_argument('ticker', help='Ticker')
+    parser_pfh2.set_defaults(func=parse_pfh2_f)
+
+    parser_ttl = subparsers.add_parser('ttl', help='Trailing total returns')
+    parser_ttl.add_argument('ticker', help='Ticker')
+    parser_ttl.set_defaults(func=parse_ttl_f)
+
+    parser_ttl2 = subparsers.add_parser('ttl2', help='Trailing total returns 2')
+    parser_ttl2.add_argument('ticker', help='Ticker')
+    parser_ttl2.set_defaults(func=parse_ttl2_f)
+
+    parser_qtr = subparsers.add_parser('qtr', help='Historical quarterly returns')
+    parser_qtr.add_argument('ticker', help='Ticker')
+    parser_qtr.add_argument('-y', '--years', type=int, default=5, help='Number of years (default 5)')
+    parser_qtr.add_argument('-f', '--frequency', default='m', help='Frequency (m=monthly, q=quarterly, default=m)')
+    parser_qtr.set_defaults(func=parse_qtr_f)
+
+    parser_qtr2 = subparsers.add_parser('qtr2', help='Historical quarterly returns2')
+    parser_qtr2.add_argument('ticker', help='Ticker')
+    parser_qtr2.set_defaults(func=parse_qtr2_f)
+
+    args = parser.parse_args()
+    args.func(args)
