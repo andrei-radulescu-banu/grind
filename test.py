@@ -13,7 +13,7 @@ if __name__ == "__main__":
         #print(tabulate(df, headers='keys', tablefmt='psql').encode('ascii', 'ignore'))
 
         df = morningstar.fund_historical_quarterly_returns(sys.argv[1])        
-        print(tabulate(df, headers='keys', tablefmt='psql').encode('ascii', 'ignore'))
+        print(tabulate(df, headers='keys', tablefmt='psql'))
 
         #df = morningstar.fund_trailing_total_returns2(sys.argv[1])
         #print(tabulate(df, headers='keys', tablefmt='psql').encode('ascii', 'ignore'))

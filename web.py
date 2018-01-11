@@ -74,7 +74,7 @@ def get_web_page_table_old(url, force, table_idx):
             column_idx += 1
         row_idx += 1
 
-    df.set_value(0, 0, "New index")
+    df.at[0, 0] = "New index"
 
     # Promote 1st row as column labels
     new_header = df.iloc[0] #grab the first row for the header
@@ -142,17 +142,17 @@ def get_web_page_table(url, force, table_idx):
 
 def dataframe_promote_1st_row_and_column_as_labels(df):
 
-    table_name = df.get_value(0, 0)
+    table_name = df.at[0, 0].strip()
 
-    df.set_value(0, 0, "New index")
+    df.at[0, 0] = "_"
 
     # Promote 1st row as column labels
-    new_header = df.iloc[0] #grab the first row for the header
-    df = df[1:] #take the data less the header row
-    df.columns = new_header #set the header row as the df header
+    transform = lambda x: x.strip()
+    df.columns = df.iloc[0].map(transform)
+    df = df[1:]
     
     # Promote 1st column as new index
-    df2 = df.set_index("New index")
+    df2 = df.set_index("_")
     df = df2
 
     df.index.name = table_name
