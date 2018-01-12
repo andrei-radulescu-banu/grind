@@ -4,6 +4,7 @@ import pandas as pd
 from tabulate import tabulate
 from tickerscrape import web
 import argparse
+import unidecode
 
 def fund_performance_history(ticker):
     # The Morningstar URL for funds
@@ -28,7 +29,11 @@ def fund_performance_history2(ticker):
     # Promote 1st row and column as labels
     df = web.dataframe_promote_1st_row_and_column_as_labels(df)
 
-    return df
+    # Fix the unprintable unicode characters
+    df.index.name = unidecode.unidecode(df.index.name)
+    df1 = df.applymap(lambda x: unidecode.unidecode(x))
+
+    return df1
 
 def fund_trailing_total_returns(ticker):
     # The Morningstar URL for funds
