@@ -55,6 +55,10 @@ def fund_trailing_total_returns2(ticker):
     url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
     
     df = web.get_web_page_table(url + ticker, False, 14)
+    df.iloc[0, 1] = "Total Return %"
+    df.iloc[0, 2] = unidecode.unidecode(df.iloc[0, 2]).replace("\r", "").replace("\n", "")
+    df.iloc[0, 3] = unidecode.unidecode(df.iloc[0, 3]).replace("\r", "").replace("\n", "")
+    df.iloc[0, 4] = "% Rank in Cat"
 
     # Promote 1st row and column as labels
     df = web.dataframe_promote_1st_row_and_column_as_labels(df)
