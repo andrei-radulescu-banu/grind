@@ -6,7 +6,20 @@ from tickerscrape import web
 import argparse
 import unidecode
 
+"""
+Module for parsing Morningstar web data.
+"""
+
 def fund_performance_history(ticker):
+    """
+    Get fund performance history.
+    
+    Parameters:
+    ticket - The fund ticker
+
+    Returs: DataFrame with the performance history. 
+    Run 'morningstar.py pfh ticker' to see the result format.
+    """
     # The Morningstar URL for funds
     url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
     
@@ -65,6 +78,36 @@ def fund_trailing_total_returns2(ticker):
 
     return df 
 
+def stock_price(ticker):
+    # The Morningstar URL for funds
+    url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
+    
+    df = web.get_web_page_table(url + ticker, False, 14)
+    df.iloc[0, 1] = "Total Return %"
+    df.iloc[0, 2] = unidecode.unidecode(df.iloc[0, 2]).replace("\r", "").replace("\n", "")
+    df.iloc[0, 3] = unidecode.unidecode(df.iloc[0, 3]).replace("\r", "").replace("\n", "")
+    df.iloc[0, 4] = "% Rank in Cat"
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+
+    return df 
+
+def fund_price(ticker):
+    # The Morningstar URL for funds
+    url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
+    
+    df = web.get_web_page_table(url + ticker, False, 14)
+    df.iloc[0, 1] = "Total Return %"
+    df.iloc[0, 2] = unidecode.unidecode(df.iloc[0, 2]).replace("\r", "").replace("\n", "")
+    df.iloc[0, 3] = unidecode.unidecode(df.iloc[0, 3]).replace("\r", "").replace("\n", "")
+    df.iloc[0, 4] = "% Rank in Cat"
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+
+    return df 
+
 def fund_historical_quarterly_returns(ticker, years = 5, frequency = "m"):
     """
     Parameters:
@@ -87,6 +130,28 @@ def fund_historical_quarterly_returns(ticker, years = 5, frequency = "m"):
     return df 
 
 def fund_historical_quarterly_returns2(ticker):
+    # The Morningstar URL for funds
+    url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
+    
+    df = web.get_web_page_table(url + ticker, False, 16)
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+
+    return df 
+
+def stock_price(ticker):
+    # The Morningstar URL for funds
+    url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
+    
+    df = web.get_web_page_table(url + ticker, False, 16)
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+
+    return df 
+
+def net_asset_value(ticker):
     # The Morningstar URL for funds
     url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
     
@@ -121,6 +186,14 @@ def parse_qtr2_f(args):
     df = fund_historical_quarterly_returns2(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
+def parse_sp(args):
+    df = stock_price(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def parse_nav(args):
+    df = net_asset_value(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Download Morningstar data.')
 
@@ -152,6 +225,14 @@ if __name__ == "__main__":
     parser_qtr2 = subparsers.add_parser('qtr2', help='Historical quarterly returns2')
     parser_qtr2.add_argument('ticker', help='Ticker')
     parser_qtr2.set_defaults(func=parse_qtr2_f)
+
+    parser_sp = subparsers.add_parser('sp', help='Stock price')
+    parser_sp.add_argument('ticker', help='Ticker')
+    parser_sp.set_defaults(func=parse_sp)
+
+    parser_nav = subparsers.add_parser('nav', help='Mutual fund net asset value')
+    parser_nav.add_argument('ticker', help='Ticker')
+    parser_nav.set_defaults(func=parse_nav)
 
     args = parser.parse_args()
     args.func(args)
