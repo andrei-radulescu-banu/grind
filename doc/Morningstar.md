@@ -42,4 +42,6 @@ Parameters:
     
 http://portfolios.morningstar.com/fund/ajax/sumModule?c_name=Large%20Growth&b_name=S*P%20500%20TR%20USD&t=FUSEX - category and benchmark comparison data.
 
+http://portfolios.morningstar.com/fund/holdings?t=QQQ - etf or fund holdings
+
 
