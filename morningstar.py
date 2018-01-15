@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -492,8 +494,8 @@ def fund_market_regions(ticker):
     df = df1
 
     # Fix the unprintable unicode characters
-    df1 = df.applymap(lambda x: unidecode.unidecode(str(x)))
-    df = df1
+#    df1 = df.applymap(lambda x: unidecode.unidecode(str(x)))
+#    df = df1
 
     # Promote 1st row and column as labels
     df1 = web.dataframe_promote_1st_row_and_column_as_labels(df)
