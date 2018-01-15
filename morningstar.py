@@ -325,15 +325,13 @@ def fund_asset_allocation(ticker):
     # The Morningstar URL
     url = "http://portfolios.morningstar.com/fund/summary?t="
     
-    # Trim rows
-
+    # Get the table
     df = web.get_web_page_table(url + ticker, False, 1)
 
     # Create new dataframe from rows 0, 3, 5, 7, 9, 11
     df1 = pd.DataFrame(columns = range(7), 
                        index = range(6))
 
-    df1.iloc[0, 0] = df.iloc[1][0]
     df1.iloc[0] = df.iloc[0]
     df1.iloc[1] = df.iloc[3]
     df1.iloc[2] = df.iloc[5]
@@ -345,14 +343,54 @@ def fund_asset_allocation(ticker):
     df1.iloc[0, 0] = df.iloc[1, 0]
     df1.iloc[0, 5] = "Benchmark" 
 
+    df = df1
+
     # Fix the unprintable unicode characters
-    df2 = df1.applymap(lambda x: unidecode.unidecode(str(x)))
-    df1 = df2
+    df1 = df.applymap(lambda x: unidecode.unidecode(str(x)))
+    df = df1
 
     # Promote 1st row and column as labels
-    df1 = web.dataframe_promote_1st_row_and_column_as_labels(df1)
+    df1 = web.dataframe_promote_1st_row_and_column_as_labels(df)
+    df = df1
 
-    return df1
+    return df
+
+def fund_market_capitalization(ticker):
+    """
+    Description:
+    Get etf or fund market capitalization. Does not work for stocks.
+    
+    Parameters:
+    ticker - The etf or fund ticker.
+
+    Returs: 
+    DataFrame with the performance history. 
+    Run 'morningstar.py aas ticker' to see the result format.
+    """
+    # The Morningstar URL
+    url = "http://portfolios.morningstar.com/fund/summary?t="
+    
+    # Get the table
+    df = web.get_web_page_table(url + ticker, False, 2)
+
+    # Create new dataframe from rows 0, 2, 4, 6, 8, 10
+    df1 = pd.DataFrame(columns = range(4), 
+                       index = range(6))
+
+    df1.iloc[0] = df.iloc[0]
+    df1.iloc[1] = df.iloc[2]
+    df1.iloc[2] = df.iloc[4]
+    df1.iloc[3] = df.iloc[6]
+    df1.iloc[4] = df.iloc[8]
+    df1.iloc[5] = df.iloc[10]
+
+    df = df1
+
+    # Promote 1st row and column as labels
+    df1 = web.dataframe_promote_1st_row_and_column_as_labels(df)
+    df = df1
+
+    return df
 
 def _parse_pfh_f(args):
     df = fund_performance_history(args.ticker)
@@ -388,6 +426,10 @@ def _parse_nav(args):
 
 def _parse_aal(args):
     df = fund_asset_allocation(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def _parse_mkc(args):
+    df = fund_market_capitalization(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
 if __name__ == "__main__":
@@ -433,6 +475,10 @@ if __name__ == "__main__":
     parser_nav = subparsers.add_parser('aal', help='Mutual fund asset allocation')
     parser_nav.add_argument('ticker', help='Ticker')
     parser_nav.set_defaults(func=_parse_aal)
+
+    parser_nav = subparsers.add_parser('mkc', help='Mutual fund market capitalization')
+    parser_nav.add_argument('ticker', help='Ticker')
+    parser_nav.set_defaults(func=_parse_mkc)
 
     args = parser.parse_args()
     args.func(args)
