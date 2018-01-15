@@ -41,4 +41,5 @@ Parameters:
     number: The units of the response data. 1 = None 2 = Thousands 3 = Millions 4 = Billions
     
 http://portfolios.morningstar.com/fund/ajax/sumModule?b_name=S*P%20500%20TR%20USD&t=XNAS:FUSEX - benchmark comparison data.
+http://portfolios.morningstar.com/fund/ajax/sumModule?c_name=Large%20Growth&b_name=S*P%20500%20TR%20USD&t=FUSEX
 
