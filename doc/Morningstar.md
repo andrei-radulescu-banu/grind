@@ -27,3 +27,16 @@ http://performance.morningstar.com/Performance/fund/standardized-returns.action?
 http://performance.morningstar.com/Performance/fund/historical-returns.action?&t=XNAS:FUSEX&region=usa&culture=en-US&cur=USD&ops=clear&s=0P00001MK8&ndec=2&ep=true&align=m&y=5&freq=q&comparisonRemove=false&loccat=&taxadj=&benchmarkSecId=&benchmarktype= (quick) - historical returns, quarters
 
 http://performance.morningstar.com/Performance/fund/historical-returns.action?&t=XNAS:FUSEX&region=usa&culture=en-US&cur=USD&ops=clear&s=0P00001MK8&ndec=2&ep=true&align=m&y=5&freq=m&comparisonRemove=false&loccat=&taxadj=&benchmarkSecId=&benchmarktype= (quick) - historical returns, months
+
+http://financials.morningstar.com/ajax/exportKR2CSV.html?t=FB - stock key ratios in csv format
+
+http://financials.morningstar.com/ajax/ReportProcess4CSV.html?t=TWTR&reportType=is&period=12&dataType=A&order=asc&columnYear=5&number=3 - stock financials.
+
+Parameters:
+    reportType: is = Income Statement, cf = Cash Flow, bs = Balance Sheet
+    period: 12 for annual reporting, 3 for quarterly reporting
+    dataType: this doesn't seem to change and is always A
+    order: asc or desc (ascending or descending)
+    columnYear: 5 or 10 are the only two values supported
+    number: The units of the response data. 1 = None 2 = Thousands 3 = Millions 4 = Billions
+

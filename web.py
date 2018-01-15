@@ -41,7 +41,7 @@ def get_web_page_table(url, force, table_idx):
     web_page = get_web_page(url, force)
 
     # Parse the contents
-    soup = BeautifulSoup(web_page,'lxml')
+    soup = BeautifulSoup(web_page, 'lxml')
 
     # List of all tables
     tables = soup.find_all('table')
