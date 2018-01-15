@@ -169,14 +169,72 @@ def stock_price(ticker):
 
     """
     # The Morningstar URL for funds
-    url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
+    url = "http://quotes.morningstar.com/stock/c-header?&t=" + ticker
     
-    df = web.get_web_page_table(url + ticker, False, 16)
+    # Get the page
+    web_page = web.get_web_page(url, False)
 
-    # Promote 1st row and column as labels
-    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+    # Parse the contents
+    soup = BeautifulSoup(web_page, 'lxml')
 
-    return df 
+    df = pd.DataFrame(columns = range(1), 
+                      index = range(18))
+    
+    # Set the index
+    df['new_index'] = None
+    df['new_index'][0] = soup.find("h3", {"gkey": "LastPrice"}).getText().strip()
+    df['new_index'][1] = soup.find("h3", {"gkey": "DayChange"}).getText().strip()
+    df['new_index'][2] = "Day Change %"
+    df['new_index'][3] = soup.find("span", {"gkey": "AferHourLab"}).getText().strip()
+    df['new_index'][4] = "After Hours Change"
+    df['new_index'][5] = "After Hours Change %"
+    df['new_index'][6] = soup.find("span", {"gkey": "AsOf"}).getText().strip()
+    df['new_index'][7] = soup.find("h3", {"gkey": "OpenPrice"}).getText().strip()
+    df['new_index'][8] = soup.find("h3", {"gkey": "DayRange"}).getText().strip()
+    df['new_index'][9] = soup.find("h3", {"gkey": "_52Week"}).getText().strip()
+    df['new_index'][10] = soup.find("h3", {"gkey": "ProjectedYield"}).getText().strip()
+    df['new_index'][11] = soup.find("h3", {"gkey": "MarketCap"}).getText().strip()
+    df['new_index'][12] = soup.find("h3", {"gkey": "Volume"}).getText().strip()
+    df['new_index'][13] = soup.find("h3", {"gkey": "AverageVolume"}).getText().strip()
+    df['new_index'][14] = soup.find("span", {"gkey": "PE"}).getText().strip()
+    df['new_index'][15] = soup.find("h3", {"gkey": "PB"}).getText().strip()
+    df['new_index'][16] = soup.find("h3", {"gkey": "PS"}).getText().strip()
+    df['new_index'][17] = soup.find("h3", {"gkey": "PC"}).getText().strip()
+
+    # Promote the 'new_index' column as the new index
+    df2 = df.set_index('new_index')
+    df = df2
+
+    # Clear the index name
+    df.index.name = ""
+
+    # Set the ticker name as column label
+    df.columns = [ticker.upper()]
+
+    df.iloc[0, 0] = soup.find("div", {"vkey": "LastPrice"}).getText().strip()
+    df.iloc[1, 0] = soup.find("div", {"vkey": "DayChange"}).getText().split("|")[0].strip()
+    df.iloc[2, 0] = soup.find("div", {"vkey": "DayChange"}).getText().split("|")[1].strip()
+    df.iloc[3, 0] = soup.find("span", {"id": "after-hours"}).getText().strip()
+    df.iloc[4, 0] = soup.find("span", {"id": "after-daychange-value"}).getText().strip()
+    df.iloc[5, 0] = soup.find("span", {"id": "after-daychange-per"}).getText().strip()
+    df.iloc[6, 0] = soup.find("span", {"id": "asOfDate"}).getText().strip() + " " + soup.find("span", {"id": "timezone"}).getText().strip()
+    df.iloc[7, 0] = soup.find("span", {"vkey": "OpenPrice"}).getText().strip()
+    df.iloc[8, 0] = soup.find("span", {"vkey": "DayRange"}).getText().strip()
+    df.iloc[9, 0] = soup.find("span", {"vkey": "_52Week"}).getText().strip()
+    df.iloc[10, 0] = soup.find("span", {"vkey": "ProjectedYield"}).getText().strip()
+    df.iloc[11, 0] = soup.find("span", {"id": "MarketCap"}).getText().strip()
+    df.iloc[12, 0] = soup.find("span", {"vkey": "Volume"}).getText().strip()
+    df.iloc[13, 0] = soup.find("span", {"vkey": "AverageVolume"}).getText().strip()
+    df.iloc[14, 0] = soup.find("span", {"vkey": "PE"}).getText().strip()
+    df.iloc[15, 0] = soup.find("span", {"vkey": "PB"}).getText().strip()
+    df.iloc[16, 0] = soup.find("span", {"vkey": "PS"}).getText().strip()
+    df.iloc[17, 0] = soup.find("span", {"vkey": "PC"}).getText().strip()
+
+    # Fix the unprintable unicode characters
+    df1 = df.applymap(lambda x: unidecode.unidecode(x))
+    df = df1
+
+    return df
 
 def net_asset_value(ticker):
     """
@@ -190,14 +248,66 @@ def net_asset_value(ticker):
 
     """
     # The Morningstar URL for funds
-    url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
+    url = "http://quotes.morningstar.com/fund/c-header?&t=" + ticker
     
-    df = web.get_web_page_table(url + ticker, False, 16)
+    # Get the page
+    web_page = web.get_web_page(url, False)
 
-    # Promote 1st row and column as labels
-    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+    # Parse the contents
+    soup = BeautifulSoup(web_page, 'lxml')
 
-    return df 
+    df = pd.DataFrame(columns = range(1), 
+                      index = range(15))
+    
+    # Set the index
+    df['new_index'] = None
+    df['new_index'][0] = soup.find("h3", {"gkey": "NAV"}).getText().strip()
+    df['new_index'][1] = soup.find("h3", {"gkey": "NavChange"}).getText().strip() + " %"
+    df['new_index'][2] = soup.find("span", {"gkey": "AsOf"}).getText().strip()
+    df['new_index'][3] = soup.find("span", {"gkey": "OneDayReturnAsOf"}).getText().strip()
+    df['new_index'][4] = soup.find("h3", {"gkey": "ttmYield"}).getText().strip()
+    df['new_index'][5] = soup.find("h3", {"gkey": "Load"}).getText().strip()
+    df['new_index'][6] = soup.find("h3", {"gkey": "TotalAssets"}).getText().strip()
+    df['new_index'][7] = soup.find("a", {"gkey": "ExpenseRatio"}).getText().strip()
+    df['new_index'][8] = soup.find("a", {"gkey": "FeeLevel"}).getText().strip()
+    df['new_index'][9] = soup.find("h3", {"gkey": "Turnover"}).getText().strip()
+    df['new_index'][10] = soup.find("h3", {"gkey": "Status"}).getText().strip()
+    df['new_index'][11] = soup.find("h3", {"gkey": "MinInvestment"}).getText().strip()
+    df['new_index'][12] = soup.find("h3", {"gkey": "Yield"}).getText().strip()
+    df['new_index'][13] = soup.find("h3", {"gkey": "MorningstarCategory"}).getText().strip()
+    df['new_index'][14] = soup.find("h3", {"gkey": "InvestmentStyle"}).getText().strip()
+
+    # Promote the 'new_index' column as the new index
+    df2 = df.set_index('new_index')
+    df = df2
+
+    # Clear the index name
+    df.index.name = ""
+
+    # Set the ticker name as column label
+    df.columns = [ticker.upper()]
+
+    df.iloc[0, 0] = soup.find("span", {"vkey": "NAV"}).getText().strip()
+    df.iloc[1, 0] = soup.find("div", {"vkey": "DayChange"}).getText().strip()
+    df.iloc[2, 0] = soup.find("span", {"id" : "asOfDate", "vkey": "LastDate"}).getText().strip()
+    df.iloc[3, 0] = soup.find("span", {"id" : "oneDayReturnAsOfDate", "vkey": "LastDate"}).getText().strip()
+    df.iloc[4, 0] = soup.find("span", {"vkey": "ttmYield"}).getText().strip()
+    df.iloc[5, 0] = soup.find("span", {"vkey": "Load"}).getText().strip()
+    df.iloc[6, 0] = soup.find("span", {"vkey": "TotalAssets"}).getText().strip()
+    df.iloc[7, 0] = soup.find("span", {"vkey": "ExpenseRatio"}).getText().strip()
+    df.iloc[8, 0] = soup.find("span", {"vkey": "FeeLevel"}).getText().strip()
+    df.iloc[9, 0] = soup.find("span", {"vkey": "Turnover"}).getText().strip()
+    df.iloc[10, 0] = soup.find("span", {"vkey": "Status"}).getText().strip()
+    df.iloc[11, 0] = soup.find("span", {"vkey": "MinInvestment"}).getText().strip()
+    df.iloc[12, 0] = soup.find("span", {"vkey": "Yield"}).getText().strip()
+    df.iloc[13, 0] = soup.find("span", {"vkey": "MorningstarCategory"}).getText().strip()
+    df.iloc[14, 0] = soup.find("span", {"vkey": "InvestmentStyle"}).getText().strip()
+
+    # Fix the unprintable unicode characters
+    df1 = df.applymap(lambda x: unidecode.unidecode(x))
+    df = df1
+
+    return df
 
 def _parse_pfh_f(args):
     df = fund_performance_history(args.ticker)
