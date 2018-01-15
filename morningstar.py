@@ -392,6 +392,68 @@ def fund_market_capitalization(ticker):
 
     return df
 
+def fund_sector_weightings(ticker):
+    """
+    Description:
+    Get etf or fund sector weightings. Does not work for stocks.
+    
+    Parameters:
+    ticker - The etf or fund ticker.
+
+    Returs: 
+    DataFrame with the performance history. 
+    Run 'morningstar.py aas ticker' to see the result format.
+    """
+    # The Morningstar URL
+    url = "http://portfolios.morningstar.com/fund/summary?t="
+    
+    # Get the table
+    df = web.get_web_page_table(url + ticker, False, 5)
+
+    df.fillna(value="", inplace=True)
+
+    # Create new dataframe from rows 0, 2, 4, 6, 8, 10
+    df1 = pd.DataFrame(columns = range(8), 
+                       index = range(12))
+
+    df1.iloc[0] = df.iloc[0]
+    df1.iloc[1] = df.iloc[4]
+    df1.iloc[2] = df.iloc[6]
+    df1.iloc[3] = df.iloc[8]
+    df1.iloc[4] = df.iloc[10]
+    df1.iloc[5] = df.iloc[15]
+    df1.iloc[6] = df.iloc[17]
+    df1.iloc[7] = df.iloc[19]
+    df1.iloc[8] = df.iloc[21]
+    df1.iloc[9] = df.iloc[26]
+    df1.iloc[10] = df.iloc[28]
+    df1.iloc[11] = df.iloc[30]
+
+    df1.iloc[0, 0] = "Type"
+    df1.iloc[0, 1] = "Category"
+    df1.iloc[1, 1] = "Cyclical"
+    df1.iloc[2, 1] = "Cyclical"
+    df1.iloc[3, 1] = "Cyclical"
+    df1.iloc[4, 1] = "Cyclical"
+    df1.iloc[5, 1] = "Sensitive"
+    df1.iloc[6, 1] = "Sensitive"
+    df1.iloc[7, 1] = "Sensitive"
+    df1.iloc[8, 1] = "Sensitive"
+    df1.iloc[9, 1] = "Defensive"
+    df1.iloc[10, 1] = "Defensive"
+    df1.iloc[11, 1] = "Defensive"
+
+    # Remove column 5
+    del df1[5]
+
+    df = df1
+
+    # Promote 1st row and column as labels
+    df1 = web.dataframe_promote_1st_row_and_column_as_labels(df)
+    df = df1
+
+    return df
+
 def _parse_pfh_f(args):
     df = fund_performance_history(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
@@ -430,6 +492,10 @@ def _parse_aal(args):
 
 def _parse_mkc(args):
     df = fund_market_capitalization(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def _parse_sect(args):
+    df = fund_sector_weightings(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
 if __name__ == "__main__":
@@ -472,13 +538,17 @@ if __name__ == "__main__":
     parser_nav.add_argument('ticker', help='Ticker')
     parser_nav.set_defaults(func=_parse_nav)
 
-    parser_nav = subparsers.add_parser('aal', help='Mutual fund asset allocation')
-    parser_nav.add_argument('ticker', help='Ticker')
-    parser_nav.set_defaults(func=_parse_aal)
+    parser_aal = subparsers.add_parser('aal', help='Mutual fund asset allocation')
+    parser_aal.add_argument('ticker', help='Ticker')
+    parser_aal.set_defaults(func=_parse_aal)
 
-    parser_nav = subparsers.add_parser('mkc', help='Mutual fund market capitalization')
-    parser_nav.add_argument('ticker', help='Ticker')
-    parser_nav.set_defaults(func=_parse_mkc)
+    parser_mkc = subparsers.add_parser('mkc', help='Mutual fund market capitalization')
+    parser_mkc.add_argument('ticker', help='Ticker')
+    parser_mkc.set_defaults(func=_parse_mkc)
+
+    parser_sect = subparsers.add_parser('sect', help='Mutual fund sector weightings')
+    parser_sect.add_argument('ticker', help='Ticker')
+    parser_sect.set_defaults(func=_parse_sect)
 
     args = parser.parse_args()
     args.func(args)
