@@ -58,8 +58,9 @@ def fund_performance_history2(ticker):
     # Fix the unprintable unicode characters
     df.index.name = unidecode.unidecode(df.index.name)
     df1 = df.applymap(lambda x: unidecode.unidecode(x))
+    df = df1
 
-    return df1
+    return df
 
 def trailing_total_returns(ticker):
     """
@@ -309,6 +310,50 @@ def net_asset_value(ticker):
 
     return df
 
+def fund_asset_allocation(ticker):
+    """
+    Description:
+    Get etf or fund asset allocation. Does not work for stocks.
+    
+    Parameters:
+    ticker - The etf or fund ticker.
+
+    Returs: 
+    DataFrame with the performance history. 
+    Run 'morningstar.py aas ticker' to see the result format.
+    """
+    # The Morningstar URL
+    url = "http://portfolios.morningstar.com/fund/summary?t="
+    
+    # Trim rows
+
+    df = web.get_web_page_table(url + ticker, False, 1)
+
+    # Create new dataframe from rows 0, 3, 5, 7, 9, 11
+    df1 = pd.DataFrame(columns = range(7), 
+                       index = range(6))
+
+    df1.iloc[0, 0] = df.iloc[1][0]
+    df1.iloc[0] = df.iloc[0]
+    df1.iloc[1] = df.iloc[3]
+    df1.iloc[2] = df.iloc[5]
+    df1.iloc[3] = df.iloc[7]
+    df1.iloc[4] = df.iloc[9]
+    df1.iloc[5] = df.iloc[11]
+
+    # Special handling of two cells
+    df1.iloc[0, 0] = df.iloc[1, 0]
+    df1.iloc[0, 5] = "Benchmark" 
+
+    # Fix the unprintable unicode characters
+    df2 = df1.applymap(lambda x: unidecode.unidecode(str(x)))
+    df1 = df2
+
+    # Promote 1st row and column as labels
+    df1 = web.dataframe_promote_1st_row_and_column_as_labels(df1)
+
+    return df1
+
 def _parse_pfh_f(args):
     df = fund_performance_history(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
@@ -339,6 +384,10 @@ def _parse_sp(args):
 
 def _parse_nav(args):
     df = net_asset_value(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def _parse_aal(args):
+    df = fund_asset_allocation(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
 if __name__ == "__main__":
@@ -380,6 +429,10 @@ if __name__ == "__main__":
     parser_nav = subparsers.add_parser('nav', help='Mutual fund net asset value')
     parser_nav.add_argument('ticker', help='Ticker')
     parser_nav.set_defaults(func=_parse_nav)
+
+    parser_nav = subparsers.add_parser('aal', help='Mutual fund asset allocation')
+    parser_nav.add_argument('ticker', help='Ticker')
+    parser_nav.set_defaults(func=_parse_aal)
 
     args = parser.parse_args()
     args.func(args)
