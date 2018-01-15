@@ -47,28 +47,51 @@ http://portfolios.morningstar.com/fund/holdings?t=QQQ - etf or fund holdings
 More URLs:
 
 http://performance.morningstar.com/RatingRisk/fund/mpt-statistics.action?y=3&t=AFK
+
 http://performance.morningstar.com/RatingRisk/fund/mpt-statistics.action?y=5&t=AFK
+
 http://performance.morningstar.com/RatingRisk/fund/mpt-statistics.action?y=10&t=AFK
+
 http://performance.morningstar.com/RatingRisk/fund/mpt-statistics.action?y=15&t=AFK
+
 http://performance.morningstar.com/RatingRisk/fund/volatility-measurements.action?y=3&t=AFK
+
 http://performance.morningstar.com/RatingRisk/fund/volatility-measurements.action?y=5&t=AFK
+
 http://performance.morningstar.com/RatingRisk/fund/volatility-measurements.action?y=10&t=AFK
+
 http://performance.morningstar.com/RatingRisk/fund/volatility-measurements.action?y=15&t=AFK
+
 http://portfolios.morningstar.com/fund/summary?t=AFK
+
 http://performance.morningstar.com/Performance/cef/premium-discount.action?t=AFK
+
 http://performance.morningstar.com/Performance/cef/cost-risk.action?t=AFK
+
 http://performance.morningstar.com/Performance/cef/performance-history.action?t=AFK
+
 http://performance.morningstar.com/Performance/cef/trailing-total-returns.action?t=AFK
+
 http://performance.morningstar.com/Performance/cef/standardized-returns.action?t=AFK
+
 http://portfolios.morningstar.com/fund/holdings?t=AFK
+
 http://portfolios.morningstar.com/fund/ajax/holdings_tab?&t=AFK
+
 http://portfolios.morningstar.com/fund/ajax/holdings_performanceChart?&t=AFK
+
 http://investors.morningstar.com/ownership/shareholders-overview.html?t=AFK
+
 http://investors.morningstar.com/ownership/equityOS-fund.html?t=AFK
+
 http://investors.morningstar.com/ownership/equityOS-inst.html?t=AFK
+
 http://investors.morningstar.com/ownership/owner-activity.html?t=AFK
+
 http://investors.morningstar.com/ownership/shareholders-concentrated.html?t=AFK
+
 http://investors.morningstar.com/ownership/shareholders-buying.html?t=AFK
+
 http://investors.morningstar.com/ownership/shareholders-selling.html?t=AFK
 
 
