@@ -15,7 +15,7 @@ Module for parsing Morningstar web data.
 
 _ticker_cache = dict()
 
-def get_ticker(ticker):
+def ticker_type(ticker):
     """
     Description:
     The Morningstar URL for getting quotes for etfs, funds, stocks
@@ -24,7 +24,8 @@ def get_ticker(ticker):
     ticker - The etf, fund, stock ticker.
 
     Returns:
-
+    A string with value "ETF", "Fund", "Stock" or "" (in case the ticker is
+    neither an ETF, or fund, or stock)
     """
 
     if ticker not in _ticker_cache:
@@ -60,6 +61,11 @@ def fund_performance_history(ticker):
     DataFrame with the performance history. 
     Run 'morningstar.py pfh ticker' to see the result format.
     """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF":
+        return None    
+
     # The Morningstar URL for funds
     url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
     
@@ -85,6 +91,11 @@ def fund_performance_history2(ticker):
     DataFrame with the performance history. 
     Run 'morningstar.py pfh2 ticker' to see the result format.
     """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF":
+        return None    
+
     # The Morningstar URL for funds
     url = "http://performance.morningstar.com/Performance/fund/performance-history-1.action?&ops=clear&t="
     
@@ -112,6 +123,11 @@ def trailing_total_returns(ticker):
     DataFrame with the trailing total returns.
     Run 'morningstar.py ttl ticker' to see the result format.
     """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF" and tt != "Stock":
+        return None    
+
     # The Morningstar URL for funds
     url = "http://performance.morningstar.com/Performance/fund/trailing-total-returns.action?t="    
 
@@ -129,6 +145,7 @@ def trailing_total_returns(ticker):
 def fund_trailing_total_returns2(ticker):
     """
     Description:
+    Get trailing total returns. Only works for funds.
 
     Parameters:
     ticker - The fund ticker
@@ -136,6 +153,11 @@ def fund_trailing_total_returns2(ticker):
     Returns:
 
     """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund":
+        return None    
+
     # The Morningstar URL for funds
     url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
     
@@ -160,6 +182,11 @@ def historical_quarterly_returns(ticker, years = 5, frequency = "m"):
     years - The number of years. Default: 5.
     frequency - "q" for quarterly, "m" for monthly. Default: "q"
     """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF" and tt != "Stock":
+        return None    
+
     # The Morningstar URL for funds
     url = "http://performance.morningstar.com/Performance/fund/historical-returns.action?&ops=clear&y=%s&freq=%s&t=" % (years, frequency)
     
@@ -186,6 +213,11 @@ def fund_historical_quarterly_returns(ticker):
     Returns:
 
     """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF":
+        return None    
+
     # The Morningstar URL for funds
     url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
     
@@ -207,6 +239,11 @@ def stock_price(ticker):
     Returns:
 
     """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "ETF" and tt != "Stock":
+        return None    
+
     # The Morningstar URL for funds
     url = "http://quotes.morningstar.com/stock/c-header?&t=" + ticker
     
@@ -286,6 +323,11 @@ def net_asset_value(ticker):
     Returns:
 
     """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF":
+        return None    
+
     # The Morningstar URL for funds
     url = "http://quotes.morningstar.com/fund/c-header?&t=" + ticker
     
@@ -360,6 +402,11 @@ def fund_asset_allocation(ticker):
     DataFrame with the performance history. 
     Run 'morningstar.py aas ticker' to see the result format.
     """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF":
+        return None    
+
     # The Morningstar URL
     url = "http://portfolios.morningstar.com/fund/summary?t="
     
@@ -405,6 +452,11 @@ def fund_market_capitalization(ticker):
     DataFrame with the performance history. 
     Run 'morningstar.py aas ticker' to see the result format.
     """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF":
+        return None    
+
     # The Morningstar URL
     url = "http://portfolios.morningstar.com/fund/summary?t="
     
@@ -442,6 +494,11 @@ def fund_sector_weightings(ticker):
     DataFrame with the performance history. 
     Run 'morningstar.py aas ticker' to see the result format.
     """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF":
+        return None    
+
     # The Morningstar URL
     url = "http://portfolios.morningstar.com/fund/summary?t="
     
@@ -504,6 +561,11 @@ def fund_market_regions(ticker):
     DataFrame with the performance history. 
     Run 'morningstar.py aas ticker' to see the result format.
     """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF":
+        return None    
+
     # The Morningstar URL
     url = "http://portfolios.morningstar.com/fund/summary?t="
     
@@ -546,7 +608,7 @@ def fund_market_regions(ticker):
     return df
 
 def _parse_ticker_f(args):
-    type = get_ticker(args.ticker)
+    type = ticker_type(args.ticker)
 
     if type != "":
         print(type)
