@@ -104,10 +104,12 @@ def fund_performance_history2(ticker):
     # Promote 1st row and column as labels
     df = web.dataframe_promote_1st_row_and_column_as_labels(df)
 
-    # Fix the unprintable unicode characters
-    df.index.name = unidecode.unidecode(df.index.name)
-    df1 = df.applymap(lambda x: unidecode.unidecode(x))
-    df = df1
+    # For python 3 and later...
+    if (sys.version_info[0] >= 3):
+        # Fix the unprintable unicode characters
+        df.index.name = unidecode.unidecode(df.index.name)
+        df1 = df.applymap(lambda x: unidecode.unidecode(x))
+        df = df1
 
     return df
 
@@ -136,11 +138,14 @@ def trailing_total_returns(ticker):
     # Promote 1st row and column as labels
     df = web.dataframe_promote_1st_row_and_column_as_labels(df)
 
-    # Fix the unprintable unicode characters
-    df.index.name = unidecode.unidecode(df.index.name)
-    df1 = df.applymap(lambda x: unidecode.unidecode(x))
+    # For python 3 and later...
+    if (sys.version_info[0] >= 3):
+        # Fix the unprintable unicode characters
+        df.index.name = unidecode.unidecode(df.index.name)
+        df1 = df.applymap(lambda x: unidecode.unidecode(x))
+        df = df1
 
-    return df1 
+    return df
 
 def fund_trailing_total_returns2(ticker):
     """
@@ -315,9 +320,11 @@ def etf_quote(ticker):
     df.iloc[19, 0] = soup.find("span", {"id": "bid"}).getText().strip() + "/" + soup.find("span", {"id": "ask"}).getText().strip() + "/" + soup.find("span", {"id": "BidAskSpread"}).getText().strip() + "%"
     df.iloc[20, 0] = soup.find("span", {"id": "MorningstarCategory"}).getText().strip()
 
-    # Fix the unprintable unicode characters
-    df1 = df.applymap(lambda x: unidecode.unidecode(x))
-    df = df1
+    # For python 3 and later...
+    if (sys.version_info[0] >= 3):
+        # Fix the unprintable unicode characters
+        df1 = df.applymap(lambda x: unidecode.unidecode(x))
+        df = df1
 
     return df
 
@@ -393,9 +400,11 @@ def fund_quote(ticker):
     df.iloc[13, 0] = soup.find("span", {"vkey": "MorningstarCategory"}).getText().strip()
     df.iloc[14, 0] = soup.find("span", {"vkey": "InvestmentStyle"}).getText().strip()
 
-    # Fix the unprintable unicode characters
-    df1 = df.applymap(lambda x: unidecode.unidecode(x))
-    df = df1
+    # For python 3 and later...
+    if (sys.version_info[0] >= 3):
+        # Fix the unprintable unicode characters
+        df1 = df.applymap(lambda x: unidecode.unidecode(x))
+        df = df1
 
     return df
 
@@ -432,7 +441,7 @@ def stock_quote(ticker):
     df['new_index'][0] = soup.find("h3", {"gkey": "LastPrice"}).getText().strip()
     df['new_index'][1] = soup.find("h3", {"gkey": "DayChange"}).getText().strip()
     df['new_index'][2] = "Day Change %"
-    df['new_index'][3] = soup.find("span", {"gkey": "AferHourLab"}).getText().strip()
+    df['new_index'][3] = "After Hours"
     df['new_index'][4] = "After Hours Change"
     df['new_index'][5] = "After Hours Change %"
     df['new_index'][6] = soup.find("span", {"gkey": "AsOf"}).getText().strip()
@@ -461,9 +470,25 @@ def stock_quote(ticker):
     df.iloc[0, 0] = soup.find("div", {"vkey": "LastPrice"}).getText().strip()
     df.iloc[1, 0] = soup.find("div", {"vkey": "DayChange"}).getText().split("|")[0].strip()
     df.iloc[2, 0] = soup.find("div", {"vkey": "DayChange"}).getText().split("|")[1].strip()
-    df.iloc[3, 0] = soup.find("span", {"id": "after-hours"}).getText().strip()
-    df.iloc[4, 0] = soup.find("span", {"id": "after-daychange-value"}).getText().strip()
-    df.iloc[5, 0] = soup.find("span", {"id": "after-daychange-per"}).getText().strip()
+
+    afth = soup.find("span", {"id": "after-hours"})
+    if afth:
+        df.iloc[3, 0] = afth.getText().strip()
+    else:
+        df.iloc[3, 0] = ""    
+
+    afth = soup.find("span", {"id": "after-daychange-value"})
+    if afth:
+        df.iloc[4, 0] = afth.getText().strip()
+    else:
+        df.iloc[4, 0] = ""    
+
+    afth = soup.find("span", {"id": "after-daychange-per"})
+    if afth:
+        df.iloc[5, 0] = afth.getText().strip()
+    else:
+        df.iloc[5, 0] = ""    
+
     df.iloc[6, 0] = soup.find("span", {"id": "asOfDate"}).getText().strip() + " " + soup.find("span", {"id": "timezone"}).getText().strip()
     df.iloc[7, 0] = soup.find("span", {"vkey": "OpenPrice"}).getText().strip()
     df.iloc[8, 0] = soup.find("span", {"vkey": "DayRange"}).getText().strip()
@@ -477,9 +502,11 @@ def stock_quote(ticker):
     df.iloc[16, 0] = soup.find("span", {"vkey": "PS"}).getText().strip()
     df.iloc[17, 0] = soup.find("span", {"vkey": "PC"}).getText().strip()
 
-    # Fix the unprintable unicode characters
-    df1 = df.applymap(lambda x: unidecode.unidecode(x))
-    df = df1
+    # For python 3 and later...
+    if (sys.version_info[0] >= 3):
+        # Fix the unprintable unicode characters
+        df1 = df.applymap(lambda x: unidecode.unidecode(x))
+        df = df1
 
     return df
 
@@ -523,9 +550,11 @@ def fund_asset_allocation(ticker):
 
     df = df1
 
-    # Fix the unprintable unicode characters
-    df1 = df.applymap(lambda x: unidecode.unidecode(str(x)))
-    df = df1
+    # For python 3 and later...
+    if (sys.version_info[0] >= 3):
+        # Fix the unprintable unicode characters
+        df1 = df.applymap(lambda x: unidecode.unidecode(str(x)))
+        df = df1
 
     # Promote 1st row and column as labels
     df1 = web.dataframe_promote_1st_row_and_column_as_labels(df)
@@ -690,9 +719,11 @@ def fund_market_regions(ticker):
 
     df = df1
 
-    # Fix the unprintable unicode characters
-    df1 = df.applymap(lambda x: unidecode.unidecode(str(x)))
-    df = df1
+    # For python 3 and later...
+    if (sys.version_info[0] >= 3):
+        # Fix the unprintable unicode characters
+        df1 = df.applymap(lambda x: unidecode.unidecode(str(x)))
+        df = df1
 
     # Promote 1st row and column as labels
     df1 = web.dataframe_promote_1st_row_and_column_as_labels(df)
