@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from tabulate import tabulate
@@ -11,6 +12,41 @@ import unidecode
 """
 Module for parsing Morningstar web data.
 """
+
+_ticker_cache = dict()
+
+def get_ticker(ticker):
+    """
+    Description:
+    The Morningstar URL for getting quotes for etfs, funds, stocks
+
+    Parameters:
+    ticker - The etf, fund, stock ticker.
+
+    Returns:
+
+    """
+
+    if ticker not in _ticker_cache:
+        # The Morningstar URL for funds
+        url = "http://quote.morningstar.com/Quote/Quote.aspx?ticker="
+    
+        # Get the page
+        r = requests.get(url + ticker, allow_redirects = False)
+   
+        if r.status_code == 302:
+            if "/stock/" in r.headers['Location']:
+                _ticker_cache[ticker] = "Stock"
+            elif "/fund/" in r.headers['Location']:
+                _ticker_cache[ticker] = "Fund"
+            elif "//etfs." in r.headers['Location']:
+                _ticker_cache[ticker] = "ETF"
+                return("ETF")
+            
+    if ticker in _ticker_cache:
+        return(_ticker_cache[ticker])
+    
+    return ""
 
 def fund_performance_history(ticker):
     """
@@ -509,40 +545,11 @@ def fund_market_regions(ticker):
 
     return df
 
-def fund_market_classification(ticker):
-    """
-    Description:
-    Get etf or fund market classification. Does not work for stocks.
-    
-    Parameters:
-    ticker - The etf or fund ticker.
+def _parse_ticker_f(args):
+    type = get_ticker(args.ticker)
 
-    Returs: 
-    DataFrame with the performance history. 
-    Run 'morningstar.py aas ticker' to see the result format.
-    """
-    # The Morningstar URL
-    url = "http://portfolios.morningstar.com/fund/summary?t="
-    
-    # Get the table
-    df = web.get_web_page_table(url + ticker, False, 6)
-
-    df.fillna(value="", inplace=True)
-
-    # Create new dataframe from rows 0, 2, 4, 6, 8, 10
-    df1 = pd.DataFrame(columns = range(4), 
-                       index = range(3))
-
-    df1.iloc[0] = df.iloc[0]
-    df1.iloc[1] = df.iloc[32]
-    df1.iloc[2] = df.iloc[34]
-    df = df1
-
-    # Promote 1st row and column as labels
-    df1 = web.dataframe_promote_1st_row_and_column_as_labels(df)
-    df = df1
-
-    return df
+    if type != "":
+        print(type)
 
 def _parse_pfh_f(args):
     df = fund_performance_history(args.ticker)
@@ -592,15 +599,15 @@ def _parse_reg(args):
     df = fund_market_regions(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
-def _parse_mks(args):
-    df = fund_market_classification(args.ticker)
-    print(tabulate(df, headers='keys', tablefmt='psql'))
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Download Morningstar data.')
 
     # Subparsers
     subparsers = parser.add_subparsers(help='Sub-command help')
+
+    parser_ticker = subparsers.add_parser('ticker', help='Get ticker info')
+    parser_ticker.add_argument('ticker', help='Ticker')
+    parser_ticker.set_defaults(func=_parse_ticker_f)
 
     parser_pfh = subparsers.add_parser('pfh', help='Performace history')
     parser_pfh.add_argument('ticker', help='Ticker')
@@ -651,10 +658,6 @@ if __name__ == "__main__":
     parser_reg = subparsers.add_parser('reg', help='Mutual fund world regions')
     parser_reg.add_argument('ticker', help='Ticker')
     parser_reg.set_defaults(func=_parse_reg)
-
-    parser_mks = subparsers.add_parser('mks', help='Mutual fund market classification')
-    parser_mks.add_argument('ticker', help='Ticker')
-    parser_mks.set_defaults(func=_parse_mks)
 
     args = parser.parse_args()
     args.func(args)
