@@ -228,7 +228,178 @@ def fund_historical_quarterly_returns(ticker):
 
     return df 
 
-def stock_price(ticker):
+def etf_quote(ticker):
+    """
+    Description:
+    Get the fund net asset value, and other related data.
+
+    Parameters:
+    ticker - The fund ticker.
+
+    Returns:
+
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "ETF":
+        return None    
+
+    # The Morningstar URL for etfs
+    url = "http://etfs.morningstar.com/quote-banner?&t=" + ticker
+    
+    # Get the page
+    web_page = web.get_web_page(url, False)
+
+    # Parse the contents
+    soup = BeautifulSoup(web_page, 'lxml')
+
+    df = pd.DataFrame(columns = range(1), 
+                      index = range(21))
+    
+    # Set the index
+    df['new_index'] = None
+    df['new_index'][0] = "Last Price"
+    df['new_index'][1] = "Day Change"
+    df['new_index'][2] = "Day Change %"
+    df['new_index'][3] = "As Of"
+    df['new_index'][4] = "Intraday Indicative Value"
+    df['new_index'][5] = "IIV Change"
+    df['new_index'][6] = "IIV Change %"
+    df['new_index'][7] = "IIV As Of"
+    df['new_index'][8] = "NAV"
+    df['new_index'][9] = "Open Price"
+    df['new_index'][10] = "Day Range"
+    df['new_index'][11] = "52-Week Range"
+    df['new_index'][12] = "12-Mo. Yield"
+    df['new_index'][13] = "Total Assets"
+    df['new_index'][14] = "Expenses"
+    df['new_index'][15] = "Prem/Discount"
+    df['new_index'][16] = "Volume"
+    df['new_index'][17] = "Avg Vol."
+    df['new_index'][18] = "Sec. Yield %"
+    df['new_index'][19] = "Bid/Ask/Spread"
+    df['new_index'][20] = "Category"
+
+    # Promote the 'new_index' column as the new index
+    df2 = df.set_index('new_index')
+    df = df2
+
+    # Clear the index name
+    df.index.name = ""
+
+    # Set the ticker name as column label
+    df.columns = [ticker.upper()]
+
+    df.iloc[0, 0] = soup.find("div", {"id": "lastPrice"}).getText().strip()
+    df.iloc[1, 0] = soup.find("span", {"id": "day_change"}).getText().strip()
+    df.iloc[2, 0] = soup.find("span", {"id": "day_changeP"}).getText().strip()
+    df.iloc[3, 0] = soup.find("span", {"id" : "isDate"}).getText().strip() + " " + soup.find("span", {"id" : "Timezone"}).getText().strip()
+    df.iloc[4, 0] = soup.find("div", {"id" : "IIV_lastPrice"}).getText().strip()
+    df.iloc[5, 0] = soup.find("span", {"id" : "IIV_day_change"}).getText().strip()
+    df.iloc[6, 0] = soup.find("span", {"id" : "IIV_day_changeP"}).getText().strip()
+    df.iloc[7, 0] = soup.find("span", {"id" : "isDateIV"}).getText().strip() + " " + soup.find("span", {"id" : "Timezone"}).getText().strip()
+    df.iloc[8, 0] = soup.find("span", {"id": "NAV"}).getText().strip()
+    df.iloc[9, 0] = soup.find("span", {"id": "OpenPrice"}).getText().strip()
+    df.iloc[10, 0] = soup.find("span", {"id": "dayRange"}).getText().strip()
+    df.iloc[11, 0] = soup.find("span", {"id": "week52Range"}).getText().strip()
+    df.iloc[12, 0] = soup.find("span", {"id": "Yield"}).getText().strip()
+    df.iloc[13, 0] = soup.find("span", {"id": "totalAssets"}).getText().strip()
+    df.iloc[14, 0] = soup.find("span", {"id": "Expenses"}).getText().strip()
+    df.iloc[15, 0] = soup.find("span", {"id": "premDiscount"}).getText().strip()
+    df.iloc[16, 0] = soup.find("span", {"id": "volume"}).getText().strip()
+
+    volume = soup.find("span", {"id": "volume"})
+    df.iloc[17, 0] = volume.parent.find_next_sibling("td", class_="gr_table_colm2b").find("span").getText().strip()
+
+    df.iloc[18, 0] = soup.find("span", {"id": "Leverage"}).getText().strip()
+    df.iloc[19, 0] = soup.find("span", {"id": "bid"}).getText().strip() + "/" + soup.find("span", {"id": "ask"}).getText().strip() + "/" + soup.find("span", {"id": "BidAskSpread"}).getText().strip() + "%"
+    df.iloc[20, 0] = soup.find("span", {"id": "MorningstarCategory"}).getText().strip()
+
+    # Fix the unprintable unicode characters
+    df1 = df.applymap(lambda x: unidecode.unidecode(x))
+    df = df1
+
+    return df
+
+def fund_quote(ticker):
+    """
+    Description:
+    Get the fund net asset value, and other related data.
+
+    Parameters:
+    ticker - The fund ticker.
+
+    Returns:
+
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF":
+        return None    
+
+    # The Morningstar URL for funds
+    url = "http://quotes.morningstar.com/fund/c-header?&t=" + ticker
+    
+    # Get the page
+    web_page = web.get_web_page(url, False)
+
+    # Parse the contents
+    soup = BeautifulSoup(web_page, 'lxml')
+
+    df = pd.DataFrame(columns = range(1), 
+                      index = range(15))
+    
+    # Set the index
+    df['new_index'] = None
+    df['new_index'][0] = soup.find("h3", {"gkey": "NAV"}).getText().strip()
+    df['new_index'][1] = soup.find("h3", {"gkey": "NavChange"}).getText().strip() + " %"
+    df['new_index'][2] = soup.find("span", {"gkey": "AsOf"}).getText().strip()
+    df['new_index'][3] = soup.find("span", {"gkey": "OneDayReturnAsOf"}).getText().strip()
+    df['new_index'][4] = soup.find("h3", {"gkey": "ttmYield"}).getText().strip()
+    df['new_index'][5] = soup.find("h3", {"gkey": "Load"}).getText().strip()
+    df['new_index'][6] = soup.find("h3", {"gkey": "TotalAssets"}).getText().strip()
+    df['new_index'][7] = soup.find("a", {"gkey": "ExpenseRatio"}).getText().strip()
+    df['new_index'][8] = soup.find("a", {"gkey": "FeeLevel"}).getText().strip()
+    df['new_index'][9] = soup.find("h3", {"gkey": "Turnover"}).getText().strip()
+    df['new_index'][10] = soup.find("h3", {"gkey": "Status"}).getText().strip()
+    df['new_index'][11] = soup.find("h3", {"gkey": "MinInvestment"}).getText().strip()
+    df['new_index'][12] = soup.find("h3", {"gkey": "Yield"}).getText().strip()
+    df['new_index'][13] = soup.find("h3", {"gkey": "MorningstarCategory"}).getText().strip()
+    df['new_index'][14] = soup.find("h3", {"gkey": "InvestmentStyle"}).getText().strip()
+
+    # Promote the 'new_index' column as the new index
+    df2 = df.set_index('new_index')
+    df = df2
+
+    # Clear the index name
+    df.index.name = ""
+
+    # Set the ticker name as column label
+    df.columns = [ticker.upper()]
+
+    df.iloc[0, 0] = soup.find("span", {"vkey": "NAV"}).getText().strip()
+    df.iloc[1, 0] = soup.find("div", {"vkey": "DayChange"}).getText().strip()
+    df.iloc[2, 0] = soup.find("span", {"id" : "asOfDate", "vkey": "LastDate"}).getText().strip()
+    df.iloc[3, 0] = soup.find("span", {"id" : "oneDayReturnAsOfDate", "vkey": "LastDate"}).getText().strip()
+    df.iloc[4, 0] = soup.find("span", {"vkey": "ttmYield"}).getText().strip()
+    df.iloc[5, 0] = soup.find("span", {"vkey": "Load"}).getText().strip()
+    df.iloc[6, 0] = soup.find("span", {"vkey": "TotalAssets"}).getText().strip()
+    df.iloc[7, 0] = soup.find("span", {"vkey": "ExpenseRatio"}).getText().strip()
+    df.iloc[8, 0] = soup.find("span", {"vkey": "FeeLevel"}).getText().strip()
+    df.iloc[9, 0] = soup.find("span", {"vkey": "Turnover"}).getText().strip()
+    df.iloc[10, 0] = soup.find("span", {"vkey": "Status"}).getText().strip()
+    df.iloc[11, 0] = soup.find("span", {"vkey": "MinInvestment"}).getText().strip()
+    df.iloc[12, 0] = soup.find("span", {"vkey": "Yield"}).getText().strip()
+    df.iloc[13, 0] = soup.find("span", {"vkey": "MorningstarCategory"}).getText().strip()
+    df.iloc[14, 0] = soup.find("span", {"vkey": "InvestmentStyle"}).getText().strip()
+
+    # Fix the unprintable unicode characters
+    df1 = df.applymap(lambda x: unidecode.unidecode(x))
+    df = df1
+
+    return df
+
+def stock_quote(ticker):
     """
     Description:
     Get the etf or stock quote, and other related data.
@@ -305,84 +476,6 @@ def stock_price(ticker):
     df.iloc[15, 0] = soup.find("span", {"vkey": "PB"}).getText().strip()
     df.iloc[16, 0] = soup.find("span", {"vkey": "PS"}).getText().strip()
     df.iloc[17, 0] = soup.find("span", {"vkey": "PC"}).getText().strip()
-
-    # Fix the unprintable unicode characters
-    df1 = df.applymap(lambda x: unidecode.unidecode(x))
-    df = df1
-
-    return df
-
-def net_asset_value(ticker):
-    """
-    Description:
-    Get the fund net asset value, and other related data.
-
-    Parameters:
-    ticker - The fund ticker.
-
-    Returns:
-
-    """
-    # Ticker check    
-    tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF":
-        return None    
-
-    # The Morningstar URL for funds
-    url = "http://quotes.morningstar.com/fund/c-header?&t=" + ticker
-    
-    # Get the page
-    web_page = web.get_web_page(url, False)
-
-    # Parse the contents
-    soup = BeautifulSoup(web_page, 'lxml')
-
-    df = pd.DataFrame(columns = range(1), 
-                      index = range(15))
-    
-    # Set the index
-    df['new_index'] = None
-    df['new_index'][0] = soup.find("h3", {"gkey": "NAV"}).getText().strip()
-    df['new_index'][1] = soup.find("h3", {"gkey": "NavChange"}).getText().strip() + " %"
-    df['new_index'][2] = soup.find("span", {"gkey": "AsOf"}).getText().strip()
-    df['new_index'][3] = soup.find("span", {"gkey": "OneDayReturnAsOf"}).getText().strip()
-    df['new_index'][4] = soup.find("h3", {"gkey": "ttmYield"}).getText().strip()
-    df['new_index'][5] = soup.find("h3", {"gkey": "Load"}).getText().strip()
-    df['new_index'][6] = soup.find("h3", {"gkey": "TotalAssets"}).getText().strip()
-    df['new_index'][7] = soup.find("a", {"gkey": "ExpenseRatio"}).getText().strip()
-    df['new_index'][8] = soup.find("a", {"gkey": "FeeLevel"}).getText().strip()
-    df['new_index'][9] = soup.find("h3", {"gkey": "Turnover"}).getText().strip()
-    df['new_index'][10] = soup.find("h3", {"gkey": "Status"}).getText().strip()
-    df['new_index'][11] = soup.find("h3", {"gkey": "MinInvestment"}).getText().strip()
-    df['new_index'][12] = soup.find("h3", {"gkey": "Yield"}).getText().strip()
-    df['new_index'][13] = soup.find("h3", {"gkey": "MorningstarCategory"}).getText().strip()
-    df['new_index'][14] = soup.find("h3", {"gkey": "InvestmentStyle"}).getText().strip()
-
-    # Promote the 'new_index' column as the new index
-    df2 = df.set_index('new_index')
-    df = df2
-
-    # Clear the index name
-    df.index.name = ""
-
-    # Set the ticker name as column label
-    df.columns = [ticker.upper()]
-
-    df.iloc[0, 0] = soup.find("span", {"vkey": "NAV"}).getText().strip()
-    df.iloc[1, 0] = soup.find("div", {"vkey": "DayChange"}).getText().strip()
-    df.iloc[2, 0] = soup.find("span", {"id" : "asOfDate", "vkey": "LastDate"}).getText().strip()
-    df.iloc[3, 0] = soup.find("span", {"id" : "oneDayReturnAsOfDate", "vkey": "LastDate"}).getText().strip()
-    df.iloc[4, 0] = soup.find("span", {"vkey": "ttmYield"}).getText().strip()
-    df.iloc[5, 0] = soup.find("span", {"vkey": "Load"}).getText().strip()
-    df.iloc[6, 0] = soup.find("span", {"vkey": "TotalAssets"}).getText().strip()
-    df.iloc[7, 0] = soup.find("span", {"vkey": "ExpenseRatio"}).getText().strip()
-    df.iloc[8, 0] = soup.find("span", {"vkey": "FeeLevel"}).getText().strip()
-    df.iloc[9, 0] = soup.find("span", {"vkey": "Turnover"}).getText().strip()
-    df.iloc[10, 0] = soup.find("span", {"vkey": "Status"}).getText().strip()
-    df.iloc[11, 0] = soup.find("span", {"vkey": "MinInvestment"}).getText().strip()
-    df.iloc[12, 0] = soup.find("span", {"vkey": "Yield"}).getText().strip()
-    df.iloc[13, 0] = soup.find("span", {"vkey": "MorningstarCategory"}).getText().strip()
-    df.iloc[14, 0] = soup.find("span", {"vkey": "InvestmentStyle"}).getText().strip()
 
     # Fix the unprintable unicode characters
     df1 = df.applymap(lambda x: unidecode.unidecode(x))
@@ -637,12 +730,16 @@ def _parse_qtr2_f(args):
     df = fund_historical_quarterly_returns(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
-def _parse_sp(args):
-    df = stock_price(args.ticker)
+def _parse_etf_quote(args):
+    df = etf_quote(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
-def _parse_nav(args):
-    df = net_asset_value(args.ticker)
+def _parse_fund_quote(args):
+    df = fund_quote(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def _parse_stock_quote(args):
+    df = stock_quote(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
 def _parse_aal(args):
@@ -697,13 +794,17 @@ if __name__ == "__main__":
     parser_qtr2.add_argument('ticker', help='Ticker')
     parser_qtr2.set_defaults(func=_parse_qtr2_f)
 
-    parser_sp = subparsers.add_parser('sp', help='Stock price')
-    parser_sp.add_argument('ticker', help='Ticker')
-    parser_sp.set_defaults(func=_parse_sp)
+    parser_etf_quote = subparsers.add_parser('etf-quote', help='ETF quote')
+    parser_etf_quote.add_argument('ticker', help='Ticker')
+    parser_etf_quote.set_defaults(func=_parse_etf_quote)
 
-    parser_nav = subparsers.add_parser('nav', help='Mutual fund net asset value')
-    parser_nav.add_argument('ticker', help='Ticker')
-    parser_nav.set_defaults(func=_parse_nav)
+    parser_fund_quote = subparsers.add_parser('fund-quote', help='Mutual fund quote')
+    parser_fund_quote.add_argument('ticker', help='Ticker')
+    parser_fund_quote.set_defaults(func=_parse_fund_quote)
+
+    parser_stock_quote = subparsers.add_parser('stock-quote', help='Stock quote')
+    parser_stock_quote.add_argument('ticker', help='Ticker')
+    parser_stock_quote.set_defaults(func=_parse_stock_quote)
 
     parser_aal = subparsers.add_parser('aal', help='Mutual fund asset allocation')
     parser_aal.add_argument('ticker', help='Ticker')
