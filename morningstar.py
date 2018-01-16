@@ -478,24 +478,30 @@ def fund_market_regions(ticker):
 
     # Create new dataframe from rows 0, 2, 4, 6, 8, 10
     df1 = pd.DataFrame(columns = range(4), 
-                       index = range(10))
+                       index = range(16))
 
     df1.iloc[0] = df.iloc[0]
-    df1.iloc[1] = df.iloc[5]
-    df1.iloc[2] = df.iloc[7]
-    df1.iloc[3] = df.iloc[11]
-    df1.iloc[4] = df.iloc[13]
-    df1.iloc[5] = df.iloc[15]
-    df1.iloc[6] = df.iloc[21]
-    df1.iloc[7] = df.iloc[23]
-    df1.iloc[8] = df.iloc[25]
-    df1.iloc[9] = df.iloc[27]
+    df1.iloc[1] = df.iloc[3]
+    df1.iloc[2] = df.iloc[5]
+    df1.iloc[3] = df.iloc[7]
+    df1.iloc[4] = df.iloc[9]
+    df1.iloc[5] = df.iloc[11]
+    df1.iloc[6] = df.iloc[13]
+    df1.iloc[7] = df.iloc[15]
+    df1.iloc[8] = df.iloc[17]
+    df1.iloc[9] = df.iloc[19]
+    df1.iloc[10] = df.iloc[21]
+    df1.iloc[11] = df.iloc[23]
+    df1.iloc[12] = df.iloc[25]
+    df1.iloc[13] = df.iloc[27]
+    df1.iloc[14] = df.iloc[32]
+    df1.iloc[15] = df.iloc[34]
 
     df = df1
 
     # Fix the unprintable unicode characters
-#    df1 = df.applymap(lambda x: unidecode.unidecode(str(x)))
-#    df = df1
+    df1 = df.applymap(lambda x: unidecode.unidecode(str(x)))
+    df = df1
 
     # Promote 1st row and column as labels
     df1 = web.dataframe_promote_1st_row_and_column_as_labels(df)

@@ -87,7 +87,6 @@ def dataframe_promote_1st_row_and_column_as_labels(df):
 
     Returns: the updated Dataframe
     """
-
     table_name = df.at[0, 0].strip()
 
     df.at[0, 0] = "_"
