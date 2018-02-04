@@ -923,7 +923,7 @@ if __name__ == "__main__":
     parser_etf_ttl.add_argument('ticker', help='Ticker')
     parser_etf_ttl.set_defaults(func=_parse_etf_ttl_f)
 
-    parser_fund_ttl = subparsers.add_parser('fund-ttl', help='Trailing total returns 2 (etfs, funds, stocks)')
+    parser_fund_ttl = subparsers.add_parser('fund-ttl', help='Trailing total returns (etfs, funds, stocks)')
     parser_fund_ttl.add_argument('ticker', help='Ticker')
     parser_fund_ttl.set_defaults(func=_parse_fund_ttl_f)
 
@@ -953,19 +953,19 @@ if __name__ == "__main__":
     parser_stock_quote.add_argument('ticker', help='Ticker')
     parser_stock_quote.set_defaults(func=_parse_stock_quote)
 
-    parser_aal = subparsers.add_parser('aal', help='Mutual fund asset allocation')
+    parser_aal = subparsers.add_parser('aal', help='Asset allocation (etfs, funds)')
     parser_aal.add_argument('ticker', help='Ticker')
     parser_aal.set_defaults(func=_parse_aal)
 
-    parser_mkc = subparsers.add_parser('mkc', help='Mutual fund market capitalization')
+    parser_mkc = subparsers.add_parser('mkc', help='Market capitalization (etfs, funds)')
     parser_mkc.add_argument('ticker', help='Ticker')
     parser_mkc.set_defaults(func=_parse_mkc)
 
-    parser_sect = subparsers.add_parser('sect', help='Mutual fund sector weightings')
+    parser_sect = subparsers.add_parser('sect', help='Sector weightings (etfs, funds)')
     parser_sect.add_argument('ticker', help='Ticker')
     parser_sect.set_defaults(func=_parse_sect)
 
-    parser_reg = subparsers.add_parser('reg', help='Mutual fund world regions')
+    parser_reg = subparsers.add_parser('reg', help='World regions (etfs, funds)')
     parser_reg.add_argument('ticker', help='Ticker')
     parser_reg.set_defaults(func=_parse_reg)
 
