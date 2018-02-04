@@ -266,7 +266,7 @@ def fund_trailing_total_returns3(ticker):
 
     return df 
 
-def historical_quarterly_returns(ticker, years = 5, frequency = "m"):
+def historical_quarterly_returns(ticker, years = 10, frequency = "q"):
     """
     Description:
     Get historical quarterly returns.
@@ -281,7 +281,7 @@ def historical_quarterly_returns(ticker, years = 5, frequency = "m"):
     if tt != "Fund" and tt != "ETF" and tt != "Stock":
         return None    
 
-    if frequency != 'q' and frequency != 'm':
+    if frequency != "q" and frequency != "m":
         return None
 
     # The Morningstar URL for funds
