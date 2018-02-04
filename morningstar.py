@@ -273,7 +273,7 @@ def historical_quarterly_returns(ticker, years = 10, frequency = "q"):
 
     Parameters:
     ticker - The etf, fund or stock ticker.
-    years - The number of years. Default: 5.
+    years - The number of years. Default: 10.
     frequency - "q" for quarterly, "m" for monthly. Default: "q"
     """
     # Ticker check    
@@ -290,7 +290,7 @@ def historical_quarterly_returns(ticker, years = 10, frequency = "q"):
     df = web.get_web_page_table(url + ticker, False, 0)
 
     df.fillna(value="", inplace=True)
-    df1 = df.drop(df.columns[[3, 4, 5, 6, 7]], axis=1)
+    df1 = df.drop(df.columns[[2, 3, 4, 5, 6, 7]], axis=1)
     df = df1
 
     # Promote 1st row and column as labels
