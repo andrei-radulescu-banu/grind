@@ -49,6 +49,39 @@ def ticker_type(ticker):
     
     return ""
 
+def fund_name(ticker):
+    """
+    Description:
+    The Morningstar URL for getting quotes for etfs, funds, stocks
+
+    Parameters:
+    ticker - The etf, fund, stock ticker.
+
+    Returns:
+    A string with value "ETF", "Fund", "Stock" or "" (in case the ticker is
+    neither an ETF, or fund, or stock)
+    """
+
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF":
+        return None    
+
+    # The Morningstar URL
+    url = "http://portfolios.morningstar.com/fund/summary?t="
+    
+    # Get the page
+    web_page = web.get_web_page(url, False)
+
+    # Parse the contents
+    soup = BeautifulSoup(web_page, 'lxml')
+
+    print(web_page)
+
+    # To do...
+
+    return ""
+
 def etf_performance_history(ticker):
     """
     Description:
@@ -829,6 +862,12 @@ def _parse_ticker_f(args):
     if type != "":
         print(type)
 
+def _parse_fund_name_f(args):
+    type = fund_name(args.ticker)
+
+    if type != "":
+        print(type)
+
 def _parse_etf_pfh_f(args):
     df = etf_performance_history(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
@@ -899,9 +938,13 @@ if __name__ == "__main__":
     # Subparsers
     subparsers = parser.add_subparsers(help='Sub-command help')
 
-    parser_ticker = subparsers.add_parser('ticker', help='Get ticker info')
+    parser_ticker = subparsers.add_parser('ticker', help='Get ticker type: etf, fund, stock')
     parser_ticker.add_argument('ticker', help='Ticker')
     parser_ticker.set_defaults(func=_parse_ticker_f)
+
+    parser_fund_name = subparsers.add_parser('fund-name', help='Get fund name')
+    parser_fund_name.add_argument('ticker', help='Ticker')
+    parser_fund_name.set_defaults(func=_parse_fund_name_f)
 
     parser_etf_pfh = subparsers.add_parser('etf-pfh', help='Performace history (etfs, funds)')
     parser_etf_pfh.add_argument('ticker', help='Ticker')
