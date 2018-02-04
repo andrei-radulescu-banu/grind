@@ -281,6 +281,9 @@ def historical_quarterly_returns(ticker, years = 5, frequency = "m"):
     if tt != "Fund" and tt != "ETF" and tt != "Stock":
         return None    
 
+    if frequency != 'q' and frequency != 'm':
+        return None
+
     # The Morningstar URL for funds
     url = "http://performance.morningstar.com/Performance/fund/historical-returns.action?&ops=clear&y=%s&freq=%s&t=" % (years, frequency)
     
@@ -930,8 +933,8 @@ if __name__ == "__main__":
 
     parser_qtr = subparsers.add_parser('qtr', help='Historical quarterly returns (etfs, funds, stocks)')
     parser_qtr.add_argument('ticker', help='Ticker')
-    parser_qtr.add_argument('-y', '--years', type=int, default=5, help='Number of years (default 5)')
-    parser_qtr.add_argument('-f', '--frequency', default='m', help='Frequency (m=monthly, q=quarterly, default=m)')
+    parser_qtr.add_argument('-y', '--years', type=int, default=10, help='Number of years (default 10)')
+    parser_qtr.add_argument('-f', '--frequency', default='q', help='Frequency (m=monthly, q=quarterly, default=q)')
     parser_qtr.set_defaults(func=_parse_qtr_f)
 
     parser_qtr2 = subparsers.add_parser('qtr2', help='Historical quarterly returns (etfs, funds)')
