@@ -97,7 +97,7 @@ def fund_performance_history2(ticker):
         return None    
 
     # The Morningstar URL for funds
-    url = "http://performance.morningstar.com/Performance/fund/performance-history-1.action?&ops=clear&t="
+    url = "http://performance.morningstar.com/Performance/fund/performance-history-1.action?&ops=clear&ndec=2&align=d&t="
     
     df = web.get_web_page_table(url + ticker, False, 0)
 
@@ -108,7 +108,7 @@ def fund_performance_history2(ticker):
     if (sys.version_info[0] >= 3):
         # Fix the unprintable unicode characters
         df.index.name = unidecode.unidecode(df.index.name)
-        df1 = df.applymap(lambda x: unidecode.unidecode(x))
+        df1 = df.applymap(lambda x: unidecode.unidecode(str(x)))
         df = df1
 
     return df
@@ -132,7 +132,7 @@ def fund_performance_history3(ticker):
         return None    
 
     # The Morningstar URL for funds
-    url = "http://performance.morningstar.com/perform/Performance/cef/performance-history.action?&ops=clear&y=10&ndec=2&align=m&t="
+    url = "http://performance.morningstar.com/perform/Performance/cef/performance-history.action?&ops=clear&y=10&ndec=2&align=d&t="
     
     df = web.get_web_page_table(url + ticker, False, 0)
 
@@ -162,7 +162,7 @@ def stock_performance_history4(ticker):
         return None    
 
     # The Morningstar URL
-    url = "http://performance.morningstar.com/perform/Performance/stock/performance-history-1.action?&ops=clear&y=10&ndec=2&align=m&t="
+    url = "http://performance.morningstar.com/perform/Performance/stock/performance-history-1.action?&ops=clear&y=10&ndec=2&align=d&t="
 
     df = web.get_web_page_table(url + ticker, False, 0)
 
@@ -838,8 +838,8 @@ def _parse_pfh3_f(args):
     df = fund_performance_history3(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
-def _parse_pfh4_f(args):
-    df = stock_performance_history4(args.ticker)
+def _parse_stock_pfh_f(args):
+    df = stock_performance_history(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
 def _parse_ttl_f(args):
@@ -912,29 +912,29 @@ if __name__ == "__main__":
     parser_pfh3.add_argument('ticker', help='Ticker')
     parser_pfh3.set_defaults(func=_parse_pfh3_f)
 
-    parser_pfh4 = subparsers.add_parser('pfh4', help='Performace history 4 (stocks)')
-    parser_pfh4.add_argument('ticker', help='Ticker')
-    parser_pfh4.set_defaults(func=_parse_pfh4_f)
+    parser_stock_pfh = subparsers.add_parser('stock-pfh', help='Performace history 4 (stocks)')
+    parser_stock_pfh.add_argument('ticker', help='Ticker')
+    parser_stock_pfh.set_defaults(func=_parse_stock_pfh_f)
 
-    parser_ttl = subparsers.add_parser('ttl', help='Trailing total returns')
+    parser_ttl = subparsers.add_parser('ttl', help='Trailing total returns (etfs, funds, stocks)')
     parser_ttl.add_argument('ticker', help='Ticker')
     parser_ttl.set_defaults(func=_parse_ttl_f)
 
-    parser_ttl2 = subparsers.add_parser('ttl2', help='Trailing total returns 2')
+    parser_ttl2 = subparsers.add_parser('ttl2', help='Trailing total returns 2 (etfs, funds, stocks)')
     parser_ttl2.add_argument('ticker', help='Ticker')
     parser_ttl2.set_defaults(func=_parse_ttl2_f)
 
-    parser_ttl3 = subparsers.add_parser('ttl3', help='Trailing total returns 3')
+    parser_ttl3 = subparsers.add_parser('ttl3', help='Trailing total returns 3 (funds)')
     parser_ttl3.add_argument('ticker', help='Ticker')
     parser_ttl3.set_defaults(func=_parse_ttl3_f)
 
-    parser_qtr = subparsers.add_parser('qtr', help='Historical quarterly returns')
+    parser_qtr = subparsers.add_parser('qtr', help='Historical quarterly returns (etfs, funds, stocks)')
     parser_qtr.add_argument('ticker', help='Ticker')
     parser_qtr.add_argument('-y', '--years', type=int, default=5, help='Number of years (default 5)')
     parser_qtr.add_argument('-f', '--frequency', default='m', help='Frequency (m=monthly, q=quarterly, default=m)')
     parser_qtr.set_defaults(func=_parse_qtr_f)
 
-    parser_qtr2 = subparsers.add_parser('qtr2', help='Historical quarterly returns for etfs and funds')
+    parser_qtr2 = subparsers.add_parser('qtr2', help='Historical quarterly returns (etfs, funds)')
     parser_qtr2.add_argument('ticker', help='Ticker')
     parser_qtr2.set_defaults(func=_parse_qtr2_f)
 
