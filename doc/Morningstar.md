@@ -8,6 +8,8 @@ http://portfolios.morningstar.com/fund/summary?t=fusex (3-10 secs)
 
 http://performance.morningstar.com/Performance/fund/trailing-total-returns.action?t=FSCTX (.1-.4 secs)
 
+http://performance.morningstar.com/Performance/cef/trailing-total-returns.action?ops=clear&ndec=2&align=d&t=AFK (quick) - trailing total returns, ops=clear disables bar chart, ndec=2 gives 2 decimal points, align=d gives day alignment, align=m gives month. Works for stocks, funds, etfs. Total return includes interest, capital gains, dividends and distributions realized over a given period of time.
+
 http://performance.morningstar.com/RatingRisk/fund/mpt-statistics.action?&t=SPY (.1-.4 secs)
 
 http://quotes.morningstar.com/stock/c-header?&t=SPY (.1-.4 secs)
@@ -20,9 +22,13 @@ http://etfs.morningstar.com/latest-component?&t=ARCX:VWO (quick) - latest distri
 
 http://etfs.morningstar.com/quote-banner?&t=ARCX:VWO (quick) - intraday indicative value
 
+http://performance.morningstar.com/perform/Performance/cef/performance-history.action?&ops=clear&y=10&ndec=2&align=m&t=FUSEX (quick) - yearly performance history for funds and etfs; ops=clear ensures no chart is returned; y=10 gives number of years; ndec=2 gives number of decimal points
+
 http://performance.morningstar.com/Performance/fund/performance-history-1.action?&t=FUSEX&ops=clear&s=0P00001MK8&ndec=2&ep=true&align=m&y=6&comparisonRemove=false&loccat=&taxadj=&benchmarkSecId=&benchmarktype= (quick) - yearly performance history
 
 http://performance.morningstar.com/Performance/fund/standardized-returns.action?&t=XNAS:FUSEX&region=usa&culture=en-US&cur=USD&ops=clear&s=0P00001MK8&ndec=2&ep=true&align=m&freq=d&discl=false&comparisonRemove=false&loccat=&taxadj=&benchmarkSecId=&benchmarktype= (quick) - Standardized returns include dividends and cap gains but not taxes
+
+http://performance.morningstar.com/perform/Performance/cef/standardized-returns.action?&ops=clear&y=10&ndec=2&align=m&t=SPY (quick) - Same as above
 
 http://performance.morningstar.com/Performance/fund/historical-returns.action?&t=XNAS:FUSEX&region=usa&culture=en-US&cur=USD&ops=clear&s=0P00001MK8&ndec=2&ep=true&align=m&y=5&freq=q&comparisonRemove=false&loccat=&taxadj=&benchmarkSecId=&benchmarktype= (quick) - historical returns, quarters
 
@@ -68,11 +74,7 @@ http://performance.morningstar.com/Performance/cef/premium-discount.action?t=AFK
 
 http://performance.morningstar.com/Performance/cef/cost-risk.action?t=AFK
 
-http://performance.morningstar.com/perform/Performance/cef/performance-history.action?&ops=clear&y=10&ndec=2&align=m&t=FUSEX (quick) - yearly performance history for funds and etfs; ops=clear ensures no chart is returned; y=10 gives number of years; ndec=2 gives number of decimal points
-
 http://performance.morningstar.com/Performance/cef/trailing-total-returns.action?t=AFK
-
-http://performance.morningstar.com/Performance/cef/standardized-returns.action?t=AFK
 
 http://portfolios.morningstar.com/fund/holdings?t=AFK
 

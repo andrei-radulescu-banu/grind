@@ -139,9 +139,40 @@ def fund_performance_history3(ticker):
     # Promote 1st row and column as labels
     df = web.dataframe_promote_1st_row_and_column_as_labels(df)
 
+    df.fillna(value="", inplace=True)
+
     return df
 
 def trailing_total_returns(ticker):
+    """
+    Description:
+    Get trailing total returns. 
+    
+    Parameters:
+    ticker - The ticker.
+
+    Returs: 
+    DataFrame with the trailing total returns.
+    Run 'morningstar.py ttl ticker' to see the result format.
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF" and tt != "Stock":
+        return None    
+
+    # The Morningstar URL for funds
+    url = "http://performance.morningstar.com/Performance/cef/trailing-total-returns.action?ops=clear&ndec=3&align=m&t="    
+
+    df = web.get_web_page_table(url + ticker, False, 0)
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+
+    df.fillna(value="", inplace=True)
+
+    return df
+
+def trailing_total_returns2(ticker):
     """
     Description:
     Get trailing total returns. 
@@ -175,7 +206,7 @@ def trailing_total_returns(ticker):
 
     return df
 
-def fund_trailing_total_returns2(ticker):
+def fund_trailing_total_returns3(ticker):
     """
     Description:
     Get trailing total returns. Only works for funds.
@@ -782,7 +813,11 @@ def _parse_ttl_f(args):
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
 def _parse_ttl2_f(args):
-    df = fund_trailing_total_returns2(args.ticker)
+    df = trailing_total_returns2(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def _parse_ttl3_f(args):
+    df = fund_trailing_total_returns3(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
 def _parse_qtr_f(args):
@@ -850,6 +885,10 @@ if __name__ == "__main__":
     parser_ttl2 = subparsers.add_parser('ttl2', help='Trailing total returns 2')
     parser_ttl2.add_argument('ticker', help='Ticker')
     parser_ttl2.set_defaults(func=_parse_ttl2_f)
+
+    parser_ttl3 = subparsers.add_parser('ttl3', help='Trailing total returns 3')
+    parser_ttl3.add_argument('ticker', help='Ticker')
+    parser_ttl3.set_defaults(func=_parse_ttl3_f)
 
     parser_qtr = subparsers.add_parser('qtr', help='Historical quarterly returns')
     parser_qtr.add_argument('ticker', help='Ticker')
