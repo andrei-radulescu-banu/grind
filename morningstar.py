@@ -191,7 +191,7 @@ def trailing_total_returns(ticker):
         return None    
 
     # The Morningstar URL for funds
-    url = "http://performance.morningstar.com/Performance/cef/trailing-total-returns.action?ops=clear&ndec=3&align=m&t="    
+    url = "http://performance.morningstar.com/Performance/cef/trailing-total-returns.action?ops=clear&ndec=2&align=d&t="    
 
     df = web.get_web_page_table(url + ticker, False, 0)
 
