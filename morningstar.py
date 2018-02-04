@@ -173,7 +173,7 @@ def fund_performance_history2(ticker):
 
     return df
 
-def trailing_total_returns(ticker):
+def etf_trailing_total_returns(ticker):
     """
     Description:
     Get trailing total returns. 
@@ -202,7 +202,7 @@ def trailing_total_returns(ticker):
 
     return df
 
-def trailing_total_returns2(ticker):
+def fund_trailing_total_returns(ticker):
     """
     Description:
     Get trailing total returns. 
@@ -236,7 +236,7 @@ def trailing_total_returns2(ticker):
 
     return df
 
-def fund_trailing_total_returns3(ticker):
+def fund_trailing_total_returns2(ticker):
     """
     Description:
     Get trailing total returns. Only works for funds.
@@ -845,16 +845,16 @@ def _parse_pfh2_f(args):
     df = fund_performance_history2(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
-def _parse_ttl_f(args):
-    df = trailing_total_returns(args.ticker)
+def _parse_etf_ttl_f(args):
+    df = etf_trailing_total_returns(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def _parse_fund_ttl_f(args):
+    df = fund_trailing_total_returns(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
 def _parse_ttl2_f(args):
-    df = trailing_total_returns2(args.ticker)
-    print(tabulate(df, headers='keys', tablefmt='psql'))
-
-def _parse_ttl3_f(args):
-    df = fund_trailing_total_returns3(args.ticker)
+    df = fund_trailing_total_returns2(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
 def _parse_qtr_f(args):
@@ -919,17 +919,17 @@ if __name__ == "__main__":
     parser_pfh2.add_argument('ticker', help='Ticker')
     parser_pfh2.set_defaults(func=_parse_pfh2_f)
 
-    parser_ttl = subparsers.add_parser('ttl', help='Trailing total returns (etfs, funds, stocks)')
-    parser_ttl.add_argument('ticker', help='Ticker')
-    parser_ttl.set_defaults(func=_parse_ttl_f)
+    parser_etf_ttl = subparsers.add_parser('etf-ttl', help='Trailing total returns (etfs, funds, stocks)')
+    parser_etf_ttl.add_argument('ticker', help='Ticker')
+    parser_etf_ttl.set_defaults(func=_parse_etf_ttl_f)
 
-    parser_ttl2 = subparsers.add_parser('ttl2', help='Trailing total returns 2 (etfs, funds, stocks)')
+    parser_fund_ttl = subparsers.add_parser('fund-ttl', help='Trailing total returns 2 (etfs, funds, stocks)')
+    parser_fund_ttl.add_argument('ticker', help='Ticker')
+    parser_fund_ttl.set_defaults(func=_parse_fund_ttl_f)
+
+    parser_ttl2 = subparsers.add_parser('ttl2', help='Trailing total returns 2 (funds)')
     parser_ttl2.add_argument('ticker', help='Ticker')
     parser_ttl2.set_defaults(func=_parse_ttl2_f)
-
-    parser_ttl3 = subparsers.add_parser('ttl3', help='Trailing total returns 3 (funds)')
-    parser_ttl3.add_argument('ticker', help='Ticker')
-    parser_ttl3.set_defaults(func=_parse_ttl3_f)
 
     parser_qtr = subparsers.add_parser('qtr', help='Historical quarterly returns (etfs, funds, stocks)')
     parser_qtr.add_argument('ticker', help='Ticker')
