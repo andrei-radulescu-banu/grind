@@ -49,71 +49,6 @@ def ticker_type(ticker):
     
     return ""
 
-def fund_performance_history(ticker):
-    """
-    Description:
-    Get etf or fund performance history. Does not work for stocks.
-    
-    Parameters:
-    ticker - The etf or fund ticker.
-
-    Returs: 
-    DataFrame with the performance history. 
-    Run 'morningstar.py pfh ticker' to see the result format.
-    """
-    # Ticker check    
-    tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF":
-        return None    
-
-    # The Morningstar URL for funds
-    url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
-    
-    df = web.get_web_page_table(url + ticker, False, 12)
-
-    # Trim last three rows
-    df.drop(df.tail(3).index,inplace=True)
-
-    # Promote 1st row and column as labels
-    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
-
-    return df
-
-def fund_performance_history2(ticker):
-    """
-    Description:
-    Get etf or fund performance history. Does not work for stocks.
-    
-    Parameters:
-    ticker - The etf or fund ticker.
-
-    Returs: 
-    DataFrame with the performance history. 
-    Run 'morningstar.py pfh2 ticker' to see the result format.
-    """
-    # Ticker check    
-    tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF":
-        return None    
-
-    # The Morningstar URL for funds
-    url = "http://performance.morningstar.com/Performance/fund/performance-history-1.action?&ops=clear&ndec=2&align=d&t="
-    
-    df = web.get_web_page_table(url + ticker, False, 0)
-
-    # Promote 1st row and column as labels
-    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
-
-    # For python 3 and later...
-    if (sys.version_info[0] >= 3):
-        # Fix the unprintable unicode characters
-        df.index.name = unidecode.unidecode(df.index.name)
-        df1 = df.applymap(lambda x: unidecode.unidecode(str(x)))
-        df = df1
-
-    return df
-
-
 def etf_performance_history(ticker):
     """
     Description:
@@ -143,6 +78,41 @@ def etf_performance_history(ticker):
 
     return df
 
+def fund_performance_history(ticker):
+    """
+    Description:
+    Get etf or fund performance history. Does not work for stocks.
+    
+    Parameters:
+    ticker - The etf or fund ticker.
+
+    Returs: 
+    DataFrame with the performance history. 
+    Run 'morningstar.py fund-pfh ticker' to see the result format.
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF":
+        return None    
+
+    # The Morningstar URL for funds
+    url = "http://performance.morningstar.com/Performance/fund/performance-history-1.action?&ops=clear&ndec=2&align=d&t="
+    
+    df = web.get_web_page_table(url + ticker, False, 0)
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+
+    # For python 3 and later...
+    if (sys.version_info[0] >= 3):
+        # Fix the unprintable unicode characters
+        df.index.name = unidecode.unidecode(df.index.name)
+        df1 = df.applymap(lambda x: unidecode.unidecode(str(x)))
+        df = df1
+
+    return df
+
+
 def stock_performance_history(ticker):
     """
     Description:
@@ -170,6 +140,36 @@ def stock_performance_history(ticker):
     df = web.dataframe_promote_1st_row_and_column_as_labels(df)
 
     df.fillna(value="", inplace=True)
+
+    return df
+
+def fund_performance_history2(ticker):
+    """
+    Description:
+    Get fund performance history.
+    
+    Parameters:
+    ticker - The fund ticker.
+
+    Returs: 
+    DataFrame with the performance history. 
+    Run 'morningstar.py pfh2 ticker' to see the result format.
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund":
+        return None    
+
+    # The Morningstar URL for funds
+    url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
+    
+    df = web.get_web_page_table(url + ticker, False, 12)
+
+    # Trim last three rows
+    df.drop(df.tail(3).index,inplace=True)
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
 
     return df
 
@@ -826,20 +826,20 @@ def _parse_ticker_f(args):
     if type != "":
         print(type)
 
-def _parse_pfh_f(args):
-    df = fund_performance_history(args.ticker)
-    print(tabulate(df, headers='keys', tablefmt='psql'))
-
-def _parse_pfh2_f(args):
-    df = fund_performance_history2(args.ticker)
-    print(tabulate(df, headers='keys', tablefmt='psql'))
-
 def _parse_etf_pfh_f(args):
     df = etf_performance_history(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
+def _parse_fund_pfh_f(args):
+    df = fund_performance_history(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
 def _parse_stock_pfh_f(args):
     df = stock_performance_history(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def _parse_pfh2_f(args):
+    df = fund_performance_history2(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
 def _parse_ttl_f(args):
@@ -900,21 +900,21 @@ if __name__ == "__main__":
     parser_ticker.add_argument('ticker', help='Ticker')
     parser_ticker.set_defaults(func=_parse_ticker_f)
 
-    parser_pfh = subparsers.add_parser('pfh', help='Performace history (funds)')
-    parser_pfh.add_argument('ticker', help='Ticker')
-    parser_pfh.set_defaults(func=_parse_pfh_f)
+    parser_etf_pfh = subparsers.add_parser('etf-pfh', help='Performace history (etfs, funds)')
+    parser_etf_pfh.add_argument('ticker', help='Ticker')
+    parser_etf_pfh.set_defaults(func=_parse_etf_pfh_f)
+
+    parser_fund_pfh = subparsers.add_parser('fund-pfh', help='Performace history (funds)')
+    parser_fund_pfh.add_argument('ticker', help='Ticker')
+    parser_fund_pfh.set_defaults(func=_parse_fund_pfh_f)
+
+    parser_stock_pfh = subparsers.add_parser('stock-pfh', help='Performace history (stocks)')
+    parser_stock_pfh.add_argument('ticker', help='Ticker')
+    parser_stock_pfh.set_defaults(func=_parse_stock_pfh_f)
 
     parser_pfh2 = subparsers.add_parser('pfh2', help='Performace history 2 (funds)')
     parser_pfh2.add_argument('ticker', help='Ticker')
     parser_pfh2.set_defaults(func=_parse_pfh2_f)
-
-    parser_etf_pfh = subparsers.add_parser('etf-pfh', help='Performace history 3 (etfs, funds)')
-    parser_etf_pfh.add_argument('ticker', help='Ticker')
-    parser_etf_pfh.set_defaults(func=_parse_etf_pfh_f)
-
-    parser_stock_pfh = subparsers.add_parser('stock-pfh', help='Performace history 4 (stocks)')
-    parser_stock_pfh.add_argument('ticker', help='Ticker')
-    parser_stock_pfh.set_defaults(func=_parse_stock_pfh_f)
 
     parser_ttl = subparsers.add_parser('ttl', help='Trailing total returns (etfs, funds, stocks)')
     parser_ttl.add_argument('ticker', help='Ticker')
