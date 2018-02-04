@@ -266,14 +266,14 @@ def fund_trailing_total_returns3(ticker):
 
     return df 
 
-def historical_quarterly_returns(ticker, years = 10, frequency = "q"):
+def historical_quarterly_returns(ticker, years = 5, frequency = "q"):
     """
     Description:
     Get historical quarterly returns.
 
     Parameters:
     ticker - The etf, fund or stock ticker.
-    years - The number of years. Default: 10.
+    years - The number of years. Default: 5.
     frequency - "q" for quarterly, "m" for monthly. Default: "q"
     """
     # Ticker check    
@@ -933,7 +933,7 @@ if __name__ == "__main__":
 
     parser_qtr = subparsers.add_parser('qtr', help='Historical quarterly returns (etfs, funds, stocks)')
     parser_qtr.add_argument('ticker', help='Ticker')
-    parser_qtr.add_argument('-y', '--years', type=int, default=10, help='Number of years (default 10)')
+    parser_qtr.add_argument('-y', '--years', type=int, default=5, help='Number of years (default 5)')
     parser_qtr.add_argument('-f', '--frequency', default='q', help='Frequency (m=monthly, q=quarterly, default=q)')
     parser_qtr.set_defaults(func=_parse_qtr_f)
 
