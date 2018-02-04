@@ -68,7 +68,7 @@ http://performance.morningstar.com/Performance/cef/premium-discount.action?t=AFK
 
 http://performance.morningstar.com/Performance/cef/cost-risk.action?t=AFK
 
-http://performance.morningstar.com/perform/Performance/cef/performance-history.action?&ops=clear&y=10&ndec=2&align=m&t=FUSEX (quick) - performance history for funds and etfs; ops=clear ensures no chart is returned; y=10 gives number of years; ndec=2 gives number of decimal points
+http://performance.morningstar.com/perform/Performance/cef/performance-history.action?&ops=clear&y=10&ndec=2&align=m&t=FUSEX (quick) - yearly performance history for funds and etfs; ops=clear ensures no chart is returned; y=10 gives number of years; ndec=2 gives number of decimal points
 
 http://performance.morningstar.com/Performance/cef/trailing-total-returns.action?t=AFK
 
