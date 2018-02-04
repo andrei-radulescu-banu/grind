@@ -143,7 +143,7 @@ def fund_performance_history3(ticker):
 
     return df
 
-def stock_performance_history4(ticker):
+def stock_performance_history(ticker):
     """
     Description:
     Get stock performance history. Does not work for stocks.
@@ -153,7 +153,7 @@ def stock_performance_history4(ticker):
 
     Returs: 
     DataFrame with the performance history. 
-    Run 'morningstar.py pfh4 ticker' to see the result format.
+    Run 'morningstar.py stock-pfh ticker' to see the result format.
     """
     # Ticker check    
     tt = ticker_type(ticker)
