@@ -113,6 +113,34 @@ def fund_performance_history2(ticker):
 
     return df
 
+
+def fund_performance_history3(ticker):
+    """
+    Description:
+    Get etf or fund performance history. Does not work for stocks.
+    
+    Parameters:
+    ticker - The etf or fund ticker.
+
+    Returs: 
+    DataFrame with the performance history. 
+    Run 'morningstar.py pfh2 ticker' to see the result format.
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF":
+        return None    
+
+    # The Morningstar URL for funds
+    url = "http://performance.morningstar.com/perform/Performance/cef/performance-history.action?&ops=clear&y=10&ndec=2&align=m&t="
+    
+    df = web.get_web_page_table(url + ticker, False, 0)
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+
+    return df
+
 def trailing_total_returns(ticker):
     """
     Description:
@@ -745,6 +773,10 @@ def _parse_pfh2_f(args):
     df = fund_performance_history2(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
+def _parse_pfh3_f(args):
+    df = fund_performance_history3(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
 def _parse_ttl_f(args):
     df = trailing_total_returns(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
@@ -806,6 +838,10 @@ if __name__ == "__main__":
     parser_pfh2 = subparsers.add_parser('pfh2', help='Performace history 2')
     parser_pfh2.add_argument('ticker', help='Ticker')
     parser_pfh2.set_defaults(func=_parse_pfh2_f)
+
+    parser_pfh3 = subparsers.add_parser('pfh3', help='Performace history 3')
+    parser_pfh3.add_argument('ticker', help='Ticker')
+    parser_pfh3.set_defaults(func=_parse_pfh3_f)
 
     parser_ttl = subparsers.add_parser('ttl', help='Trailing total returns')
     parser_ttl.add_argument('ticker', help='Ticker')
