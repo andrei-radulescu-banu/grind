@@ -114,7 +114,7 @@ def fund_performance_history2(ticker):
     return df
 
 
-def fund_performance_history3(ticker):
+def etf_performance_history(ticker):
     """
     Description:
     Get etf or fund performance history. Does not work for stocks.
@@ -124,7 +124,7 @@ def fund_performance_history3(ticker):
 
     Returs: 
     DataFrame with the performance history. 
-    Run 'morningstar.py pfh3 ticker' to see the result format.
+    Run 'morningstar.py etf-pfh ticker' to see the result format.
     """
     # Ticker check    
     tt = ticker_type(ticker)
@@ -834,8 +834,8 @@ def _parse_pfh2_f(args):
     df = fund_performance_history2(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
-def _parse_pfh3_f(args):
-    df = fund_performance_history3(args.ticker)
+def _parse_etf_pfh_f(args):
+    df = etf_performance_history(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
 def _parse_stock_pfh_f(args):
@@ -908,9 +908,9 @@ if __name__ == "__main__":
     parser_pfh2.add_argument('ticker', help='Ticker')
     parser_pfh2.set_defaults(func=_parse_pfh2_f)
 
-    parser_pfh3 = subparsers.add_parser('pfh3', help='Performace history 3 (funds, etfs)')
-    parser_pfh3.add_argument('ticker', help='Ticker')
-    parser_pfh3.set_defaults(func=_parse_pfh3_f)
+    parser_etf_pfh = subparsers.add_parser('etf-pfh', help='Performace history 3 (etfs, funds)')
+    parser_etf_pfh.add_argument('ticker', help='Ticker')
+    parser_etf_pfh.set_defaults(func=_parse_etf_pfh_f)
 
     parser_stock_pfh = subparsers.add_parser('stock-pfh', help='Performace history 4 (stocks)')
     parser_stock_pfh.add_argument('ticker', help='Ticker')
