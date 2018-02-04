@@ -4,6 +4,7 @@ Routines for caching web queries
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import six
 
 _web_cache = dict()
 
@@ -92,7 +93,7 @@ def dataframe_promote_1st_row_and_column_as_labels(df):
     df.at[0, 0] = "_"
 
     # Promote 1st row as column labels
-    transform = lambda x: x.strip()
+    transform = lambda x: x.strip() if isinstance(x, six.string_types) else x
     df.columns = df.iloc[0].map(transform)
     df = df[1:]
     
