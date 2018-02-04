@@ -124,7 +124,7 @@ def fund_performance_history3(ticker):
 
     Returs: 
     DataFrame with the performance history. 
-    Run 'morningstar.py pfh2 ticker' to see the result format.
+    Run 'morningstar.py pfh3 ticker' to see the result format.
     """
     # Ticker check    
     tt = ticker_type(ticker)
@@ -134,6 +134,36 @@ def fund_performance_history3(ticker):
     # The Morningstar URL for funds
     url = "http://performance.morningstar.com/perform/Performance/cef/performance-history.action?&ops=clear&y=10&ndec=2&align=m&t="
     
+    df = web.get_web_page_table(url + ticker, False, 0)
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+
+    df.fillna(value="", inplace=True)
+
+    return df
+
+def stock_performance_history4(ticker):
+    """
+    Description:
+    Get stock performance history. Does not work for stocks.
+    
+    Parameters:
+    ticker - The stock ticker.
+
+    Returs: 
+    DataFrame with the performance history. 
+    Run 'morningstar.py pfh4 ticker' to see the result format.
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    
+    if tt != "Stock":
+        return None    
+
+    # The Morningstar URL
+    url = "http://performance.morningstar.com/perform/Performance/stock/performance-history-1.action?&ops=clear&y=10&ndec=2&align=m&t="
+
     df = web.get_web_page_table(url + ticker, False, 0)
 
     # Promote 1st row and column as labels
@@ -808,6 +838,10 @@ def _parse_pfh3_f(args):
     df = fund_performance_history3(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
+def _parse_pfh4_f(args):
+    df = stock_performance_history4(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
 def _parse_ttl_f(args):
     df = trailing_total_returns(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
@@ -866,17 +900,21 @@ if __name__ == "__main__":
     parser_ticker.add_argument('ticker', help='Ticker')
     parser_ticker.set_defaults(func=_parse_ticker_f)
 
-    parser_pfh = subparsers.add_parser('pfh', help='Performace history')
+    parser_pfh = subparsers.add_parser('pfh', help='Performace history (funds)')
     parser_pfh.add_argument('ticker', help='Ticker')
     parser_pfh.set_defaults(func=_parse_pfh_f)
 
-    parser_pfh2 = subparsers.add_parser('pfh2', help='Performace history 2')
+    parser_pfh2 = subparsers.add_parser('pfh2', help='Performace history 2 (funds)')
     parser_pfh2.add_argument('ticker', help='Ticker')
     parser_pfh2.set_defaults(func=_parse_pfh2_f)
 
-    parser_pfh3 = subparsers.add_parser('pfh3', help='Performace history 3')
+    parser_pfh3 = subparsers.add_parser('pfh3', help='Performace history 3 (funds, etfs)')
     parser_pfh3.add_argument('ticker', help='Ticker')
     parser_pfh3.set_defaults(func=_parse_pfh3_f)
+
+    parser_pfh4 = subparsers.add_parser('pfh4', help='Performace history 4 (stocks)')
+    parser_pfh4.add_argument('ticker', help='Ticker')
+    parser_pfh4.set_defaults(func=_parse_pfh4_f)
 
     parser_ttl = subparsers.add_parser('ttl', help='Trailing total returns')
     parser_ttl.add_argument('ticker', help='Ticker')
