@@ -14,6 +14,7 @@ Module for parsing Morningstar web data.
 """
 
 _ticker_cache = dict()
+_name_cache = dict()
 
 def ticker_type(ticker):
     """
@@ -61,16 +62,23 @@ def name(ticker):
     The ticker name, "" (in case the ticker can't be resolved)
     """
 
+    if ticker in _name_cache:
+        return(_name_cache[ticker])
+
     # Ticker check    
     tt = ticker_type(ticker)
 
+    name = None
     if tt == "Fund" or tt == "ETF":
-        return fund_name(ticker)
+        name = fund_name(ticker)
     
     if tt == "Stock":
-        return stock_name(ticker)
+        name = stock_name(ticker)
     
-    return None    
+    if name is not None:
+        _name_cache[ticker] = name
+
+    return name
 
 
 def fund_name(ticker):
