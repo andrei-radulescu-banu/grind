@@ -323,6 +323,69 @@ def fund_performance_history2(ticker):
 
     return df
 
+def trailing_total_returns(ticker):
+    """
+    Description:
+    Get trailing total returns (price for etfs, stocks, NAV for funds)
+    
+    Parameters:
+    ticker - The ticker.
+
+    Returs: 
+    DataFrame with the trailing total returns.
+    Run 'morningstar.py ttl ticker' to see the result format.
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt == "ETF":
+        df = etf_trailing_total_returns(ticker)
+        df.drop(df.index[[1, 2, 3, 4]], inplace=True)
+        return df
+
+    if tt == "Fund":
+        df = etf_trailing_total_returns(ticker)
+        df.drop(df.index[[0, 2, 3, 4, 5]], inplace=True)
+        return df
+
+    if tt == "Stock":
+        df = etf_trailing_total_returns(ticker)
+        df.drop(df.index[[1, 2, 3]], inplace=True)
+        return df
+
+    return None
+
+def nav_trailing_total_returns(ticker):
+    """
+    Description:
+    Get trailing total returns (NAV for etfs, funds, and price for stocks)
+    
+    Parameters:
+    ticker - The ticker.
+
+    Returs: 
+    DataFrame with the trailing total returns.
+    Run 'morningstar.py nav-ttl ticker' to see the result format.
+    """
+    # Ticker check    
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt == "ETF":
+        df = etf_trailing_total_returns(ticker)
+        df.drop(df.index[[0, 2, 3, 4]], inplace=True)
+        return df
+
+    if tt == "Fund":
+        df = etf_trailing_total_returns(ticker)
+        df.drop(df.index[[0, 2, 3, 4, 5]], inplace=True)
+        return df
+
+    if tt == "Stock":
+        df = etf_trailing_total_returns(ticker)
+        df.drop(df.index[[1, 2, 3]], inplace=True)
+        return df
+
+    return None
+
 def etf_trailing_total_returns(ticker):
     """
     Description:
@@ -333,7 +396,7 @@ def etf_trailing_total_returns(ticker):
 
     Returs: 
     DataFrame with the trailing total returns.
-    Run 'morningstar.py ttl ticker' to see the result format.
+    Run 'morningstar.py etf-ttl ticker' to see the result format.
     """
     # Ticker check    
     tt = ticker_type(ticker)
@@ -1021,6 +1084,14 @@ def _parse_pfh2_f(args):
     df = fund_performance_history2(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
+def _parse_ttl_f(args):
+    df = trailing_total_returns(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def _parse_nav_ttl_f(args):
+    df = nav_trailing_total_returns(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
 def _parse_etf_ttl_f(args):
     df = etf_trailing_total_returns(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
@@ -1118,6 +1189,14 @@ if __name__ == "__main__":
     parser_etf_ttl = subparsers.add_parser('etf-ttl', help='Trailing total returns (etfs, funds, stocks)')
     parser_etf_ttl.add_argument('ticker', help='Ticker')
     parser_etf_ttl.set_defaults(func=_parse_etf_ttl_f)
+
+    parser_ttl = subparsers.add_parser('ttl', help='Trailing total returns (etfs, funds, stocks)')
+    parser_ttl.add_argument('ticker', help='Ticker')
+    parser_ttl.set_defaults(func=_parse_ttl_f)
+
+    parser_nav_ttl = subparsers.add_parser('nav-ttl', help='NAV trailing total returns (etfs, funds, stocks)')
+    parser_nav_ttl.add_argument('ticker', help='Ticker')
+    parser_nav_ttl.set_defaults(func=_parse_nav_ttl_f)
 
     parser_fund_ttl = subparsers.add_parser('fund-ttl', help='Trailing total returns (etfs, funds, stocks)')
     parser_fund_ttl.add_argument('ticker', help='Ticker')
