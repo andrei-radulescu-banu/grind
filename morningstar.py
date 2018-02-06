@@ -134,6 +134,39 @@ def stock_name(ticker):
 
     return ticker_name.encode("ascii", "ignore").decode("utf-8")
 
+
+def performance_history(ticker):
+    """
+    Description:
+    Get ETF, fund or stock performance history. For ETFs and stocks, this is 
+    based on price. For funds, this is based on NAV (net asset value).
+    
+    Parameters:
+    ticker - The etf, fund or stock ticker.
+
+    Returs: 
+    DataFrame with the performance history. 
+    Run 'morningstar.py pfh ticker' to see the result format.
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt == "ETF":
+        df = etf_performance_history(ticker)
+        df.drop(df.index[[1, 2, 3, 4, 5, 6]], inplace=True)
+        return df
+
+    if tt == "Fund":
+        df = etf_performance_history(ticker)
+        df.drop(df.index[[0, 2, 3, 4, 5, 6, 7]], inplace=True)
+        return df
+
+    if tt == "Stock":
+        df = stock_performance_history(ticker)
+        df.drop(df.index[[1, 2, 3, 4]], inplace=True)
+        return df
+
+    return None
+
 def etf_performance_history(ticker):
     """
     Description:
@@ -162,30 +195,6 @@ def etf_performance_history(ticker):
     df.fillna(value="", inplace=True)
 
     return df
-
-def performance_history(ticker):
-    """
-    Description:
-    Get ETF, fund or stock performance history. For ETFs and stocks, this is 
-    based on price. For funds, this is based on NAV (net asset value).
-    
-    Parameters:
-    ticker - The etf, fund or stock ticker.
-
-    Returs: 
-    DataFrame with the performance history. 
-    Run 'morningstar.py pfh ticker' to see the result format.
-    """
-    # Ticker check    
-    tt = ticker_type(ticker)
-    if tt == "ETF":
-        return None    
-
-    if tt == "Fund":
-        return None    
-
-    if tt == "Stock":
-        return None    
 
 def fund_performance_history(ticker):
     """
