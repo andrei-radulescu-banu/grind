@@ -52,14 +52,13 @@ def ticker_type(ticker):
 def fund_name(ticker):
     """
     Description:
-    The Morningstar URL for getting quotes for etfs, funds, stocks
+    Get a fund or ETF name
 
     Parameters:
-    ticker - The etf, fund, stock ticker.
+    ticker - The etf, fund ticker.
 
     Returns:
-    A string with value "ETF", "Fund", "Stock" or "" (in case the ticker is
-    neither an ETF, or fund, or stock)
+    The ticker name, "" (in case the ticker is neither an ETF, nor fund)
     """
 
     # Ticker check    
@@ -68,7 +67,7 @@ def fund_name(ticker):
         return None    
 
     # The Morningstar URL
-    url = "http://portfolios.morningstar.com/fund/summary?t="
+    url = "http://portfolios.morningstar.com/fund/summary?t=" + ticker
     
     # Get the page
     web_page = web.get_web_page(url, False)
@@ -76,11 +75,40 @@ def fund_name(ticker):
     # Parse the contents
     soup = BeautifulSoup(web_page, 'lxml')
 
-    print(web_page)
+    ticker_name = soup.find("div", class_="r_title").find_next("h1").getText()
 
-    # To do...
+    return ticker_name.encode("ascii", "ignore").decode("utf-8")
 
-    return ""
+
+def stock_name(ticker):
+    """
+    Description:
+    Get a stock name
+
+    Parameters:
+    ticker - The etf, fund ticker.
+
+    Returns:
+    The ticker name, "" (in case the ticker is neither an ETF, nor fund)
+    """
+
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Stock":
+        return None    
+
+    # The Morningstar URL
+    url = "http://performance.morningstar.com/stock/performance-return.action?t=" + ticker
+    
+    # Get the page
+    web_page = web.get_web_page(url, False)
+
+    # Parse the contents
+    soup = BeautifulSoup(web_page, 'lxml')
+
+    ticker_name = soup.find("div", class_="r_title").find_next("h1").getText()
+
+    return ticker_name.encode("ascii", "ignore").decode("utf-8")
 
 def etf_performance_history(ticker):
     """
@@ -868,6 +896,12 @@ def _parse_fund_name_f(args):
     if type != "":
         print(type)
 
+def _parse_stock_name_f(args):
+    type = stock_name(args.ticker)
+
+    if type != "":
+        print(type)
+
 def _parse_etf_pfh_f(args):
     df = etf_performance_history(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
@@ -942,9 +976,13 @@ if __name__ == "__main__":
     parser_ticker.add_argument('ticker', help='Ticker')
     parser_ticker.set_defaults(func=_parse_ticker_f)
 
-    parser_fund_name = subparsers.add_parser('fund-name', help='Get fund name')
+    parser_fund_name = subparsers.add_parser('fund-name', help='Get name: etf, fund')
     parser_fund_name.add_argument('ticker', help='Ticker')
     parser_fund_name.set_defaults(func=_parse_fund_name_f)
+
+    parser_stock_name = subparsers.add_parser('stock-name', help='Get name: stock')
+    parser_stock_name.add_argument('ticker', help='Ticker')
+    parser_stock_name.set_defaults(func=_parse_stock_name_f)
 
     parser_etf_pfh = subparsers.add_parser('etf-pfh', help='Performace history (etfs, funds)')
     parser_etf_pfh.add_argument('ticker', help='Ticker')

@@ -98,5 +98,14 @@ http://investors.morningstar.com/ownership/shareholders-buying.html?t=AFK
 
 http://investors.morningstar.com/ownership/shareholders-selling.html?t=AFK
 
+http://quotes.morningstar.com/stockq/c-news?&t=XNAS:FB
 
+http://quotes.morningstar.com/stockq/c-competitors?&t=XNAS:FB
 
+http://quotes.morningstar.com/stockq/c-company-profile?&t=XNAS:FB - Company profile including stock type, segment, industry
+
+http://quotes.morningstar.com/stockq/c-keystats?&t=XNAS:FB - Key statistics
+
+http://quotes.morningstar.com/stockq/c-financials?&t=XNAS:FB - financials
+
+http://performance.morningstar.com/stock/performance-return.action?t=FB
