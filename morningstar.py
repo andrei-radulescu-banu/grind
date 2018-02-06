@@ -49,6 +49,30 @@ def ticker_type(ticker):
     
     return ""
 
+def name(ticker):
+    """
+    Description:
+    Get ETF, fund or stock name
+
+    Parameters:
+    ticker - The etf, fund, stock ticker.
+
+    Returns:
+    The ticker name, "" (in case the ticker can't be resolved)
+    """
+
+    # Ticker check    
+    tt = ticker_type(ticker)
+
+    if tt == "Fund" or tt == "ETF":
+        return fund_name(ticker)
+    
+    if tt == "Stock":
+        return stock_name(ticker)
+    
+    return None    
+
+
 def fund_name(ticker):
     """
     Description:
@@ -890,6 +914,12 @@ def _parse_ticker_f(args):
     if type != "":
         print(type)
 
+def _parse_name_f(args):
+    type = name(args.ticker)
+
+    if type != "":
+        print(type)
+
 def _parse_fund_name_f(args):
     type = fund_name(args.ticker)
 
@@ -975,6 +1005,10 @@ if __name__ == "__main__":
     parser_ticker = subparsers.add_parser('ticker', help='Get ticker type: etf, fund, stock')
     parser_ticker.add_argument('ticker', help='Ticker')
     parser_ticker.set_defaults(func=_parse_ticker_f)
+
+    parser_name = subparsers.add_parser('name', help='Get name: etf, fund, stock')
+    parser_name.add_argument('ticker', help='Ticker')
+    parser_name.set_defaults(func=_parse_name_f)
 
     parser_fund_name = subparsers.add_parser('fund-name', help='Get name: etf, fund')
     parser_fund_name.add_argument('ticker', help='Ticker')
