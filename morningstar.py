@@ -163,6 +163,30 @@ def etf_performance_history(ticker):
 
     return df
 
+def performance_history(ticker):
+    """
+    Description:
+    Get ETF, fund or stock performance history. For ETFs and stocks, this is 
+    based on price. For funds, this is based on NAV (net asset value).
+    
+    Parameters:
+    ticker - The etf, fund or stock ticker.
+
+    Returs: 
+    DataFrame with the performance history. 
+    Run 'morningstar.py pfh ticker' to see the result format.
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt == "ETF":
+        return None    
+
+    if tt == "Fund":
+        return None    
+
+    if tt == "Stock":
+        return None    
+
 def fund_performance_history(ticker):
     """
     Description:
@@ -936,6 +960,10 @@ def _parse_etf_pfh_f(args):
     df = etf_performance_history(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
+def _parse_pfh_f(args):
+    df = performance_history(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
 def _parse_fund_pfh_f(args):
     df = fund_performance_history(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
@@ -1017,6 +1045,10 @@ if __name__ == "__main__":
     parser_stock_name = subparsers.add_parser('stock-name', help='Get name: stock')
     parser_stock_name.add_argument('ticker', help='Ticker')
     parser_stock_name.set_defaults(func=_parse_stock_name_f)
+
+    parser_pfh = subparsers.add_parser('pfh', help='Performace history (etfs, funds, stocks)')
+    parser_pfh.add_argument('ticker', help='Ticker')
+    parser_pfh.set_defaults(func=_parse_pfh_f)
 
     parser_etf_pfh = subparsers.add_parser('etf-pfh', help='Performace history (etfs, funds)')
     parser_etf_pfh.add_argument('ticker', help='Ticker')
