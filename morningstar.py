@@ -1058,49 +1058,46 @@ def stock_profile(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF":
+    if tt != "Stock":
         return None    
 
     # The Morningstar URL
-    url = "http://portfolios.morningstar.com/fund/summary?t="
+    url = "http://quotes.morningstar.com/stockq/c-company-profile?&t="
     
-    # Get the table
-    df = web.get_web_page_table(url + ticker, False, 6)
+    # Get the page
+    web_page = web.get_web_page(url + ticker, False)
 
-    df.fillna(value="", inplace=True)
+    # Parse the contents
+    soup = BeautifulSoup(web_page, 'lxml')
 
-    # Create new dataframe from rows 0, 2, 4, 6, 8, 10
-    df1 = pd.DataFrame(columns = range(4), 
-                       index = range(16))
+    df = pd.DataFrame(columns = range(1), 
+                      index = range(6))
+    
+    # Set the index
+    df['new_index'] = None
+    df['new_index'][0] = "Sector"
+    df['new_index'][1] = "Industry"
+    df['new_index'][2] = "Stock Type"
+    df['new_index'][3] = "Employees"
+    df['new_index'][4] = "Fiscal Year Ends"
+    df['new_index'][5] = "Stock Style"
 
-    df1.iloc[0] = df.iloc[0]
-    df1.iloc[1] = df.iloc[3]
-    df1.iloc[2] = df.iloc[5]
-    df1.iloc[3] = df.iloc[7]
-    df1.iloc[4] = df.iloc[9]
-    df1.iloc[5] = df.iloc[11]
-    df1.iloc[6] = df.iloc[13]
-    df1.iloc[7] = df.iloc[15]
-    df1.iloc[8] = df.iloc[17]
-    df1.iloc[9] = df.iloc[19]
-    df1.iloc[10] = df.iloc[21]
-    df1.iloc[11] = df.iloc[23]
-    df1.iloc[12] = df.iloc[25]
-    df1.iloc[13] = df.iloc[27]
-    df1.iloc[14] = df.iloc[32]
-    df1.iloc[15] = df.iloc[34]
+    # Promote the 'new_index' column as the new index
+    df2 = df.set_index('new_index')
+    df = df2
 
-    df = df1
+    # Clear the index name
+    df.index.name = ""
 
-    # For python 3 and later...
-    if (sys.version_info[0] >= 3):
-        # Fix the unprintable unicode characters
-        df1 = df.applymap(lambda x: unidecode.unidecode(str(x)))
-        df = df1
+    # Set the ticker name as column label
+    df.columns = [ticker.upper()]
 
-    # Promote 1st row and column as labels
-    df1 = web.dataframe_promote_1st_row_and_column_as_labels(df)
-    df = df1
+    df.iloc[0, 0] = soup.find_all("div", {"class": "gr_colm1"})[0].find("span", {"class": "gr_text7"}).getText().strip()
+    df.iloc[1, 0] = soup.find_all("div", {"class": "gr_colm1a"})[0].find("span", {"class": "gr_text7"}).getText().strip()
+    df.iloc[2, 0] = soup.find_all("div", {"class": "gr_colm1a"})[1].find("span", {"class": "gr_text7"}).getText().strip()
+    df.iloc[3, 0] = soup.find_all("div", {"class": "gr_colm1"})[1].find("span", {"class": "gr_text7"}).getText().strip()
+    df.iloc[4, 0] = soup.find_all("div", {"class": "gr_colm1a"})[2].find("span", {"class": "gr_text7"}).getText().strip()
+    df.iloc[5, 0] = soup.find_all("div", {"class": "gr_colm1a"})[3].find("span", {"class": "gr_text7"}).getText().strip()
 
     return df
 
