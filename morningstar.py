@@ -1101,6 +1101,37 @@ def stock_profile(ticker):
 
     return df
 
+def stock_competitors(ticker):
+    """
+    Description:
+    Get stock competitors.
+    
+    Parameters:
+    ticker - The stock ticker.
+
+    Returs: 
+    DataFrame with the stock competitors. 
+    Run 'morningstar.py stock-competitors ticker' to see the result format.
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Stock":
+        return None    
+
+    # The Morningstar URL
+    url = "http://quotes.morningstar.com/stockq/c-competitors?&t="
+    
+    # Get the table
+    df = web.get_web_page_table(url + ticker, False, 0)    
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+    df.rename(columns={ df.columns[3]: "TTM Sales $mil" }, inplace=True)
+    df.drop(df.index[0], inplace=True)
+    df.drop(df.columns[2], axis=1, inplace=True)
+
+    return df
+
 def _parse_ticker_f(args):
     type = ticker_type(args.ticker)
 
@@ -1207,6 +1238,10 @@ def _parse_reg(args):
 
 def _parse_stock_profile(args):
     df = stock_profile(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def _parse_stock_competitors(args):
+    df = stock_competitors(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
 if __name__ == "__main__":
@@ -1316,6 +1351,10 @@ if __name__ == "__main__":
     parser_stock_profile = subparsers.add_parser('stock-profile', help='Stock profile')
     parser_stock_profile.add_argument('ticker', help='Ticker')
     parser_stock_profile.set_defaults(func=_parse_stock_profile)
+
+    parser_stock_competitors = subparsers.add_parser('stock-competitors', help='Stock competitors')
+    parser_stock_competitors.add_argument('ticker', help='Ticker')
+    parser_stock_competitors.set_defaults(func=_parse_stock_competitors)
 
     args = parser.parse_args()
     args.func(args)
