@@ -1044,6 +1044,66 @@ def fund_market_regions(ticker):
 
     return df
 
+def stock_profile(ticker):
+    """
+    Description:
+    Get stock profile.
+    
+    Parameters:
+    ticker - The stock ticker.
+
+    Returs: 
+    DataFrame with the stock profile history. 
+    Run 'morningstar.py stock-profile ticker' to see the result format.
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "Fund" and tt != "ETF":
+        return None    
+
+    # The Morningstar URL
+    url = "http://portfolios.morningstar.com/fund/summary?t="
+    
+    # Get the table
+    df = web.get_web_page_table(url + ticker, False, 6)
+
+    df.fillna(value="", inplace=True)
+
+    # Create new dataframe from rows 0, 2, 4, 6, 8, 10
+    df1 = pd.DataFrame(columns = range(4), 
+                       index = range(16))
+
+    df1.iloc[0] = df.iloc[0]
+    df1.iloc[1] = df.iloc[3]
+    df1.iloc[2] = df.iloc[5]
+    df1.iloc[3] = df.iloc[7]
+    df1.iloc[4] = df.iloc[9]
+    df1.iloc[5] = df.iloc[11]
+    df1.iloc[6] = df.iloc[13]
+    df1.iloc[7] = df.iloc[15]
+    df1.iloc[8] = df.iloc[17]
+    df1.iloc[9] = df.iloc[19]
+    df1.iloc[10] = df.iloc[21]
+    df1.iloc[11] = df.iloc[23]
+    df1.iloc[12] = df.iloc[25]
+    df1.iloc[13] = df.iloc[27]
+    df1.iloc[14] = df.iloc[32]
+    df1.iloc[15] = df.iloc[34]
+
+    df = df1
+
+    # For python 3 and later...
+    if (sys.version_info[0] >= 3):
+        # Fix the unprintable unicode characters
+        df1 = df.applymap(lambda x: unidecode.unidecode(str(x)))
+        df = df1
+
+    # Promote 1st row and column as labels
+    df1 = web.dataframe_promote_1st_row_and_column_as_labels(df)
+    df = df1
+
+    return df
+
 def _parse_ticker_f(args):
     type = ticker_type(args.ticker)
 
@@ -1146,6 +1206,10 @@ def _parse_sect(args):
 
 def _parse_reg(args):
     df = fund_market_regions(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
+def _parse_stock_profile(args):
+    df = stock_profile(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
 if __name__ == "__main__":
@@ -1251,6 +1315,10 @@ if __name__ == "__main__":
     parser_reg = subparsers.add_parser('reg', help='World regions (etfs, funds)')
     parser_reg.add_argument('ticker', help='Ticker')
     parser_reg.set_defaults(func=_parse_reg)
+
+    parser_stock_profile = subparsers.add_parser('stock-profile', help='Stock profile')
+    parser_stock_profile.add_argument('ticker', help='Ticker')
+    parser_stock_profile.set_defaults(func=_parse_stock_profile)
 
     args = parser.parse_args()
     args.func(args)
