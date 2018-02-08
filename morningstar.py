@@ -25,9 +25,13 @@ def ticker_type(ticker):
     ticker - The etf, fund, stock ticker.
 
     Returns:
-    A string with value "ETF", "Fund", "Stock" or "" (in case the ticker is
-    neither an ETF, or fund, or stock)
+    A string with value "ETF", "Fund", "Stock", "Cash" 
+    (or "" in case the ticker is neither)
     """
+
+    # Special case for cash
+    if ticker.lower() == "cash":
+        return "Cash"
 
     if ticker not in _ticker_cache:
         # The Morningstar URL for funds
@@ -1250,7 +1254,7 @@ if __name__ == "__main__":
     # Subparsers
     subparsers = parser.add_subparsers(help='Sub-command help')
 
-    parser_ticker = subparsers.add_parser('ticker', help='Get ticker type: etf, fund, stock')
+    parser_ticker = subparsers.add_parser('ticker', help='Get ticker type: etf, fund, stock, cash')
     parser_ticker.add_argument('ticker', help='Ticker')
     parser_ticker.set_defaults(func=_parse_ticker_f)
 
