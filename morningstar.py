@@ -69,6 +69,10 @@ def name(ticker):
     if ticker in _name_cache:
         return(_name_cache[ticker])
 
+    # Should not contain spaces
+    if " " in ticker:
+        return None
+
     # Ticker check    
     tt = ticker_type(ticker)
 
