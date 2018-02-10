@@ -70,7 +70,7 @@ def name(ticker):
         return(_name_cache[ticker])
 
     # Should not contain spaces
-    if " " in ticker:
+    if "" in ticker:
         return None
 
     # Ticker check    
