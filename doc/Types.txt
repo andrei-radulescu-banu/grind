@@ -1336,25 +1336,25 @@ Financial metrics:
 
 - Company Attributes
     Employee Counts
-    Total Employees (Annual)
-    Full Time Employees (Annual)
-    Part Time Employees (Annual)
+        Total Employees (Annual)
+        Full Time Employees (Annual)
+        Part Time Employees (Annual)
     Employee Metrics
-    Assets Per Employee (Annual)
-    CFO Per Employee (Annual)
-    Enterprise Value Per Employee (Annual)
-    EBITDA Per Employee (Annual)
-    EBIT Per Employee (Annual)
-    GA Expense Per Employee (Annual)
-    Revenue Per Employee (Annual)
-    Market Cap Per Employee (Annual)
-    Net Income Per Employee (Annual)
-    Normalized Net Income Per Employee (Annual)
-    SGA Expense Per Employee (Annual)
-    Operating Expense Per Employee (Annual)
+        Assets Per Employee (Annual)
+        CFO Per Employee (Annual)
+        Enterprise Value Per Employee (Annual)
+        EBITDA Per Employee (Annual)
+        EBIT Per Employee (Annual)
+        GA Expense Per Employee (Annual)
+        Revenue Per Employee (Annual)
+        Market Cap Per Employee (Annual)
+        Net Income Per Employee (Annual)
+        Normalized Net Income Per Employee (Annual)
+        SGA Expense Per Employee (Annual)
+        Operating Expense Per Employee (Annual)
     Employee Growth
-    Employee Growth (Annual)
-    Employee Growth (5Y)
+        Employee Growth (Annual)
+        Employee Growth (5Y)
 
 - Fund/ETF Specific
     Assets
