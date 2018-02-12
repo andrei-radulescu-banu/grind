@@ -943,396 +943,396 @@ Financial metrics:
 
 - Estimates
     Calculations
-    PE Ratio (Forward)
-    PE Ratio (Forward 1y)
-    PS Ratio (Forward)
-    PS Ratio (Forward 1y)
-    EV to EBITDA (Forward)
-    EV to Revenues (Forward)
-    EV to Revenues (Forward 1y)
-    PEG Ratio (Forward)
-    PEG Ratio (Forward 1y)
-    Earnings Yield (Forward)
-    Earnings Yield (Forward 1y)
-    Earnings Surprise (Quarterly)
-    Earnings Surprise (Annual)
+        PE Ratio (Forward)
+        PE Ratio (Forward 1y)
+        PS Ratio (Forward)
+        PS Ratio (Forward 1y)
+        EV to EBITDA (Forward)
+        EV to Revenues (Forward)
+        EV to Revenues (Forward 1y)
+        PEG Ratio (Forward)
+        PEG Ratio (Forward 1y)
+        Earnings Yield (Forward)
+        Earnings Yield (Forward 1y)
+        Earnings Surprise (Quarterly)
+        Earnings Surprise (Annual)
     Price Target
-    Price Target
-    Price Target High
-    Price Target Low
-    Price Target Std Dev
-    Price Target Num Estimates
-    Price Target Upside (Daily)
+        Price Target
+        Price Target High
+        Price Target Low
+        Price Target Std Dev
+        Price Target Num Estimates
+        Price Target Upside (Daily)
     Consensus Recommendations
-    Consensus Recommendation
-    Buy Recommendations
-    Outperform Recommendations
-    Hold Recommendations
-    Underperform Recommendations
-    Sell Recommendations
-    No Opinion Recommendations
+        Consensus Recommendation
+        Buy Recommendations
+        Outperform Recommendations
+        Hold Recommendations
+        Underperform Recommendations
+        Sell Recommendations
+        No Opinion Recommendations
     Quarterly Estimates
-    Quarterly EPS Estimates
-    Quarterly Actual EPS
-    Quarterly EPS Surprise
-    Quarterly EPS GAAP Estimates
-    Quarterly Actual EPS GAAP
-    Quarterly EPS GAAP Surprise
-    Quarterly Revenue Estimates
-    Quarterly Actual Revenue
-    Quarterly Revenue Surprise
-    Quarterly EBITDA Estimates
-    Quarterly Actual EBITDA
-    Quarterly EBITDA Surprise
-    Quarterly EBITDA Margin Estimates
-    Quarterly Actual EBITDA Margin
-    Quarterly EBITDA Margin Surprise
+        Quarterly EPS Estimates
+        Quarterly Actual EPS
+        Quarterly EPS Surprise
+        Quarterly EPS GAAP Estimates
+        Quarterly Actual EPS GAAP
+        Quarterly EPS GAAP Surprise
+        Quarterly Revenue Estimates
+        Quarterly Actual Revenue
+        Quarterly Revenue Surprise
+        Quarterly EBITDA Estimates
+        Quarterly Actual EBITDA
+        Quarterly EBITDA Surprise
+        Quarterly EBITDA Margin Estimates
+        Quarterly Actual EBITDA Margin
+        Quarterly EBITDA Margin Surprise
     Annual Estimates
-    Annual EPS Estimates
-    Annual Actual EPS
-    Annual EPS Surprise
-    Annual EPS GAAP Estimates
-    Annual Actual EPS GAAP
-    Annual EPS GAAP Surprise
-    Annual Revenue Estimates
-    Annual Actual Revenue
-    Annual Revenue Surprise
-    Annual EBITDA Estimates
-    Annual Actual EBITDA
-    Annual EBITDA Surprise
-    Annual EBITDA Margin Estimates
-    Annual Actual EBITDA Margin
-    Annual EBITDA Margin Surprise
+        Annual EPS Estimates
+        Annual Actual EPS
+        Annual EPS Surprise
+        Annual EPS GAAP Estimates
+        Annual Actual EPS GAAP
+        Annual EPS GAAP Surprise
+        Annual Revenue Estimates
+        Annual Actual Revenue
+        Annual Revenue Surprise
+        Annual EBITDA Estimates
+        Annual Actual EBITDA
+        Annual EBITDA Surprise
+        Annual EBITDA Margin Estimates
+        Annual Actual EBITDA Margin
+        Annual EBITDA Margin Surprise
     EPS
-    EPS Estimates for Current Fiscal Year
-    EPS Estimates Std Dev for Current Fiscal Year
-    EPS Estimates Num Estimates for Current Fiscal Year
-    EPS Estimates for Next Fiscal Year
-    EPS Estimates Std Dev for Next Fiscal Year
-    EPS Estimates Num Estimates for Next Fiscal Year
-    EPS Estimates for 2 Fiscal Years Ahead
-    EPS Estimates Std Dev for 2 Fiscal Years Ahead
-    EPS Estimates Num Estimates for 2 Fiscal Years Ahead
-    EPS Estimates for Current Quarter
-    EPS Estimates Std Dev for Current Quarter
-    EPS Estimates Num Estimates for Current Quarter
-    EPS Estimates for Next Quarter
-    EPS Estimates Std Dev for Next Quarter
-    EPS Estimates Num Estimates for Next Quarter
-    EPS Estimates for 2 Quarters Ahead
-    EPS Estimates Std Dev for 2 Quarters Ahead
-    EPS Estimates Num Estimates for 2 Quarters Ahead
-    EPS Estimates for 3 Quarters Ahead
-    EPS Estimates Std Dev for 3 Quarters Ahead
-    EPS Estimates Num Estimates for 3 Quarters Ahead
-    EPS Estimates for 4 Quarters Ahead
-    EPS Estimates Std Dev for 4 Quarters Ahead
-    EPS Estimates Num Estimates for 4 Quarters Ahead
-    EPS LT Growth Estimates
-    EPS LT Growth Estimates Num Estimates
-    EPS LT Growth Estimates Std Dev
+        EPS Estimates for Current Fiscal Year
+        EPS Estimates Std Dev for Current Fiscal Year
+        EPS Estimates Num Estimates for Current Fiscal Year
+        EPS Estimates for Next Fiscal Year
+        EPS Estimates Std Dev for Next Fiscal Year
+        EPS Estimates Num Estimates for Next Fiscal Year
+        EPS Estimates for 2 Fiscal Years Ahead
+        EPS Estimates Std Dev for 2 Fiscal Years Ahead
+        EPS Estimates Num Estimates for 2 Fiscal Years Ahead
+        EPS Estimates for Current Quarter
+        EPS Estimates Std Dev for Current Quarter
+        EPS Estimates Num Estimates for Current Quarter
+        EPS Estimates for Next Quarter
+        EPS Estimates Std Dev for Next Quarter
+        EPS Estimates Num Estimates for Next Quarter
+        EPS Estimates for 2 Quarters Ahead
+        EPS Estimates Std Dev for 2 Quarters Ahead
+        EPS Estimates Num Estimates for 2 Quarters Ahead
+        EPS Estimates for 3 Quarters Ahead
+        EPS Estimates Std Dev for 3 Quarters Ahead
+        EPS Estimates Num Estimates for 3 Quarters Ahead
+        EPS Estimates for 4 Quarters Ahead
+        EPS Estimates Std Dev for 4 Quarters Ahead
+        EPS Estimates Num Estimates for 4 Quarters Ahead
+        EPS LT Growth Estimates
+        EPS LT Growth Estimates Num Estimates
+        EPS LT Growth Estimates Std Dev
     EPS Revisions
-    EPS Estimates for Current Fiscal Year, 7 Day % Change
-    EPS Estimates for Current Fiscal Year, 30 Day % Change
-    EPS Estimates for Current Fiscal Year, 60 Day % Change
-    EPS Estimates for Current Fiscal Year, 90 Day % Change
-    EPS Estimates for Current Fiscal Year, 180 Day % Change
-    EPS Estimates for Next Fiscal Year, 7 Day % Change
-    EPS Estimates for Next Fiscal Year, 30 Day % Change
-    EPS Estimates for Next Fiscal Year, 60 Day % Change
-    EPS Estimates for Next Fiscal Year, 90 Day % Change
-    EPS Estimates for Next Fiscal Year, 180 Day % Change
-    EPS Estimates for 2 Fiscal Years Ahead, 7 Day % Change
-    EPS Estimates for 2 Fiscal Years Ahead, 30 Day % Change
-    EPS Estimates for 2 Fiscal Years Ahead, 60 Day % Change
-    EPS Estimates for 2 Fiscal Years Ahead, 90 Day % Change
-    EPS Estimates for 2 Fiscal Years Ahead, 180 Day % Change
-    EPS Estimates for Current Quarter, 7 Day % Change
-    EPS Estimates for Current Quarter, 30 Day % Change
-    EPS Estimates for Current Quarter, 60 Day % Change
-    EPS Estimates for Current Quarter, 90 Day % Change
-    EPS Estimates for Current Quarter, 180 Day % Change
-    EPS Estimates for Next Quarter, 7 Day % Change
-    EPS Estimates for Next Quarter, 30 Day % Change
-    EPS Estimates for Next Quarter, 60 Day % Change
-    EPS Estimates for Next Quarter, 90 Day % Change
-    EPS Estimates for Next Quarter, 180 Day % Change
-    EPS Estimates for 2 Quarters Ahead, 7 Day % Change
-    EPS Estimates for 2 Quarters Ahead, 30 Day % Change
-    EPS Estimates for 2 Quarters Ahead, 60 Day % Change
-    EPS Estimates for 2 Quarters Ahead, 90 Day % Change
-    EPS Estimates for 2 Quarters Ahead, 180 Day % Change
+        EPS Estimates for Current Fiscal Year, 7 Day % Change
+        EPS Estimates for Current Fiscal Year, 30 Day % Change
+        EPS Estimates for Current Fiscal Year, 60 Day % Change
+        EPS Estimates for Current Fiscal Year, 90 Day % Change
+        EPS Estimates for Current Fiscal Year, 180 Day % Change
+        EPS Estimates for Next Fiscal Year, 7 Day % Change
+        EPS Estimates for Next Fiscal Year, 30 Day % Change
+        EPS Estimates for Next Fiscal Year, 60 Day % Change
+        EPS Estimates for Next Fiscal Year, 90 Day % Change
+        EPS Estimates for Next Fiscal Year, 180 Day % Change
+        EPS Estimates for 2 Fiscal Years Ahead, 7 Day % Change
+        EPS Estimates for 2 Fiscal Years Ahead, 30 Day % Change
+        EPS Estimates for 2 Fiscal Years Ahead, 60 Day % Change
+        EPS Estimates for 2 Fiscal Years Ahead, 90 Day % Change
+        EPS Estimates for 2 Fiscal Years Ahead, 180 Day % Change
+        EPS Estimates for Current Quarter, 7 Day % Change
+        EPS Estimates for Current Quarter, 30 Day % Change
+        EPS Estimates for Current Quarter, 60 Day % Change
+        EPS Estimates for Current Quarter, 90 Day % Change
+        EPS Estimates for Current Quarter, 180 Day % Change
+        EPS Estimates for Next Quarter, 7 Day % Change
+        EPS Estimates for Next Quarter, 30 Day % Change
+        EPS Estimates for Next Quarter, 60 Day % Change
+        EPS Estimates for Next Quarter, 90 Day % Change
+        EPS Estimates for Next Quarter, 180 Day % Change
+        EPS Estimates for 2 Quarters Ahead, 7 Day % Change
+        EPS Estimates for 2 Quarters Ahead, 30 Day % Change
+        EPS Estimates for 2 Quarters Ahead, 60 Day % Change
+        EPS Estimates for 2 Quarters Ahead, 90 Day % Change
+        EPS Estimates for 2 Quarters Ahead, 180 Day % Change
     EPS GAAP
-    EPS GAAP Estimates for Current Fiscal Year
-    EPS GAAP Estimates Std Dev for Current Fiscal Year
-    EPS GAAP Estimates Num Estimates for Current Fiscal Year
-    EPS GAAP Estimates for Next Fiscal Year
-    EPS GAAP Estimates Std Dev for Next Fiscal Year
-    EPS GAAP Estimates Num Estimates for Next Fiscal Year
-    EPS GAAP Estimates for 2 Fiscal Years Ahead
-    EPS GAAP Estimates Std Dev for 2 Fiscal Years Ahead
-    EPS GAAP Estimates Num Estimates for 2 Fiscal Years Ahead
-    EPS GAAP Estimates for Current Quarter
-    EPS GAAP Estimates Std Dev for Current Quarter
-    EPS GAAP Estimates Num Estimates for Current Quarter
-    EPS GAAP Estimates for Next Quarter
-    EPS GAAP Estimates Std Dev for Next Quarter
-    EPS GAAP Estimates Num Estimates for Next Quarter
-    EPS GAAP Estimates for 2 Quarters Ahead
-    EPS GAAP Estimates Std Dev for 2 Quarters Ahead
-    EPS GAAP Estimates Num Estimates for 2 Quarters Ahead
-    EPS GAAP Estimates for 3 Quarters Ahead
-    EPS GAAP Estimates Std Dev for 3 Quarters Ahead
-    EPS GAAP Estimates Num Estimates for 3 Quarters Ahead
-    EPS GAAP Estimates for 4 Quarters Ahead
-    EPS GAAP Estimates Std Dev for 4 Quarters Ahead
-    EPS GAAP Estimates Num Estimates for 4 Quarters Ahead
+        EPS GAAP Estimates for Current Fiscal Year
+        EPS GAAP Estimates Std Dev for Current Fiscal Year
+        EPS GAAP Estimates Num Estimates for Current Fiscal Year
+        EPS GAAP Estimates for Next Fiscal Year
+        EPS GAAP Estimates Std Dev for Next Fiscal Year
+        EPS GAAP Estimates Num Estimates for Next Fiscal Year
+        EPS GAAP Estimates for 2 Fiscal Years Ahead
+        EPS GAAP Estimates Std Dev for 2 Fiscal Years Ahead
+        EPS GAAP Estimates Num Estimates for 2 Fiscal Years Ahead
+        EPS GAAP Estimates for Current Quarter
+        EPS GAAP Estimates Std Dev for Current Quarter
+        EPS GAAP Estimates Num Estimates for Current Quarter
+        EPS GAAP Estimates for Next Quarter
+        EPS GAAP Estimates Std Dev for Next Quarter
+        EPS GAAP Estimates Num Estimates for Next Quarter
+        EPS GAAP Estimates for 2 Quarters Ahead
+        EPS GAAP Estimates Std Dev for 2 Quarters Ahead
+        EPS GAAP Estimates Num Estimates for 2 Quarters Ahead
+        EPS GAAP Estimates for 3 Quarters Ahead
+        EPS GAAP Estimates Std Dev for 3 Quarters Ahead
+        EPS GAAP Estimates Num Estimates for 3 Quarters Ahead
+        EPS GAAP Estimates for 4 Quarters Ahead
+        EPS GAAP Estimates Std Dev for 4 Quarters Ahead
+        EPS GAAP Estimates Num Estimates for 4 Quarters Ahead
     EPS GAAP Revisions
-    EPS GAAP Estimates for Current Fiscal Year, 7 Day % Change
-    EPS GAAP Estimates for Current Fiscal Year, 30 Day % Change
-    EPS GAAP Estimates for Current Fiscal Year, 60 Day % Change
-    EPS GAAP Estimates for Current Fiscal Year, 90 Day % Change
-    EPS GAAP Estimates for Current Fiscal Year, 180 Day % Change
-    EPS GAAP Estimates for Next Fiscal Year, 7 Day % Change
-    EPS GAAP Estimates for Next Fiscal Year, 30 Day % Change
-    EPS GAAP Estimates for Next Fiscal Year, 60 Day % Change
-    EPS GAAP Estimates for Next Fiscal Year, 90 Day % Change
-    EPS GAAP Estimates for Next Fiscal Year, 180 Day % Change
-    EPS GAAP Estimates for 2 Fiscal Years Ahead, 7 Day % Change
-    EPS GAAP Estimates for 2 Fiscal Years Ahead, 30 Day % Change
-    EPS GAAP Estimates for 2 Fiscal Years Ahead, 60 Day % Change
-    EPS GAAP Estimates for 2 Fiscal Years Ahead, 90 Day % Change
-    EPS GAAP Estimates for 2 Fiscal Years Ahead, 180 Day % Change
-    EPS GAAP Estimates for Current Quarter, 7 Day % Change
-    EPS GAAP Estimates for Current Quarter, 30 Day % Change
-    EPS GAAP Estimates for Current Quarter, 60 Day % Change
-    EPS GAAP Estimates for Current Quarter, 90 Day % Change
-    EPS GAAP Estimates for Current Quarter, 180 Day % Change
-    EPS GAAP Estimates for Next Quarter, 7 Day % Change
-    EPS GAAP Estimates for Next Quarter, 30 Day % Change
-    EPS GAAP Estimates for Next Quarter, 60 Day % Change
-    EPS GAAP Estimates for Next Quarter, 90 Day % Change
-    EPS GAAP Estimates for Next Quarter, 180 Day % Change
-    EPS GAAP Estimates for 2 Quarters Ahead, 7 Day % Change
-    EPS GAAP Estimates for 2 Quarters Ahead, 30 Day % Change
-    EPS GAAP Estimates for 2 Quarters Ahead, 60 Day % Change
-    EPS GAAP Estimates for 2 Quarters Ahead, 90 Day % Change
-    EPS GAAP Estimates for 2 Quarters Ahead, 180 Day % Change
+        EPS GAAP Estimates for Current Fiscal Year, 7 Day % Change
+        EPS GAAP Estimates for Current Fiscal Year, 30 Day % Change
+        EPS GAAP Estimates for Current Fiscal Year, 60 Day % Change
+        EPS GAAP Estimates for Current Fiscal Year, 90 Day % Change
+        EPS GAAP Estimates for Current Fiscal Year, 180 Day % Change
+        EPS GAAP Estimates for Next Fiscal Year, 7 Day % Change
+        EPS GAAP Estimates for Next Fiscal Year, 30 Day % Change
+        EPS GAAP Estimates for Next Fiscal Year, 60 Day % Change
+        EPS GAAP Estimates for Next Fiscal Year, 90 Day % Change
+        EPS GAAP Estimates for Next Fiscal Year, 180 Day % Change
+        EPS GAAP Estimates for 2 Fiscal Years Ahead, 7 Day % Change
+        EPS GAAP Estimates for 2 Fiscal Years Ahead, 30 Day % Change
+        EPS GAAP Estimates for 2 Fiscal Years Ahead, 60 Day % Change
+        EPS GAAP Estimates for 2 Fiscal Years Ahead, 90 Day % Change
+        EPS GAAP Estimates for 2 Fiscal Years Ahead, 180 Day % Change
+        EPS GAAP Estimates for Current Quarter, 7 Day % Change
+        EPS GAAP Estimates for Current Quarter, 30 Day % Change
+        EPS GAAP Estimates for Current Quarter, 60 Day % Change
+        EPS GAAP Estimates for Current Quarter, 90 Day % Change
+        EPS GAAP Estimates for Current Quarter, 180 Day % Change
+        EPS GAAP Estimates for Next Quarter, 7 Day % Change
+        EPS GAAP Estimates for Next Quarter, 30 Day % Change
+        EPS GAAP Estimates for Next Quarter, 60 Day % Change
+        EPS GAAP Estimates for Next Quarter, 90 Day % Change
+        EPS GAAP Estimates for Next Quarter, 180 Day % Change
+        EPS GAAP Estimates for 2 Quarters Ahead, 7 Day % Change
+        EPS GAAP Estimates for 2 Quarters Ahead, 30 Day % Change
+        EPS GAAP Estimates for 2 Quarters Ahead, 60 Day % Change
+        EPS GAAP Estimates for 2 Quarters Ahead, 90 Day % Change
+        EPS GAAP Estimates for 2 Quarters Ahead, 180 Day % Change
     Sales
-    Revenue Estimates for Current Fiscal Year
-    Revenue Estimates Std Dev for Current Fiscal Year
-    Revenue Estimates Num Estimates for Current Fiscal Year
-    Revenue Estimates for Next Fiscal Year
-    Revenue Estimates Std Dev for Next Fiscal Year
-    Revenue Estimates Num Estimates for Next Fiscal Year
-    Revenue Estimates for 2 Fiscal Years Ahead
-    Revenue Estimates Std Dev for 2 Fiscal Years Ahead
-    Revenue Estimates Num Estimates for 2 Fiscal Years Ahead
-    Revenue Estimates for Current Quarter
-    Revenue Estimates Std Dev for Current Quarter
-    Revenue Estimates Num Estimates for Current Quarter
-    Revenue Estimates for Next Quarter
-    Revenue Estimates Std Dev for Next Quarter
-    Revenue Estimates Num Estimates for Next Quarter
-    Revenue Estimates for 2 Quarters Ahead
-    Revenue Estimates Std Dev for 2 Quarters Ahead
-    Revenue Estimates Num Estimates for 2 Quarters Ahead
-    Revenue Estimates for 3 Quarters Ahead
-    Revenue Estimates Std Dev for 3 Quarters Ahead
-    Revenue Estimates Num Estimates for 3 Quarters Ahead
-    Revenue Estimates for 4 Quarters Ahead
-    Revenue Estimates Std Dev for 4 Quarters Ahead
-    Revenue Estimates Num Estimates for 4 Quarters Ahead
+        Revenue Estimates for Current Fiscal Year
+        Revenue Estimates Std Dev for Current Fiscal Year
+        Revenue Estimates Num Estimates for Current Fiscal Year
+        Revenue Estimates for Next Fiscal Year
+        Revenue Estimates Std Dev for Next Fiscal Year
+        Revenue Estimates Num Estimates for Next Fiscal Year
+        Revenue Estimates for 2 Fiscal Years Ahead
+        Revenue Estimates Std Dev for 2 Fiscal Years Ahead
+        Revenue Estimates Num Estimates for 2 Fiscal Years Ahead
+        Revenue Estimates for Current Quarter
+        Revenue Estimates Std Dev for Current Quarter
+        Revenue Estimates Num Estimates for Current Quarter
+        Revenue Estimates for Next Quarter
+        Revenue Estimates Std Dev for Next Quarter
+        Revenue Estimates Num Estimates for Next Quarter
+        Revenue Estimates for 2 Quarters Ahead
+        Revenue Estimates Std Dev for 2 Quarters Ahead
+        Revenue Estimates Num Estimates for 2 Quarters Ahead
+        Revenue Estimates for 3 Quarters Ahead
+        Revenue Estimates Std Dev for 3 Quarters Ahead
+        Revenue Estimates Num Estimates for 3 Quarters Ahead
+        Revenue Estimates for 4 Quarters Ahead
+        Revenue Estimates Std Dev for 4 Quarters Ahead
+        Revenue Estimates Num Estimates for 4 Quarters Ahead
     Sales Revisions
-    Revenue Estimates for Current Fiscal Year, 7 Day % Change
-    Revenue Estimates for Current Fiscal Year, 30 Day % Change
-    Revenue Estimates for Current Fiscal Year, 60 Day % Change
-    Revenue Estimates for Current Fiscal Year, 90 Day % Change
-    Revenue Estimates for Current Fiscal Year, 180 Day % Change
-    Revenue Estimates for Next Fiscal Year, 7 Day % Change
-    Revenue Estimates for Next Fiscal Year, 30 Day % Change
-    Revenue Estimates for Next Fiscal Year, 60 Day % Change
-    Revenue Estimates for Next Fiscal Year, 90 Day % Change
-    Revenue Estimates for Next Fiscal Year, 180 Day % Change
-    Revenue Estimates for 2 Fiscal Years Ahead, 7 Day % Change
-    Revenue Estimates for 2 Fiscal Years Ahead, 30 Day % Change
-    Revenue Estimates for 2 Fiscal Years Ahead, 60 Day % Change
-    Revenue Estimates for 2 Fiscal Years Ahead, 90 Day % Change
-    Revenue Estimates for 2 Fiscal Years Ahead, 180 Day % Change
-    Revenue Estimates for Current Quarter, 7 Day % Change
-    Revenue Estimates for Current Quarter, 30 Day % Change
-    Revenue Estimates for Current Quarter, 60 Day % Change
-    Revenue Estimates for Current Quarter, 90 Day % Change
-    Revenue Estimates for Current Quarter, 180 Day % Change
-    Revenue Estimates for Next Quarter, 7 Day % Change
-    Revenue Estimates for Next Quarter, 30 Day % Change
-    Revenue Estimates for Next Quarter, 60 Day % Change
-    Revenue Estimates for Next Quarter, 90 Day % Change
-    Revenue Estimates for Next Quarter, 180 Day % Change
-    Revenue Estimates for 2 Quarters Ahead, 7 Day % Change
-    Revenue Estimates for 2 Quarters Ahead, 30 Day % Change
-    Revenue Estimates for 2 Quarters Ahead, 60 Day % Change
-    Revenue Estimates for 2 Quarters Ahead, 90 Day % Change
-    Revenue Estimates for 2 Quarters Ahead, 180 Day % Change
+        Revenue Estimates for Current Fiscal Year, 7 Day % Change
+        Revenue Estimates for Current Fiscal Year, 30 Day % Change
+        Revenue Estimates for Current Fiscal Year, 60 Day % Change
+        Revenue Estimates for Current Fiscal Year, 90 Day % Change
+        Revenue Estimates for Current Fiscal Year, 180 Day % Change
+        Revenue Estimates for Next Fiscal Year, 7 Day % Change
+        Revenue Estimates for Next Fiscal Year, 30 Day % Change
+        Revenue Estimates for Next Fiscal Year, 60 Day % Change
+        Revenue Estimates for Next Fiscal Year, 90 Day % Change
+        Revenue Estimates for Next Fiscal Year, 180 Day % Change
+        Revenue Estimates for 2 Fiscal Years Ahead, 7 Day % Change
+        Revenue Estimates for 2 Fiscal Years Ahead, 30 Day % Change
+        Revenue Estimates for 2 Fiscal Years Ahead, 60 Day % Change
+        Revenue Estimates for 2 Fiscal Years Ahead, 90 Day % Change
+        Revenue Estimates for 2 Fiscal Years Ahead, 180 Day % Change
+        Revenue Estimates for Current Quarter, 7 Day % Change
+        Revenue Estimates for Current Quarter, 30 Day % Change
+        Revenue Estimates for Current Quarter, 60 Day % Change
+        Revenue Estimates for Current Quarter, 90 Day % Change
+        Revenue Estimates for Current Quarter, 180 Day % Change
+        Revenue Estimates for Next Quarter, 7 Day % Change
+        Revenue Estimates for Next Quarter, 30 Day % Change
+        Revenue Estimates for Next Quarter, 60 Day % Change
+        Revenue Estimates for Next Quarter, 90 Day % Change
+        Revenue Estimates for Next Quarter, 180 Day % Change
+        Revenue Estimates for 2 Quarters Ahead, 7 Day % Change
+        Revenue Estimates for 2 Quarters Ahead, 30 Day % Change
+        Revenue Estimates for 2 Quarters Ahead, 60 Day % Change
+        Revenue Estimates for 2 Quarters Ahead, 90 Day % Change
+        Revenue Estimates for 2 Quarters Ahead, 180 Day % Change
     EBITDA
-    EBITDA Estimates for Current Fiscal Year
-    EBITDA Estimates Std Dev for Current Fiscal Year
-    EBITDA Estimates Num Estimates for Current Fiscal Year
-    EBITDA Estimates for Next Fiscal Year
-    EBITDA Estimates Std Dev for Next Fiscal Year
-    EBITDA Estimates Num Estimates for Next Fiscal Year
-    EBITDA Estimates for 2 Fiscal Years Ahead
-    EBITDA Estimates Std Dev for 2 Fiscal Years Ahead
-    EBITDA Estimates Num Estimates for 2 Fiscal Years Ahead
-    EBITDA Estimates for Current Quarter
-    EBITDA Estimates Std Dev for Current Quarter
-    EBITDA Estimates Num Estimates for Current Quarter
-    EBITDA Estimates for Next Quarter
-    EBITDA Estimates Std Dev for Next Quarter
-    EBITDA Estimates Num Estimates for Next Quarter
-    EBITDA Estimates for 2 Quarters Ahead
-    EBITDA Estimates Std Dev for 2 Quarters Ahead
-    EBITDA Estimates Num Estimates for 2 Quarters Ahead
-    EBITDA Estimates for 3 Quarters Ahead
-    EBITDA Estimates Std Dev for 3 Quarters Ahead
-    EBITDA Estimates Num Estimates for 3 Quarters Ahead
-    EBITDA Estimates for 4 Quarters Ahead
-    EBITDA Estimates Std Dev for 4 Quarters Ahead
-    EBITDA Estimates Num Estimates for 4 Quarters Ahead
+        EBITDA Estimates for Current Fiscal Year
+        EBITDA Estimates Std Dev for Current Fiscal Year
+        EBITDA Estimates Num Estimates for Current Fiscal Year
+        EBITDA Estimates for Next Fiscal Year
+        EBITDA Estimates Std Dev for Next Fiscal Year
+        EBITDA Estimates Num Estimates for Next Fiscal Year
+        EBITDA Estimates for 2 Fiscal Years Ahead
+        EBITDA Estimates Std Dev for 2 Fiscal Years Ahead
+        EBITDA Estimates Num Estimates for 2 Fiscal Years Ahead
+        EBITDA Estimates for Current Quarter
+        EBITDA Estimates Std Dev for Current Quarter
+        EBITDA Estimates Num Estimates for Current Quarter
+        EBITDA Estimates for Next Quarter
+        EBITDA Estimates Std Dev for Next Quarter
+        EBITDA Estimates Num Estimates for Next Quarter
+        EBITDA Estimates for 2 Quarters Ahead
+        EBITDA Estimates Std Dev for 2 Quarters Ahead
+        EBITDA Estimates Num Estimates for 2 Quarters Ahead
+        EBITDA Estimates for 3 Quarters Ahead
+        EBITDA Estimates Std Dev for 3 Quarters Ahead
+        EBITDA Estimates Num Estimates for 3 Quarters Ahead
+        EBITDA Estimates for 4 Quarters Ahead
+        EBITDA Estimates Std Dev for 4 Quarters Ahead
+        EBITDA Estimates Num Estimates for 4 Quarters Ahead
     EBITDA Revisions
-    EBITDA Estimates for Current Fiscal Year, 7 Day % Change
-    EBITDA Estimates for Current Fiscal Year, 30 Day % Change
-    EBITDA Estimates for Current Fiscal Year, 60 Day % Change
-    EBITDA Estimates for Current Fiscal Year, 90 Day % Change
-    EBITDA Estimates for Current Fiscal Year, 180 Day % Change
-    EBITDA Estimates for Next Fiscal Year, 7 Day % Change
-    EBITDA Estimates for Next Fiscal Year, 30 Day % Change
-    EBITDA Estimates for Next Fiscal Year, 60 Day % Change
-    EBITDA Estimates for Next Fiscal Year, 90 Day % Change
-    EBITDA Estimates for Next Fiscal Year, 180 Day % Change
-    EBITDA Estimates for 2 Fiscal Years Ahead, 7 Day % Change
-    EBITDA Estimates for 2 Fiscal Years Ahead, 30 Day % Change
-    EBITDA Estimates for 2 Fiscal Years Ahead, 60 Day % Change
-    EBITDA Estimates for 2 Fiscal Years Ahead, 90 Day % Change
-    EBITDA Estimates for 2 Fiscal Years Ahead, 180 Day % Change
-    EBITDA Estimates for Current Quarter, 7 Day % Change
-    EBITDA Estimates for Current Quarter, 30 Day % Change
-    EBITDA Estimates for Current Quarter, 60 Day % Change
-    EBITDA Estimates for Current Quarter, 90 Day % Change
-    EBITDA Estimates for Current Quarter, 180 Day % Change
-    EBITDA Estimates for Next Quarter, 7 Day % Change
-    EBITDA Estimates for Next Quarter, 30 Day % Change
-    EBITDA Estimates for Next Quarter, 60 Day % Change
-    EBITDA Estimates for Next Quarter, 90 Day % Change
-    EBITDA Estimates for Next Quarter, 180 Day % Change
-    EBITDA Estimates for 2 Quarters Ahead, 7 Day % Change
-    EBITDA Estimates for 2 Quarters Ahead, 30 Day % Change
-    EBITDA Estimates for 2 Quarters Ahead, 60 Day % Change
-    EBITDA Estimates for 2 Quarters Ahead, 90 Day % Change
-    EBITDA Estimates for 2 Quarters Ahead, 180 Day % Change
+        EBITDA Estimates for Current Fiscal Year, 7 Day % Change
+        EBITDA Estimates for Current Fiscal Year, 30 Day % Change
+        EBITDA Estimates for Current Fiscal Year, 60 Day % Change
+        EBITDA Estimates for Current Fiscal Year, 90 Day % Change
+        EBITDA Estimates for Current Fiscal Year, 180 Day % Change
+        EBITDA Estimates for Next Fiscal Year, 7 Day % Change
+        EBITDA Estimates for Next Fiscal Year, 30 Day % Change
+        EBITDA Estimates for Next Fiscal Year, 60 Day % Change
+        EBITDA Estimates for Next Fiscal Year, 90 Day % Change
+        EBITDA Estimates for Next Fiscal Year, 180 Day % Change
+        EBITDA Estimates for 2 Fiscal Years Ahead, 7 Day % Change
+        EBITDA Estimates for 2 Fiscal Years Ahead, 30 Day % Change
+        EBITDA Estimates for 2 Fiscal Years Ahead, 60 Day % Change
+        EBITDA Estimates for 2 Fiscal Years Ahead, 90 Day % Change
+        EBITDA Estimates for 2 Fiscal Years Ahead, 180 Day % Change
+        EBITDA Estimates for Current Quarter, 7 Day % Change
+        EBITDA Estimates for Current Quarter, 30 Day % Change
+        EBITDA Estimates for Current Quarter, 60 Day % Change
+        EBITDA Estimates for Current Quarter, 90 Day % Change
+        EBITDA Estimates for Current Quarter, 180 Day % Change
+        EBITDA Estimates for Next Quarter, 7 Day % Change
+        EBITDA Estimates for Next Quarter, 30 Day % Change
+        EBITDA Estimates for Next Quarter, 60 Day % Change
+        EBITDA Estimates for Next Quarter, 90 Day % Change
+        EBITDA Estimates for Next Quarter, 180 Day % Change
+        EBITDA Estimates for 2 Quarters Ahead, 7 Day % Change
+        EBITDA Estimates for 2 Quarters Ahead, 30 Day % Change
+        EBITDA Estimates for 2 Quarters Ahead, 60 Day % Change
+        EBITDA Estimates for 2 Quarters Ahead, 90 Day % Change
+        EBITDA Estimates for 2 Quarters Ahead, 180 Day % Change
     EBITDA Margin
-    EBITDA Margin Estimates for Current Fiscal Year
-    EBITDA Margin Estimates for Next Fiscal Year
-    EBITDA Margin Estimates for 2 Fiscal Years Ahead
-    EBITDA Margin Estimates for Current Quarter
-    EBITDA Margin Estimates for Next Quarter
-    EBITDA Margin Estimates for 2 Quarters Ahead
-    EBITDA Margin Estimates for 3 Quarters Ahead
-    EBITDA Margin Estimates for 4 Quarters Ahead
+        EBITDA Margin Estimates for Current Fiscal Year
+        EBITDA Margin Estimates for Next Fiscal Year
+        EBITDA Margin Estimates for 2 Fiscal Years Ahead
+        EBITDA Margin Estimates for Current Quarter
+        EBITDA Margin Estimates for Next Quarter
+        EBITDA Margin Estimates for 2 Quarters Ahead
+        EBITDA Margin Estimates for 3 Quarters Ahead
+        EBITDA Margin Estimates for 4 Quarters Ahead
     Growth
-    EPS Growth Estimate for Current Quarter
-    EPS Growth Estimate for Current Fiscal Year
+        EPS Growth Estimate for Current Quarter
+        EPS Growth Estimate for Current Fiscal Year
 
 - Risk
     Alpha
-    Alpha (1Y)
-    Alpha (3Y)
-    Alpha (5Y)
+        Alpha (1Y)
+        Alpha (3Y)
+        Alpha (5Y)
     Beta and CAPM
-    CAPM Expected Return
-    Beta (1Y)
-    Beta (3Y)
-    Beta (5Y)
+        CAPM Expected Return
+        Beta (1Y)
+        Beta (3Y)
+        Beta (5Y)
     Value at Risk (Daily)
-    Daily Value at Risk (VaR) 5% (10Y Lookback)
-    Daily Value at Risk (VaR) 5% (3Y Lookback)
-    Daily Value at Risk (VaR) 5% (5Y Lookback)
-    Daily Value at Risk (VaR) 5% (All)
-    Daily Value at Risk (VaR) 1% (10Y Lookback)
-    Daily Value at Risk (VaR) 1% (3Y Lookback)
-    Daily Value at Risk (VaR) 1% (5Y Lookback)
-    Daily Value at Risk (VaR) 1% (All)
+        Daily Value at Risk (VaR) 5% (10Y Lookback)
+        Daily Value at Risk (VaR) 5% (3Y Lookback)
+        Daily Value at Risk (VaR) 5% (5Y Lookback)
+        Daily Value at Risk (VaR) 5% (All)
+        Daily Value at Risk (VaR) 1% (10Y Lookback)
+        Daily Value at Risk (VaR) 1% (3Y Lookback)
+        Daily Value at Risk (VaR) 1% (5Y Lookback)
+        Daily Value at Risk (VaR) 1% (All)
     Value at Risk (Monthly)
-    Monthly Value at Risk (VaR) 5% (10Y Lookback)
-    Monthly Value at Risk (VaR) 5% (3Y Lookback)
-    Monthly Value at Risk (VaR) 5% (5Y Lookback)
-    Monthly Value at Risk (VaR) 5% (All)
-    Monthly Value at Risk (VaR) 1% (10Y Lookback)
-    Monthly Value at Risk (VaR) 1% (3Y Lookback)
-    Monthly Value at Risk (VaR) 1% (5Y Lookback)
-    Monthly Value at Risk (VaR) 1% (All)
+        Monthly Value at Risk (VaR) 5% (10Y Lookback)
+        Monthly Value at Risk (VaR) 5% (3Y Lookback)
+        Monthly Value at Risk (VaR) 5% (5Y Lookback)
+        Monthly Value at Risk (VaR) 5% (All)
+        Monthly Value at Risk (VaR) 1% (10Y Lookback)
+        Monthly Value at Risk (VaR) 1% (3Y Lookback)
+        Monthly Value at Risk (VaR) 1% (5Y Lookback)
+        Monthly Value at Risk (VaR) 1% (All)
     Standard Deviation of Price (Daily)
-    Standard Deviation of Daily Price Returns (10Y Lookback)
-    Standard Deviation of Daily Price Returns (1y Lookback)
-    Standard Deviation of Daily Price Returns (3Y Lookback)
-    Standard Deviation of Daily Price Returns (5Y Lookback)
-    Standard Deviation of Daily Price Returns (All)
+        Standard Deviation of Daily Price Returns (10Y Lookback)
+        Standard Deviation of Daily Price Returns (1y Lookback)
+        Standard Deviation of Daily Price Returns (3Y Lookback)
+        Standard Deviation of Daily Price Returns (5Y Lookback)
+        Standard Deviation of Daily Price Returns (All)
     Standard Deviation of Price (Monthly)
-    Standard Deviation of Monthly Price Returns (10Y Lookback)
-    Standard Deviation of Monthly Price Returns (1y Lookback)
-    Standard Deviation of Monthly Price Returns (3Y Lookback)
-    Standard Deviation of Monthly Price Returns (5Y Lookback)
-    Standard Deviation of Monthly Price Returns (All)
-    Downside Deviation of Monthly Price Returns (10Y Lookback)
-    Downside Deviation of Monthly Price Returns (5Y Lookback)
+        Standard Deviation of Monthly Price Returns (10Y Lookback)
+        Standard Deviation of Monthly Price Returns (1y Lookback)
+        Standard Deviation of Monthly Price Returns (3Y Lookback)
+        Standard Deviation of Monthly Price Returns (5Y Lookback)
+        Standard Deviation of Monthly Price Returns (All)
+        Downside Deviation of Monthly Price Returns (10Y Lookback)
+        Downside Deviation of Monthly Price Returns (5Y Lookback)
     Annualized Standard Deviation of Price (Monthly)
-    Annualized Standard Deviation of Monthly Price Returns (10Y Lookback)
-    Annualized Standard Deviation of Monthly Price Returns (1y Lookback)
-    Annualized Standard Deviation of Monthly Price Returns (3Y Lookback)
-    Annualized Standard Deviation of Monthly Price Returns (5Y Lookback)
-    Annualized Standard Deviation of Monthly Price Returns (All)
+        Annualized Standard Deviation of Monthly Price Returns (10Y Lookback)
+        Annualized Standard Deviation of Monthly Price Returns (1y Lookback)
+        Annualized Standard Deviation of Monthly Price Returns (3Y Lookback)
+        Annualized Standard Deviation of Monthly Price Returns (5Y Lookback)
+        Annualized Standard Deviation of Monthly Price Returns (All)
     Sharpe Metrics
-    Expected Sharpe (All)
-    Historical Sharpe (5Y)
-    Historical Sharpe (3Y)
-    Historical Sharpe (10Y)
+        Expected Sharpe (All)
+        Historical Sharpe (5Y)
+        Historical Sharpe (3Y)
+        Historical Sharpe (10Y)
     Sortino Metrics
-    Expected Sortino (All)
-    Historical Sortino (3Y)
-    Historical Sortino (5Y)
-    Historical Sortino (10Y)
-    Historical Sortino (All)
+        Expected Sortino (All)
+        Historical Sortino (3Y)
+        Historical Sortino (5Y)
+        Historical Sortino (10Y)
+        Historical Sortino (All)
     Treynor Measure
-    Expected Treynor Measure (All)
-    Treynor Measure Historical (10y)
-    Treynor Measure Historical (3y)
-    Treynor Measure Historical (5y)
-    Treynor Measure Historical (All)
+        Expected Treynor Measure (All)
+        Treynor Measure Historical (10y)
+        Treynor Measure Historical (3y)
+        Treynor Measure Historical (5y)
+        Treynor Measure Historical (All)
     Maximum Drawdowns and Calmar Ratio
-    Max Drawdown (All)
-    Max Drawdown (3Y)
-    Max Drawdown (5Y)
-    Max Drawdown (10Y)
-    Calmar Ratio (3Y)
-    Calmar Ratio (5Y)
+        Max Drawdown (All)
+        Max Drawdown (3Y)
+        Max Drawdown (5Y)
+        Max Drawdown (10Y)
+        Calmar Ratio (3Y)
+        Calmar Ratio (5Y)
     Expected Shortfalls (Daily)
-    Historical Daily Expected Shortfall 5% (All)
-    Historical Daily Expected Shortfall 5% (3Y Lookback)
-    Historical Daily Expected Shortfall 5% (5Y Lookback)
-    Historical Daily Expected Shortfall 5% (10Y Lookback)
-    Historical Daily Expected Shortfall 1% (All)
-    Historical Daily Expected Shortfall 1% (3Y Lookback)
-    Historical Daily Expected Shortfall 1% (5Y Lookback)
-    Historical Daily Expected Shortfall 1% (10Y Lookback)
+        Historical Daily Expected Shortfall 5% (All)
+        Historical Daily Expected Shortfall 5% (3Y Lookback)
+        Historical Daily Expected Shortfall 5% (5Y Lookback)
+        Historical Daily Expected Shortfall 5% (10Y Lookback)
+        Historical Daily Expected Shortfall 1% (All)
+        Historical Daily Expected Shortfall 1% (3Y Lookback)
+        Historical Daily Expected Shortfall 1% (5Y Lookback)
+        Historical Daily Expected Shortfall 1% (10Y Lookback)
     Expected Shortfalls (Monthly)
-    Historical Monthly Expected Shortfall 5% (All)
-    Historical Monthly Expected Shortfall 5% (3Y Lookback)
-    Historical Monthly Expected Shortfall 5% (5Y Lookback)
-    Historical Monthly Expected Shortfall 5% (10Y Lookback)
-    Historical Monthly Expected Shortfall 1% (All)
-    Historical Monthly Expected Shortfall 1% (3Y Lookback)
-    Historical Monthly Expected Shortfall 1% (5Y Lookback)
-    Historical Monthly Expected Shortfall 1% (10Y Lookback)
+        Historical Monthly Expected Shortfall 5% (All)
+        Historical Monthly Expected Shortfall 5% (3Y Lookback)
+        Historical Monthly Expected Shortfall 5% (5Y Lookback)
+        Historical Monthly Expected Shortfall 5% (10Y Lookback)
+        Historical Monthly Expected Shortfall 1% (All)
+        Historical Monthly Expected Shortfall 1% (3Y Lookback)
+        Historical Monthly Expected Shortfall 1% (5Y Lookback)
+        Historical Monthly Expected Shortfall 1% (10Y Lookback)
 
 - Company Attributes
     Employee Counts
