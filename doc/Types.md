@@ -9,268 +9,268 @@ Data types:
 Financial metrics:
 - Income Statement
     Consolidated
-    Operating Revenue
-    Excise Taxes
-    Fees
-    Revenue
-    Cost of Goods Sold
-    Gross Profit
-    Development Expense
-    Sales and Marketing Expense
-    General and Administrative Expense
-    SG&A Expense
-    Research Expense
-    Research and Development Expense
-    Amortization Expense
-    Rent and Landing Expense
-    Income Statement Depreciation
-    Amortization of Securities
-    Amortization of Intangibles
-    Investment Write Off
-    Asset Write Down
-    Special Income and Charges
-    Provision for Doubtful Accounts
-    Loss Settling Claims
-    Non Income Taxes
-    Operating Interest Expense
-    Operating Interest Income
-    Net Operating Interest Income
-    Other Operating Expenses
-    Total Operating Expenses
-    Operating Income
-    Non-Operating Interest Income
-    Non-Operating Interest Expense
-    Net Non-Operating Interest Income Expense
-    Non-Operating Income
-    Other Income and Expenses
-    Pre-Tax Income
-    Provision for Income Taxes
-    Trust Preferred Security Payments
-    Income from Continuing Operations
-    Income from Discontinued Operations
-    Extraordinary Items, Income Statement
-    Income Attributable to Minority Interest
-    Accounting Change
-    Preferred Stock Dividend
-    Net Income
-    Normalized Income
-    EBITDA
-    Reconciled Depreciation
-    EBIT
-    Per Share
-    EPS Basic from Continuing Operations
-    EPS Basic from Discontinued Operations
-    EPS Basic from Other Gains / Loss
-    EPS Basic from Extraordinaries
-    EPS Basic from Accounting Change
-    EPS Basic from Tax Loss Carryforward
-    EPS Basic
-    EPS Diluted from Continuing Operations
-    EPS Diluted from Discontinued Operations
-    EPS Diluted from Extraordinaries
-    EPS Diluted from Accounting Change
-    EPS Diluted from Tax Loss Carryforward
-    EPS Diluted from Other Gain/Loss
-    EPS Diluted
-    Normalized Diluted EPS
-    Normalized Basic EPS
-    Average Basic Shares Outstanding
-    Average Diluted Shares Outstanding
-    Dividend Per Share
+        Operating Revenue
+        Excise Taxes
+        Fees
+        Revenue
+        Cost of Goods Sold
+        Gross Profit
+        Development Expense
+        Sales and Marketing Expense
+        General and Administrative Expense
+        SG&A Expense
+        Research Expense
+        Research and Development Expense
+        Amortization Expense
+        Rent and Landing Expense
+        Income Statement Depreciation
+        Amortization of Securities
+        Amortization of Intangibles
+        Investment Write Off
+        Asset Write Down
+        Special Income and Charges
+        Provision for Doubtful Accounts
+        Loss Settling Claims
+        Non Income Taxes
+        Operating Interest Expense
+        Operating Interest Income
+        Net Operating Interest Income
+        Other Operating Expenses
+        Total Operating Expenses
+        Operating Income
+        Non-Operating Interest Income
+        Non-Operating Interest Expense
+        Net Non-Operating Interest Income Expense
+        Non-Operating Income
+        Other Income and Expenses
+        Pre-Tax Income
+        Provision for Income Taxes
+        Trust Preferred Security Payments
+        Income from Continuing Operations
+        Income from Discontinued Operations
+        Extraordinary Items, Income Statement
+        Income Attributable to Minority Interest
+        Accounting Change
+        Preferred Stock Dividend
+        Net Income
+        Normalized Income
+        EBITDA
+        Reconciled Depreciation
+        EBIT
+        Per Share
+        EPS Basic from Continuing Operations
+        EPS Basic from Discontinued Operations
+        EPS Basic from Other Gains / Loss
+        EPS Basic from Extraordinaries
+        EPS Basic from Accounting Change
+        EPS Basic from Tax Loss Carryforward
+        EPS Basic
+        EPS Diluted from Continuing Operations
+        EPS Diluted from Discontinued Operations
+        EPS Diluted from Extraordinaries
+        EPS Diluted from Accounting Change
+        EPS Diluted from Tax Loss Carryforward
+        EPS Diluted from Other Gain/Loss
+        EPS Diluted
+        Normalized Diluted EPS
+        Normalized Basic EPS
+        Average Basic Shares Outstanding
+        Average Diluted Shares Outstanding
+        Dividend Per Share
     Other and Derivative
-    Net Interest Income
-    Total Expenses
+        Net Interest Income
+        Total Expenses
 
 - Balance Sheet
     Current Assets
-    Cash
-    Cash and Equivalents
-    Short Term Investments
-    Cash and Short Term Investments
-    Accounts Receivable
-    Loans Receivable
-    Notes Receivable
-    Other Receivables
-    Total Receivables
-    Raw Materials Inventory
-    Work in Process Inventory
-    Finished Goods Inventory
-    Purchased Components Inventory
-    Other Inventory
-    Inventories
-    Prepaid Expenses
-    Restricted Cash
-    Current Deferred Tax Assets
-    Other Current Assets
-    Total Current Assets
+        Cash
+        Cash and Equivalents
+        Short Term Investments
+        Cash and Short Term Investments
+        Accounts Receivable
+        Loans Receivable
+        Notes Receivable
+        Other Receivables
+        Total Receivables
+        Raw Materials Inventory
+        Work in Process Inventory
+        Finished Goods Inventory
+        Purchased Components Inventory
+        Other Inventory
+        Inventories
+        Prepaid Expenses
+        Restricted Cash
+        Current Deferred Tax Assets
+        Other Current Assets
+        Total Current Assets
     Non-Current Assets
-    Properties
-    Land and Improvements
-    Buildings and Improvements
-    Machine, Furniture & Equipment
-    Other Properties
-    Construction in Progress
-    Leases
-    Gross PP&E
-    Accumulated D&A
-    Net PP&E
-    Goodwill
-    Other Intangible Assets
-    Goodwill and Intangibles
-    Gross Loans
-    Allow for Loan/Lease Loss
-    Unearned Income
-    Net Loan Assets
-    Long Term Investments
-    Long Term Notes Receivable
-    Long Term Receivables
-    Derivative Instruments
-    Long Term Deferred Assets
-    Long Term Deferred Tax Assets
-    Long Term Deferred Charges
-    Pension Asset
-    Other Long Term Assets
-    Total Long Term Assets
-    Total Assets
+        Properties
+        Land and Improvements
+        Buildings and Improvements
+        Machine, Furniture & Equipment
+        Other Properties
+        Construction in Progress
+        Leases
+        Gross PP&E
+        Accumulated D&A
+        Net PP&E
+        Goodwill
+        Other Intangible Assets
+        Goodwill and Intangibles
+        Gross Loans
+        Allow for Loan/Lease Loss
+        Unearned Income
+        Net Loan Assets
+        Long Term Investments
+        Long Term Notes Receivable
+        Long Term Receivables
+        Derivative Instruments
+        Long Term Deferred Assets
+        Long Term Deferred Tax Assets
+        Long Term Deferred Charges
+        Pension Asset
+        Other Long Term Assets
+        Total Long Term Assets
+        Total Assets
     Current Liabilities
-    Accounts Payable
-    Dividends Payable
-    Current Tax Payable
-    Other Payables
-    Total Payables
-    Accrued Expenses
-    Payables and Accrued Expenses
-    Current Provisions - Legal & Other
-    Notes Payable
-    Commercial Paper Liability
-    Liability on Credit Line
-    Other Current Borrowings
-    Current Portion of Long Term Debt
-    Current Capital Lease Obligation
-    Current Debt & Capital Lease Obligation
-    Current Deferred Revenue
-    Current Deferred Liabilities
-    Current Deferred Tax Liability
-    Other Current Liability
-    Total Current Liabilities
+        Accounts Payable
+        Dividends Payable
+        Current Tax Payable
+        Other Payables
+        Total Payables
+        Accrued Expenses
+        Payables and Accrued Expenses
+        Current Provisions - Legal & Other
+        Notes Payable
+        Commercial Paper Liability
+        Liability on Credit Line
+        Other Current Borrowings
+        Current Portion of Long Term Debt
+        Current Capital Lease Obligation
+        Current Debt & Capital Lease Obligation
+        Current Deferred Revenue
+        Current Deferred Liabilities
+        Current Deferred Tax Liability
+        Other Current Liability
+        Total Current Liabilities
     Non-Current Liabilities
-    Long Term Provisions - Legal & Other
-    Non-Current Portion of Long Term Debt
-    Long Term Cap Lease Obligation
-    Non-Current Portion of LTD and Capital Lease Obligation
-    Long Term Deferred Tax Liabilities
-    Non-Current Deferred Revenue
-    Non-Current Deferred Liabilities
-    Non-Current Accrued Expenses
-    Total Deposits
-    Security Sold Not Yet Repurchased
-    Unpaid Loss Reserve
-    Unearned Premium on Insurance Contract
-    Pension Liability
-    Derivative Contract Liabilities
-    Minority Interest Ownership
-    Trust Preferred Securities
-    Preferred Securities out of Shareholders Equity
-    Restricted Common Stock
-    Other Long Term Liabilities
-    Total Long Term Liabilities
-    Total Liabilities
-    Shareholder's Equity
-    Total Capital Stock
-    Retained Earnings
-    Additional Paid In Capital
-    Treasury Stock
-    Preferred Stock
-    Unrealized Gain or Loss - Total
-    Minimum Pension Liabilities
-    Adjustments for Foreign Currency Translation
-    Other Equity Adjustments
-    Accrued Comprehensive Inc
-    Employee Stock Option Plan Debt Guarantee
-    Book Value
-    Shareholders Equity
+        Long Term Provisions - Legal & Other
+        Non-Current Portion of Long Term Debt
+        Long Term Cap Lease Obligation
+        Non-Current Portion of LTD and Capital Lease Obligation
+        Long Term Deferred Tax Liabilities
+        Non-Current Deferred Revenue
+        Non-Current Deferred Liabilities
+        Non-Current Accrued Expenses
+        Total Deposits
+        Security Sold Not Yet Repurchased
+        Unpaid Loss Reserve
+        Unearned Premium on Insurance Contract
+        Pension Liability
+        Derivative Contract Liabilities
+        Minority Interest Ownership
+        Trust Preferred Securities
+        Preferred Securities out of Shareholders Equity
+        Restricted Common Stock
+        Other Long Term Liabilities
+        Total Long Term Liabilities
+        Total Liabilities
+        Shareholder's Equity
+        Total Capital Stock
+        Retained Earnings
+        Additional Paid In Capital
+        Treasury Stock
+        Preferred Stock
+        Unrealized Gain or Loss - Total
+        Minimum Pension Liabilities
+        Adjustments for Foreign Currency Translation
+        Other Equity Adjustments
+        Accrued Comprehensive Inc
+        Employee Stock Option Plan Debt Guarantee
+        Book Value
+        Shareholders Equity
     Other and Derivative
-    Tangible Book Value
-    Total Equity Including Minority Interest
-    Ordinary Shares Number
+        Tangible Book Value
+        Total Equity Including Minority Interest
+        Ordinary Shares Number
 
 - Cash Flows Statement
     Operations
-    Net Income
-    Net Income Disc. Operations
-    Extraordinary Items, Cash Flow
-    Cumulative Effect of Acct. Change
-    Gain/Loss on Sale Business
-    Gain and Loss on Sale of PPE
-    Net Foreign Currency Exchange Gain/Loss
-    Gain (Loss) on Investment Securities
-    Earnings Loss from Eq. Investments
-    Pension and Employee Expense
-    Operating Gains Losses
-    Depreciation Expense
-    Amortization Expense CF
-    Total Depreciation and Amortization
-    Total Depreciation, Amortization, Depletion
-    Deferred Taxes
-    Change in Taxes Payable
-    Amortization of Securities
-    Asset Impairment Charge
-    Unrealized Gain (Loss) on Investment Securities
-    Stock Based Compensation
-    Excess Tax Benefit from Stock Compensation
-    Other Noncash Items
-    Change in Receivables
-    Change in Inventories
-    Change in Prepaid Assets
-    Change in Payables and Accrued Expense
-    Change in Other Current Assets
-    Change in Other Current Liabilities
-    Change in Other Working Cap
-    Changes in Working Capital
-    Other Cash from Operations
-    Cash from Operations
+        Net Income
+        Net Income Disc. Operations
+        Extraordinary Items, Cash Flow
+        Cumulative Effect of Acct. Change
+        Gain/Loss on Sale Business
+        Gain and Loss on Sale of PPE
+        Net Foreign Currency Exchange Gain/Loss
+        Gain (Loss) on Investment Securities
+        Earnings Loss from Eq. Investments
+        Pension and Employee Expense
+        Operating Gains Losses
+        Depreciation Expense
+        Amortization Expense CF
+        Total Depreciation and Amortization
+        Total Depreciation, Amortization, Depletion
+        Deferred Taxes
+        Change in Taxes Payable
+        Amortization of Securities
+        Asset Impairment Charge
+        Unrealized Gain (Loss) on Investment Securities
+        Stock Based Compensation
+        Excess Tax Benefit from Stock Compensation
+        Other Noncash Items
+        Change in Receivables
+        Change in Inventories
+        Change in Prepaid Assets
+        Change in Payables and Accrued Expense
+        Change in Other Current Assets
+        Change in Other Current Liabilities
+        Change in Other Working Cap
+        Changes in Working Capital
+        Other Cash from Operations
+        Cash from Operations
     Investing
-    Net Change in Capital Expenditures
-    Sale of PPE
-    Net Change in PP&E
-    Net Change in Intangibles
-    Net Technology Purchase and Sale
-    Net Divestitures (Acquisitions)
-    Total Net Change in Investments
-    Net Other Investing Changes
-    Cash from Investing
+        Net Change in Capital Expenditures
+        Sale of PPE
+        Net Change in PP&E
+        Net Change in Intangibles
+        Net Technology Purchase and Sale
+        Net Divestitures (Acquisitions)
+        Total Net Change in Investments
+        Net Other Investing Changes
+        Cash from Investing
     Financing
-    Net Change in Long Term Debt
-    Net Change in Short Term Debt
-    Net Change in Long Term Debt
-    Net Debt Issuance
-    Common Stock Issuance
-    Common Stock Payments
-    Net Common Equity Issued (Purchased)
-    Preferred Stock Issuance
-    Preferred Stock Payments
-    Net Preferred Equity Issued (Purchased)
-    Total Common Dividends Paid
-    Total Preferred Dividends Paid
-    Total Dividends Paid
-    Proceeds from Stock Option Exercised
-    Proceeds from Issued Warrants
-    Cash from Other Financing Activities
-    Cash from Financing
+        Net Change in Long Term Debt
+        Net Change in Short Term Debt
+        Net Change in Long Term Debt
+        Net Debt Issuance
+        Common Stock Issuance
+        Common Stock Payments
+        Net Common Equity Issued (Purchased)
+        Preferred Stock Issuance
+        Preferred Stock Payments
+        Net Preferred Equity Issued (Purchased)
+        Total Common Dividends Paid
+        Total Preferred Dividends Paid
+        Total Dividends Paid
+        Proceeds from Stock Option Exercised
+        Proceeds from Issued Warrants
+        Cash from Other Financing Activities
+        Cash from Financing
     Other and Derivative
-    Cash from Discontinued Operations Adjustment
-    Issuance of Capital Stock
-    Issuance of Debt
-    Debt Repayment
-    Repurchase of Capital Stock
-    Income Tax Paid Supplemental Data
-    Interest Paid Supplemental Data
-    Domestic Sales
-    Foreign Sales
-    Beginning Cash
-    Change in Cash
-    Ending Cash
-    Cash Foreign Exchange Adjustment
+        Cash from Discontinued Operations Adjustment
+        Issuance of Capital Stock
+        Issuance of Debt
+        Debt Repayment
+        Repurchase of Capital Stock
+        Income Tax Paid Supplemental Data
+        Interest Paid Supplemental Data
+        Domestic Sales
+        Foreign Sales
+        Beginning Cash
+        Change in Cash
+        Ending Cash
+        Cash Foreign Exchange Adjustment
 
 - Price and Valuation Multipliers
     Price
