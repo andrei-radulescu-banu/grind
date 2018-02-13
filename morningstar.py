@@ -62,7 +62,7 @@ def ticker_type(ticker):
     
     return ""
 
-def name(ticker):
+def ticker_name(ticker):
     """
     Description:
     Get ETF, fund or stock name
@@ -85,7 +85,7 @@ def name(ticker):
     tt = ticker_type(ticker)
 
     name = None
-    if tt == "Mutual Fund" or tt == "ETF":
+    if tt == "CEF" or tt == "ETF" or tt == "Index" or tt == "Mutual Fund":
         name = fund_name(ticker)
     
     if tt == "Stock":
@@ -111,7 +111,7 @@ def fund_name(ticker):
 
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Mutual Fund" and tt != "ETF":
+    if tt != "CEF" and tt != "ETF" and tt != "Index" and tt != "Mutual Fund":
         return None    
 
     # The Morningstar URL
@@ -1154,8 +1154,8 @@ def _parse_ticker_type_f(args):
     if type != "":
         print(type)
 
-def _parse_name_f(args):
-    type = name(args.ticker)
+def _parse_ticker_name_f(args):
+    type = ticker_name(args.ticker)
 
     if type != "":
         print(type)
@@ -1266,19 +1266,19 @@ if __name__ == "__main__":
     # Subparsers
     subparsers = parser.add_subparsers(help='Sub-command help')
 
-    parser_ticker_type = subparsers.add_parser('ticker-type', help='Get ticker type: etf, fund, stock, cash')
+    parser_ticker_type = subparsers.add_parser('ticker-type', help='Get ticker type (cef, etf, index, fund, stock, cash)')
     parser_ticker_type.add_argument('ticker', help='Ticker')
     parser_ticker_type.set_defaults(func=_parse_ticker_type_f)
 
-    parser_name = subparsers.add_parser('name', help='Get name: etf, fund, stock')
-    parser_name.add_argument('ticker', help='Ticker')
-    parser_name.set_defaults(func=_parse_name_f)
+    parser_ticker_name = subparsers.add_parser('ticker-name', help='Get name (cef, etf, index, fund, stock)')
+    parser_ticker_name.add_argument('ticker', help='Ticker')
+    parser_ticker_name.set_defaults(func=_parse_ticker_name_f)
 
-    parser_fund_name = subparsers.add_parser('fund-name', help='Get name: etf, fund')
+    parser_fund_name = subparsers.add_parser('fund-name', help='Get name (cef, etf, index, fund)')
     parser_fund_name.add_argument('ticker', help='Ticker')
     parser_fund_name.set_defaults(func=_parse_fund_name_f)
 
-    parser_stock_name = subparsers.add_parser('stock-name', help='Get name: stock')
+    parser_stock_name = subparsers.add_parser('stock-name', help='Get name (stock)')
     parser_stock_name.add_argument('ticker', help='Ticker')
     parser_stock_name.set_defaults(func=_parse_stock_name_f)
 
@@ -1340,7 +1340,7 @@ if __name__ == "__main__":
     parser_etf_quote.add_argument('ticker', help='Ticker')
     parser_etf_quote.set_defaults(func=_parse_etf_quote)
 
-    parser_fund_quote = subparsers.add_parser('fund-quote', help='Mutual fund quote')
+    parser_fund_quote = subparsers.add_parser('fund-quote', help='Fund quote')
     parser_fund_quote.add_argument('ticker', help='Ticker')
     parser_fund_quote.set_defaults(func=_parse_fund_quote)
 
