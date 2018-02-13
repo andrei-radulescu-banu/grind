@@ -174,9 +174,19 @@ def performance_history(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
+    if tt == "CEF":
+        df = etf_performance_history(ticker)
+        df.drop(df.index[[1, 2, 3, 4, 5, 6, 7]], inplace=True)
+        return df
+
     if tt == "ETF":
         df = etf_performance_history(ticker)
         df.drop(df.index[[1, 2, 3, 4, 5, 6]], inplace=True)
+        return df
+
+    if tt == "Index":
+        df = etf_performance_history(ticker)
+#        df.drop(df.index[[1, 2, 3, 4, 5, 6]], inplace=True)
         return df
 
     if tt == "Mutual Fund":
@@ -237,7 +247,7 @@ def etf_performance_history(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Mutual Fund" and tt != "ETF":
+    if tt != "CEF" and tt != "ETF" and tt != "Mutual Fund":
         return None    
 
     # The Morningstar URL for funds
