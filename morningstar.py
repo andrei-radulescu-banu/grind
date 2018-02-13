@@ -25,7 +25,7 @@ def ticker_type(ticker):
     ticker - The etf, fund, stock ticker.
 
     Returns:
-    A string with value "ETF", "Fund", "Stock", "Cash" 
+    A string with value "ETF", "Mutual Fund", "Stock", "Cash" 
     (or "" in case the ticker is neither)
     """
 
@@ -40,14 +40,22 @@ def ticker_type(ticker):
         # Get the page
         r = requests.get(url + ticker, allow_redirects = False)
    
+        # Enable to inspect headers
+        #print(r)
+        #print(r.headers)
+
         if r.status_code == 302:
             if "/stock/" in r.headers['Location']:
                 _ticker_cache[ticker] = "Stock"
             elif "/fund/" in r.headers['Location']:
-                _ticker_cache[ticker] = "Fund"
+                _ticker_cache[ticker] = "Mutual Fund"
             elif "//etfs." in r.headers['Location']:
                 _ticker_cache[ticker] = "ETF"
                 return("ETF")
+            elif "//cef." in r.headers['Location']:
+                _ticker_cache[ticker] = "CEF"
+            elif "/indexquote/" in r.headers['Location']:
+                _ticker_cache[ticker] = "Index"
             
     if ticker in _ticker_cache:
         return(_ticker_cache[ticker])
@@ -77,7 +85,7 @@ def name(ticker):
     tt = ticker_type(ticker)
 
     name = None
-    if tt == "Fund" or tt == "ETF":
+    if tt == "Mutual Fund" or tt == "ETF":
         name = fund_name(ticker)
     
     if tt == "Stock":
@@ -103,7 +111,7 @@ def fund_name(ticker):
 
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF":
+    if tt != "Mutual Fund" and tt != "ETF":
         return None    
 
     # The Morningstar URL
@@ -171,7 +179,7 @@ def performance_history(ticker):
         df.drop(df.index[[1, 2, 3, 4, 5, 6]], inplace=True)
         return df
 
-    if tt == "Fund":
+    if tt == "Mutual Fund":
         df = etf_performance_history(ticker)
         df.drop(df.index[[0, 2, 3, 4, 5, 6, 7]], inplace=True)
         return df
@@ -203,7 +211,7 @@ def nav_performance_history(ticker):
         df.drop(df.index[[0, 2, 3, 4, 5, 6]], inplace=True)
         return df
 
-    if tt == "Fund":
+    if tt == "Mutual Fund":
         df = etf_performance_history(ticker)
         df.drop(df.index[[0, 2, 3, 4, 5, 6, 7]], inplace=True)
         return df
@@ -229,7 +237,7 @@ def etf_performance_history(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF":
+    if tt != "Mutual Fund" and tt != "ETF":
         return None    
 
     # The Morningstar URL for funds
@@ -258,7 +266,7 @@ def fund_performance_history(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF":
+    if tt != "Mutual Fund" and tt != "ETF":
         return None    
 
     # The Morningstar URL for funds
@@ -323,7 +331,7 @@ def fund_performance_history2(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund":
+    if tt != "Mutual Fund":
         return None    
 
     # The Morningstar URL for funds
@@ -358,7 +366,7 @@ def trailing_total_returns(ticker):
         df.drop(df.index[[1, 2, 3, 4]], inplace=True)
         return df
 
-    if tt == "Fund":
+    if tt == "Mutual Fund":
         df = etf_trailing_total_returns(ticker)
         df.drop(df.index[[0, 2, 3, 4, 5]], inplace=True)
         return df
@@ -390,7 +398,7 @@ def nav_trailing_total_returns(ticker):
         df.drop(df.index[[0, 2, 3, 4]], inplace=True)
         return df
 
-    if tt == "Fund":
+    if tt == "Mutual Fund":
         df = etf_trailing_total_returns(ticker)
         df.drop(df.index[[0, 2, 3, 4, 5]], inplace=True)
         return df
@@ -416,7 +424,7 @@ def etf_trailing_total_returns(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF" and tt != "Stock":
+    if tt != "Mutual Fund" and tt != "ETF" and tt != "Stock":
         return None    
 
     # The Morningstar URL for funds
@@ -445,7 +453,7 @@ def fund_trailing_total_returns(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF" and tt != "Stock":
+    if tt != "Mutual Fund" and tt != "ETF" and tt != "Stock":
         return None    
 
     # The Morningstar URL for funds
@@ -478,7 +486,7 @@ def fund_trailing_total_returns2(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund":
+    if tt != "Mutual Fund":
         return None    
 
     # The Morningstar URL for funds
@@ -507,7 +515,7 @@ def historical_quarterly_returns(ticker, years = 5, frequency = "q"):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF" and tt != "Stock":
+    if tt != "Mutual Fund" and tt != "ETF" and tt != "Stock":
         return None    
 
     if frequency != "q" and frequency != "m":
@@ -541,7 +549,7 @@ def fund_historical_quarterly_returns(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF":
+    if tt != "Mutual Fund" and tt != "ETF":
         return None    
 
     # The Morningstar URL for funds
@@ -662,7 +670,7 @@ def fund_quote(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF":
+    if tt != "Mutual Fund" and tt != "ETF":
         return None    
 
     # The Morningstar URL for funds
@@ -845,7 +853,7 @@ def fund_asset_allocation(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF":
+    if tt != "Mutual Fund" and tt != "ETF":
         return None    
 
     # The Morningstar URL
@@ -897,7 +905,7 @@ def fund_market_capitalization(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF":
+    if tt != "Mutual Fund" and tt != "ETF":
         return None    
 
     # The Morningstar URL
@@ -939,7 +947,7 @@ def fund_sector_weightings(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF":
+    if tt != "Mutual Fund" and tt != "ETF":
         return None    
 
     # The Morningstar URL
@@ -1006,7 +1014,7 @@ def fund_market_regions(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Fund" and tt != "ETF":
+    if tt != "Mutual Fund" and tt != "ETF":
         return None    
 
     # The Morningstar URL
