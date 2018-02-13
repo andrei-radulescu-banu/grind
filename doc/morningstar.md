@@ -111,3 +111,36 @@ http://quotes.morningstar.com/stockq/c-keystats?&t=XNAS:FB - Key statistics
 http://quotes.morningstar.com/stockq/c-financials?&t=XNAS:FB - financials
 
 http://performance.morningstar.com/stock/performance-return.action?t=FB
+
+http://cef.morningstar.com/cefq/cef-header?&t=BST (quote)
+
+http://cef.morningstar.com/cefq/cef-total-return?&t=BST
+
+http://cef.morningstar.com/cefq/cef-asset-allocation?&t=BST
+
+http://cef.morningstar.com/cefq/latest-component?&t=XNYS:BST
+
+http://cef.morningstar.com/cefq/cef-topHoldings?&t=XNYS:BST
+
+http://cef.morningstar.com/cefq/cef-news?&t=XNYS:BST
+
+http://cef.morningstar.com/cefq/cef-premium-discount?&t=XNYS:BST
+
+http://cef.morningstar.com/cefq/cef-category?&t=XNYS:BST
+
+http://cef.morningstar.com/cefq/cef-key-statics?&t=XNYS:BST
+
+http://cef.morningstar.com/cefq/cef-valuation?&t=XNYS:BST
+
+http://cef.morningstar.com/cefq/cef-distribution?&t=XNYS:BST
+
+http://cef.morningstar.com/cefq/cef-operation?&t=XNYS:BST
+
+http://cef.morningstar.com/cefq/cef-benchmark?&t=XNYS:BST
+
+http://cef.morningstar.com/cefq/cef-investment-objective?&t=XNYS:BST
+
+http://cef.morningstar.com/cefq/cef-management?&t=XNYS:BST
+
+http://cef.morningstar.com/cefq/esg-cef?&t=XNYS:BST
+
