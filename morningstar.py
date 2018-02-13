@@ -1140,7 +1140,7 @@ def stock_competitors(ticker):
 
     return df
 
-def _parse_ticker_f(args):
+def _parse_ticker_type_f(args):
     type = ticker_type(args.ticker)
 
     if type != "":
@@ -1258,9 +1258,9 @@ if __name__ == "__main__":
     # Subparsers
     subparsers = parser.add_subparsers(help='Sub-command help')
 
-    parser_ticker = subparsers.add_parser('ticker', help='Get ticker type: etf, fund, stock, cash')
-    parser_ticker.add_argument('ticker', help='Ticker')
-    parser_ticker.set_defaults(func=_parse_ticker_f)
+    parser_ticker_type = subparsers.add_parser('ticker-type', help='Get ticker type: etf, fund, stock, cash')
+    parser_ticker_type.add_argument('ticker', help='Ticker')
+    parser_ticker_type.set_defaults(func=_parse_ticker_type_f)
 
     parser_name = subparsers.add_parser('name', help='Get name: etf, fund, stock')
     parser_name.add_argument('ticker', help='Ticker')
