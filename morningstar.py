@@ -403,6 +403,11 @@ def trailing_total_returns(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
+    if tt == "CEF":
+        df = etf_trailing_total_returns(ticker)
+        df.drop(df.index[[1, 2, 3, 4, 5]], inplace=True)
+        return df
+
     if tt == "ETF":
         df = etf_trailing_total_returns(ticker)
         df.drop(df.index[[1, 2, 3, 4]], inplace=True)
@@ -466,7 +471,7 @@ def etf_trailing_total_returns(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Mutual Fund" and tt != "ETF" and tt != "Stock":
+    if tt != "CEF" and tt != "ETF" and tt != "Mutual Fund" and tt != "Stock":
         return None    
 
     # The Morningstar URL for funds
@@ -495,7 +500,7 @@ def fund_trailing_total_returns(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "Mutual Fund" and tt != "ETF" and tt != "Stock":
+    if tt != "ETF" and tt != "Mutual Fund" and tt != "Stock":
         return None    
 
     # The Morningstar URL for funds
