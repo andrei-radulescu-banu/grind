@@ -19,13 +19,13 @@ _name_cache = dict()
 def ticker_type(ticker):
     """
     Description:
-    The Morningstar URL for getting quotes for etfs, funds, stocks
+    The Morningstar URL for getting quotes for cefs, etfs, funds, indexes, stocks
 
     Parameters:
-    ticker - The etf, fund, stock ticker.
+    ticker - The security ticker.
 
     Returns:
-    A string with value "ETF", "Mutual Fund", "Stock", "Cash" 
+    A string with value "Cash", "CEF", "ETF", "Index", "Mutual Fund", "Stock"
     (or "" in case the ticker is neither)
     """
 
