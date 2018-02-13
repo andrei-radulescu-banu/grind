@@ -756,6 +756,82 @@ def fund2_historical_quarterly_returns(ticker):
 
     return df 
 
+def cef_quote(ticker):
+    """
+    Description:
+    Get the cef net asset value, and other related data.
+
+    Parameters:
+    ticker - The fund ticker.
+
+    Returns:
+
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "CEF":
+        return None    
+
+    # The Morningstar URL for etfs
+    url = "http://cef.morningstar.com/cefq/cef-header?&t=" + ticker
+    
+    # Get the page
+    web_page = web.get_web_page(url, False)
+
+    # Parse the contents
+    soup = BeautifulSoup(web_page, 'lxml')
+
+    df = pd.DataFrame(columns = range(1), 
+                      index = range(16))
+    
+    # Set the index
+    df['new_index'] = None
+    df['new_index'][0] = "Last Price"
+    df['new_index'][1] = "Day Change"
+    df['new_index'][2] = "Day Change %"
+    df['new_index'][3] = "As Of"
+    df['new_index'][4] = "Last Closing Price"
+    df['new_index'][5] = "Day Range"
+    df['new_index'][6] = "52-WK Range"
+    df['new_index'][7] = "1-Year Z-Statistic"
+    df['new_index'][8] = "Market Value"
+    df['new_index'][9] = "Total Leverage Ratio"
+    df['new_index'][10] = "Last Actual NAV"
+    df['new_index'][11] = "Last Actual NAV Date"
+    df['new_index'][12] = "Last Actual Disc/Premium"
+    df['new_index'][13] = "6-Month Avg Disc/Prem"
+    df['new_index'][14] = "3-Year Avg Disc/Prem"
+    df['new_index'][15] = "Total Dist. Rate (Share Price)"
+
+    # Promote the 'new_index' column as the new index
+    df2 = df.set_index('new_index')
+    df = df2
+
+    # Clear the index name
+    df.index.name = ""
+
+    # Set the ticker name as column label
+    df.columns = [ticker.upper()]
+
+    df.iloc[0, 0] = soup.find("div", {"id": "lastPrice"}).getText().strip()
+    df.iloc[1, 0] = soup.find("span", {"id": "price-daychange-value"}).getText().strip()
+    df.iloc[2, 0] = soup.find("span", {"id": "price-daychange-per"}).getText().strip()
+    df.iloc[3, 0] = soup.find("span", {"id" : "last-date"}).getText().strip()
+    df.iloc[4, 0] = soup.find("span", {"id" : "last-closing-price"}).getText().strip()
+    df.iloc[5, 0] = soup.find("td", {"id" : "day-range"}).getText().strip()
+    df.iloc[6, 0] = soup.find("td", {"id" : "fiftytwo-range"}).getText().strip()
+    df.iloc[7, 0] = soup.findAll("td")[3].getText().strip()
+    df.iloc[8, 0] = soup.findAll("td")[4].getText().strip()
+    df.iloc[9, 0] = soup.findAll("td")[5].getText().strip()
+    df.iloc[10, 0] = soup.find("td", {"id" : "last-act-nav"}).getText().strip()
+    df.iloc[11, 0] = soup.findAll("td")[8].getText().strip()
+    df.iloc[12, 0] = soup.find("td", {"id" : "last-discount"}).getText().strip()
+    df.iloc[13, 0] = soup.findAll("td")[10].getText().strip()
+    df.iloc[14, 0] = soup.findAll("td")[11].getText().strip()
+    df.iloc[15, 0] = soup.findAll("td")[12].getText().strip()
+
+    return df
+
 def etf_quote(ticker):
     """
     Description:
@@ -1438,6 +1514,10 @@ def _parse_qtr2_f(args):
     df = fund2_historical_quarterly_returns(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
+def _parse_cef_quote(args):
+    df = cef_quote(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
 def _parse_etf_quote(args):
     df = etf_quote(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
@@ -1575,6 +1655,10 @@ if __name__ == "__main__":
     parser_qtr2 = subparsers.add_parser('qtr2', help='Historical quarterly returns (etfs, funds)')
     parser_qtr2.add_argument('ticker', help='Ticker')
     parser_qtr2.set_defaults(func=_parse_qtr2_f)
+
+    parser_cef_quote = subparsers.add_parser('cef-quote', help='CEF quote')
+    parser_cef_quote.add_argument('ticker', help='Ticker')
+    parser_cef_quote.set_defaults(func=_parse_cef_quote)
 
     parser_etf_quote = subparsers.add_parser('etf-quote', help='ETF quote')
     parser_etf_quote.add_argument('ticker', help='Ticker')
