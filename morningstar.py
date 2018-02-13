@@ -413,6 +413,10 @@ def trailing_total_returns(ticker):
         df.drop(df.index[[1, 2, 3, 4]], inplace=True)
         return df
 
+    if tt == "Index":
+        df = index_trailing_total_returns(ticker)
+        return df
+
     if tt == "Mutual Fund":
         df = etf_trailing_total_returns(ticker)
         df.drop(df.index[[0, 2, 3, 4, 5]], inplace=True)
@@ -438,11 +442,19 @@ def nav_trailing_total_returns(ticker):
     Run 'morningstar.py nav-ttl ticker' to see the result format.
     """
     # Ticker check    
-    # Ticker check    
     tt = ticker_type(ticker)
+    if tt == "CEF":
+        df = etf_trailing_total_returns(ticker)
+        df.drop(df.index[[0, 2, 3, 4, 5]], inplace=True)
+        return df
+
     if tt == "ETF":
         df = etf_trailing_total_returns(ticker)
         df.drop(df.index[[0, 2, 3, 4]], inplace=True)
+        return df
+
+    if tt == "Index":
+        df = index_trailing_total_returns(ticker)
         return df
 
     if tt == "Mutual Fund":
@@ -471,7 +483,7 @@ def etf_trailing_total_returns(ticker):
     """
     # Ticker check    
     tt = ticker_type(ticker)
-    if tt != "CEF" and tt != "ETF" and tt != "Mutual Fund" and tt != "Stock":
+    if tt != "CEF" and tt != "ETF" and tt != "Index" and tt != "Mutual Fund" and tt != "Stock":
         return None    
 
     # The Morningstar URL for funds
@@ -549,6 +561,35 @@ def fund_trailing_total_returns2(ticker):
     df = web.dataframe_promote_1st_row_and_column_as_labels(df)
 
     return df 
+
+def index_trailing_total_returns(ticker):
+    """
+    Description:
+    Get trailing total returns. 
+    
+    Parameters:
+    ticker - The ticker.
+
+    Returs: 
+    DataFrame with the trailing total returns.
+    Run 'morningstar.py index-ttl ticker' to see the result format.
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "CEF" and tt != "ETF" and tt != "Index" and tt != "Mutual Fund" and tt != "Stock":
+        return None    
+
+    # The Morningstar URL
+    url = "http://performance.morningstar.com/perform/Performance/index-c/trailing-total-returns.action?ops=clear&ndec=2&align=d&t="    
+
+    df = web.get_web_page_table(url + ticker, False, 0)
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+
+    df.fillna(value="", inplace=True)
+
+    return df
 
 def historical_quarterly_returns(ticker, years = 5, frequency = "q"):
     """
@@ -1267,6 +1308,10 @@ def _parse_ttl2_f(args):
     df = fund_trailing_total_returns2(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
+def _parse_index_ttl_f(args):
+    df = index_trailing_total_returns(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
 def _parse_qtr_f(args):
     df = historical_quarterly_returns(args.ticker, args.years, args.frequency)
     print(tabulate(df, headers='keys', tablefmt='psql'))
@@ -1361,13 +1406,13 @@ if __name__ == "__main__":
     parser_pfh2.add_argument('ticker', help='Ticker')
     parser_pfh2.set_defaults(func=_parse_pfh2_f)
 
-    parser_etf_ttl = subparsers.add_parser('etf-ttl', help='Trailing total returns (etfs, funds, stocks)')
-    parser_etf_ttl.add_argument('ticker', help='Ticker')
-    parser_etf_ttl.set_defaults(func=_parse_etf_ttl_f)
-
-    parser_ttl = subparsers.add_parser('ttl', help='Trailing total returns (etfs, funds, stocks)')
+    parser_ttl = subparsers.add_parser('ttl', help='Trailing total returns (cefs, etfs, funds, indexes, stocks)')
     parser_ttl.add_argument('ticker', help='Ticker')
     parser_ttl.set_defaults(func=_parse_ttl_f)
+
+    parser_etf_ttl = subparsers.add_parser('etf-ttl', help='Trailing total returns (cefs, etfs, funds, indexes, stocks)')
+    parser_etf_ttl.add_argument('ticker', help='Ticker')
+    parser_etf_ttl.set_defaults(func=_parse_etf_ttl_f)
 
     parser_nav_ttl = subparsers.add_parser('nav-ttl', help='NAV trailing total returns (etfs, funds, stocks)')
     parser_nav_ttl.add_argument('ticker', help='Ticker')
@@ -1376,6 +1421,10 @@ if __name__ == "__main__":
     parser_fund_ttl = subparsers.add_parser('fund-ttl', help='Trailing total returns (etfs, funds, stocks)')
     parser_fund_ttl.add_argument('ticker', help='Ticker')
     parser_fund_ttl.set_defaults(func=_parse_fund_ttl_f)
+
+    parser_index = subparsers.add_parser('index-ttl', help='Trailing total returns (indexes)')
+    parser_index.add_argument('ticker', help='Ticker')
+    parser_index.set_defaults(func=_parse_index_ttl_f)
 
     parser_ttl2 = subparsers.add_parser('ttl2', help='Trailing total returns 2 (funds)')
     parser_ttl2.add_argument('ticker', help='Ticker')
