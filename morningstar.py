@@ -630,6 +630,45 @@ def historical_quarterly_returns(ticker, years = 5, frequency = "q"):
 
     return None
 
+def nav_historical_quarterly_returns(ticker, years = 5, frequency = "q"):
+    """
+    Description:
+    Get historical NAV quarterly returns.
+
+    Parameters:
+    ticker - The etf, fund or stock ticker.
+    years - The number of years. Default: 5.
+    frequency - "q" for quarterly, "m" for monthly. Default: "q"
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt == "CEF":
+        df = cef_historical_quarterly_returns(ticker, years, frequency)
+        df.drop(df.columns[[0]], axis=1, inplace=True)
+        return df
+
+    if tt == "ETF":
+        df = cef_historical_quarterly_returns(ticker, years, frequency)
+        df.drop(df.columns[[0]], axis=1, inplace=True)
+        return df
+
+    if tt == "Index":
+        df = cef_historical_quarterly_returns(ticker, years, frequency)
+        df.drop(df.columns[[1]], axis=1, inplace=True)
+        return df
+        
+    if tt == "Mutual Fund":
+        df = cef_historical_quarterly_returns(ticker, years, frequency)
+        df.drop(df.columns[[0]], axis=1, inplace=True)
+        return df
+
+    if tt == "Stock":
+        df = cef_historical_quarterly_returns(ticker, years, frequency)
+        df.drop(df.columns[[1]], axis=1, inplace=True)
+        return df
+
+    return None
+
 def cef_historical_quarterly_returns(ticker, years = 5, frequency = "q"):
     """
     Description:
@@ -644,7 +683,7 @@ def cef_historical_quarterly_returns(ticker, years = 5, frequency = "q"):
     # Ticker check    
     tt = ticker_type(ticker)
     if tt != "CEF" and tt != "ETF" and tt != "Index" and tt != "Mutual Fund" and tt != "Stock":
-        return None    
+        return None
 
     # The Morningstar URL for funds
     url = "http://performance.morningstar.com/perform/Performance/cef/historical-returns.action?&ops=clear&y=%s&ndec=2&freq=%s&t=" % (years, frequency)
@@ -1383,6 +1422,10 @@ def _parse_qtr_f(args):
     df = historical_quarterly_returns(args.ticker, args.years, args.frequency)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
+def _parse_nav_qtr_f(args):
+    df = nav_historical_quarterly_returns(args.ticker, args.years, args.frequency)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
 def _parse_cef_qtr_f(args):
     df = cef_historical_quarterly_returns(args.ticker, args.years, args.frequency)
     print(tabulate(df, headers='keys', tablefmt='psql'))
@@ -1510,6 +1553,12 @@ if __name__ == "__main__":
     parser_qtr.add_argument('-y', '--years', type=int, default=5, help='Number of years (default 5)')
     parser_qtr.add_argument('-f', '--frequency', default='q', help='Frequency (m=monthly, q=quarterly, default=q)')
     parser_qtr.set_defaults(func=_parse_qtr_f)
+
+    parser_nav_qtr = subparsers.add_parser('nav-qtr', help='NAV historical quarterly returns (all)')
+    parser_nav_qtr.add_argument('ticker', help='Ticker')
+    parser_nav_qtr.add_argument('-y', '--years', type=int, default=5, help='Number of years (default 5)')
+    parser_nav_qtr.add_argument('-f', '--frequency', default='q', help='Frequency (m=monthly, q=quarterly, default=q)')
+    parser_nav_qtr.set_defaults(func=_parse_nav_qtr_f)
 
     parser_cef_qtr = subparsers.add_parser('cef-qtr', help='Historical quarterly returns (all)')
     parser_cef_qtr.add_argument('ticker', help='Ticker')
