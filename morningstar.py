@@ -185,8 +185,7 @@ def performance_history(ticker):
         return df
 
     if tt == "Index":
-        df = etf_performance_history(ticker)
-#        df.drop(df.index[[1, 2, 3, 4, 5, 6]], inplace=True)
+        df = index_performance_history(ticker)
         return df
 
     if tt == "Mutual Fund":
@@ -296,6 +295,35 @@ def fund_performance_history(ticker):
 
     return df
 
+
+def index_performance_history(ticker):
+    """
+    Description:
+    Get index performance history. 
+    
+    Parameters:
+    ticker - The index ticker.
+
+    Returs: 
+    DataFrame with the performance history. 
+    Run 'morningstar.py index-pfh ticker' to see the result format.
+    """
+    # Ticker check    
+    tt = ticker_type(ticker)
+    if tt != "CEF" and tt != "ETF" and tt != "Index" and tt != "Mutual Fund" and tt != "Stock":
+        return None    
+
+    # The Morningstar URL for indexes
+    url = "http://performance.morningstar.com/perform/Performance/index-c/performance-history-1.action?&ops=clear&y=10&ndec=2&align=d&t="
+    
+    df = web.get_web_page_table(url + ticker, False, 0)
+
+    # Promote 1st row and column as labels
+    df = web.dataframe_promote_1st_row_and_column_as_labels(df)
+
+    df.fillna(value="", inplace=True)
+
+    return df
 
 def stock_performance_history(ticker):
     """
@@ -1194,6 +1222,10 @@ def _parse_etf_pfh_f(args):
     df = etf_performance_history(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
 
+def _parse_index_pfh_f(args):
+    df = index_performance_history(args.ticker)
+    print(tabulate(df, headers='keys', tablefmt='psql'))
+
 def _parse_fund_pfh_f(args):
     df = fund_performance_history(args.ticker)
     print(tabulate(df, headers='keys', tablefmt='psql'))
@@ -1307,6 +1339,10 @@ if __name__ == "__main__":
     parser_fund_pfh = subparsers.add_parser('fund-pfh', help='Performace history (funds)')
     parser_fund_pfh.add_argument('ticker', help='Ticker')
     parser_fund_pfh.set_defaults(func=_parse_fund_pfh_f)
+
+    parser_index_pfh = subparsers.add_parser('index-pfh', help='Performace history (cefs, etfs, funds, indexes, stocks)')
+    parser_index_pfh.add_argument('ticker', help='Ticker')
+    parser_index_pfh.set_defaults(func=_parse_index_pfh_f)
 
     parser_stock_pfh = subparsers.add_parser('stock-pfh', help='Performace history (stocks)')
     parser_stock_pfh.add_argument('ticker', help='Ticker')
