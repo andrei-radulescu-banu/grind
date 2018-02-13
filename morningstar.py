@@ -1366,7 +1366,7 @@ if __name__ == "__main__":
     parser_ticker_type.add_argument('ticker', help='Ticker')
     parser_ticker_type.set_defaults(func=_parse_ticker_type_f)
 
-    parser_ticker_name = subparsers.add_parser('ticker-name', help='Get name (cef, etf, index, fund, stock)')
+    parser_ticker_name = subparsers.add_parser('ticker-name', help='Get name (all)')
     parser_ticker_name.add_argument('ticker', help='Ticker')
     parser_ticker_name.set_defaults(func=_parse_ticker_name_f)
 
@@ -1378,7 +1378,7 @@ if __name__ == "__main__":
     parser_stock_name.add_argument('ticker', help='Ticker')
     parser_stock_name.set_defaults(func=_parse_stock_name_f)
 
-    parser_pfh = subparsers.add_parser('pfh', help='Performace history (etfs, funds, stocks)')
+    parser_pfh = subparsers.add_parser('pfh', help='Performace history (all)')
     parser_pfh.add_argument('ticker', help='Ticker')
     parser_pfh.set_defaults(func=_parse_pfh_f)
 
@@ -1394,7 +1394,7 @@ if __name__ == "__main__":
     parser_fund_pfh.add_argument('ticker', help='Ticker')
     parser_fund_pfh.set_defaults(func=_parse_fund_pfh_f)
 
-    parser_index_pfh = subparsers.add_parser('index-pfh', help='Performace history (cefs, etfs, funds, indexes, stocks)')
+    parser_index_pfh = subparsers.add_parser('index-pfh', help='Performace history (all)')
     parser_index_pfh.add_argument('ticker', help='Ticker')
     parser_index_pfh.set_defaults(func=_parse_index_pfh_f)
 
@@ -1406,15 +1406,15 @@ if __name__ == "__main__":
     parser_pfh2.add_argument('ticker', help='Ticker')
     parser_pfh2.set_defaults(func=_parse_pfh2_f)
 
-    parser_ttl = subparsers.add_parser('ttl', help='Trailing total returns (cefs, etfs, funds, indexes, stocks)')
+    parser_ttl = subparsers.add_parser('ttl', help='Trailing total returns (all)')
     parser_ttl.add_argument('ticker', help='Ticker')
     parser_ttl.set_defaults(func=_parse_ttl_f)
 
-    parser_etf_ttl = subparsers.add_parser('etf-ttl', help='Trailing total returns (cefs, etfs, funds, indexes, stocks)')
+    parser_etf_ttl = subparsers.add_parser('etf-ttl', help='Trailing total returns (all)')
     parser_etf_ttl.add_argument('ticker', help='Ticker')
     parser_etf_ttl.set_defaults(func=_parse_etf_ttl_f)
 
-    parser_nav_ttl = subparsers.add_parser('nav-ttl', help='NAV trailing total returns (etfs, funds, stocks)')
+    parser_nav_ttl = subparsers.add_parser('nav-ttl', help='NAV trailing total returns (all)')
     parser_nav_ttl.add_argument('ticker', help='Ticker')
     parser_nav_ttl.set_defaults(func=_parse_nav_ttl_f)
 
