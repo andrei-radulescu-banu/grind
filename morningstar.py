@@ -225,6 +225,10 @@ def nav_performance_history(ticker):
         df.drop(df.index[[0, 2, 3, 4, 5, 6, 7]], inplace=True)
         return df
 
+    if tt == "Index":
+        df = index_performance_history(ticker)
+        return df
+
     if tt == "Stock":
         df = stock_performance_history(ticker)
         df.drop(df.index[[1, 2, 3, 4]], inplace=True)
