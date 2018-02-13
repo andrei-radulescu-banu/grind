@@ -10,6 +10,8 @@ http://performance.morningstar.com/Performance/fund/trailing-total-returns.actio
 
 http://performance.morningstar.com/Performance/cef/trailing-total-returns.action?ops=clear&ndec=2&align=d&t=AFK (quick) - trailing total returns, ops=clear disables bar chart, ndec=2 gives 2 decimal points, align=d,q,y for day, quarter, year alignment. Works for stocks, funds, etfs. Total return includes interest, capital gains, dividends and distributions realized over a given period of time.
 
+http://performance.morningstar.com/perform/Performance/index-c/trailing-total-returns.action?&t=SPX&ops=clear&ndec=2&align=d
+
 http://performance.morningstar.com/RatingRisk/fund/mpt-statistics.action?&t=SPY (.1-.4 secs)
 
 http://quotes.morningstar.com/stock/c-header?&t=SPY (.1-.4 secs)
@@ -28,6 +30,8 @@ http://performance.morningstar.com/Performance/fund/performance-history-1.action
 
 http://performance.morningstar.com/perform/Performance/stock/performance-history-1.action?&t=F&ops=clear&ndec=2&align=m&y=10 (quick) - yearly performance history for stocks; ops=clear ensures no chart is returned; y=10 gives number of years; ndec=2 gives number of decimal points; align=d,m,q,y gives alignment
 
+http://performance.morningstar.com/perform/Performance/index-c/performance-history-1.action?&t=SPX&ops=clear&ndec=2&align=m&y=10
+
 http://performance.morningstar.com/Performance/fund/standardized-returns.action?&t=XNAS:FUSEX&region=usa&culture=en-US&cur=USD&ops=clear&s=0P00001MK8&ndec=2&ep=true&align=m&freq=d&discl=false&comparisonRemove=false&loccat=&taxadj=&benchmarkSecId=&benchmarktype= (quick) - Standardized returns include dividends and cap gains but not taxes
 
 http://performance.morningstar.com/perform/Performance/cef/standardized-returns.action?&ops=clear&y=10&ndec=2&align=m&t=SPY (quick) - Same as above
@@ -35,6 +39,8 @@ http://performance.morningstar.com/perform/Performance/cef/standardized-returns.
 http://performance.morningstar.com/Performance/fund/historical-returns.action?&t=XNAS:FUSEX&region=usa&culture=en-US&cur=USD&ops=clear&s=0P00001MK8&ndec=2&ep=true&align=m&y=5&freq=q&comparisonRemove=false&loccat=&taxadj=&benchmarkSecId=&benchmarktype= (quick) - historical returns, quarters
 
 http://performance.morningstar.com/Performance/fund/historical-returns.action?&t=XNAS:FUSEX&region=usa&culture=en-US&cur=USD&ops=clear&s=0P00001MK8&ndec=2&ep=true&align=m&y=5&freq=m&comparisonRemove=false&loccat=&taxadj=&benchmarkSecId=&benchmarktype= (quick) - historical returns, months
+
+http://performance.morningstar.com/perform/Performance/index-c/historical-returns.action?&t=SPX&ops=clear&ndec=2&align=m&y=10&freq=q
 
 http://financials.morningstar.com/ajax/exportKR2CSV.html?t=FB - stock key ratios in csv format
 
@@ -62,13 +68,9 @@ http://performance.morningstar.com/RatingRisk/fund/mpt-statistics.action?y=10&t=
 
 http://performance.morningstar.com/RatingRisk/fund/mpt-statistics.action?y=15&t=AFK
 
-http://performance.morningstar.com/RatingRisk/fund/volatility-measurements.action?y=3&t=AFK
+http://performance.morningstar.com/RatingRisk/fund/volatility-measurements.action?y=15&ops=clear&t=AFK
 
-http://performance.morningstar.com/RatingRisk/fund/volatility-measurements.action?y=5&t=AFK
-
-http://performance.morningstar.com/RatingRisk/fund/volatility-measurements.action?y=10&t=AFK
-
-http://performance.morningstar.com/RatingRisk/fund/volatility-measurements.action?y=15&t=AFK
+http://performance.morningstar.com/perform/RatingRisk/index-c/volatility-measurements.action?&t=SPX&ops=clear&align=q
 
 http://portfolios.morningstar.com/fund/summary?t=AFK
 
