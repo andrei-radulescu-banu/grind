@@ -42,6 +42,8 @@ http://performance.morningstar.com/Performance/fund/historical-returns.action?&t
 
 http://performance.morningstar.com/perform/Performance/index-c/historical-returns.action?&t=SPX&ops=clear&ndec=2&align=m&y=10&freq=q
 
+http://performance.morningstar.com/perform/Performance/cef/historical-returns.action?&t=BST&ops=clear&y=5&ndec=2&freq=q
+
 http://financials.morningstar.com/ajax/exportKR2CSV.html?t=FB - stock key ratios in csv format
 
 http://financials.morningstar.com/ajax/ReportProcess4CSV.html?t=TWTR&reportType=is&period=12&dataType=A&order=asc&columnYear=5&number=3 - stock financials.
@@ -77,8 +79,6 @@ http://portfolios.morningstar.com/fund/summary?t=AFK
 http://performance.morningstar.com/Performance/cef/premium-discount.action?t=AFK
 
 http://performance.morningstar.com/Performance/cef/cost-risk.action?t=AFK
-
-http://performance.morningstar.com/Performance/cef/trailing-total-returns.action?t=AFK
 
 http://portfolios.morningstar.com/fund/holdings?t=AFK
 
