@@ -19,7 +19,7 @@ _name_cache = dict()
 def ticker_type(ticker):
     """
     Description:
-    The Morningstar URL for getting quotes for cefs, etfs, funds, indexes, stocks
+    Finds the security type.
 
     Parameters:
     ticker - The security ticker.

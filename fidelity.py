@@ -8,6 +8,8 @@ from tabulate import tabulate
 from tickerscrape import web
 import argparse
 import unidecode
+import json
+import titlecase
 
 """
 Module for parsing Morningstar web data.
@@ -19,7 +21,7 @@ _name_cache = dict()
 def ticker_type(ticker):
     """
     Description:
-    The Morningstar URL for getting quotes for cefs, etfs, funds, indexes, stocks
+    Finds the security type.
 
     Parameters:
     ticker - The security ticker.
@@ -33,42 +35,57 @@ def ticker_type(ticker):
     if ticker.lower() == "cash":
         return "Cash"
 
-    if ticker not in _ticker_cache:
-        # The Morningstar URL for funds
-        url = "http://quote.morningstar.com/Quote/Quote.aspx?ticker="
-    
-        # Get the page
-        r = requests.get(url + ticker, allow_redirects = False)
-   
-        # Enable to inspect headers
-        #print(r)
-        #print(r.headers)
-
-        if r.status_code == 302:
-            if "/stock/" in r.headers['Location']:
-                _ticker_cache[ticker] = "Stock"
-            elif "/fund/" in r.headers['Location']:
-                _ticker_cache[ticker] = "Mutual Fund"
-            elif "//etfs." in r.headers['Location']:
-                _ticker_cache[ticker] = "ETF"
-                return("ETF")
-            elif "//cef." in r.headers['Location']:
-                _ticker_cache[ticker] = "CEF"
-            elif "/indexquote/" in r.headers['Location']:
-                _ticker_cache[ticker] = "Index"
-            
     if ticker in _ticker_cache:
         return(_ticker_cache[ticker])
     
-    return ""
+    # The Fidelity URL 
+    url = "https://fastquote.fidelity.com/service/quote/json?productid=embeddedquotes&symbols="
+    
+    # Get the page
+    r = web.get_web_page(url + ticker, False)
+    #print(r[1:-1])
+    
+    # Strip the '(' at beginning and the ')' at end
+    data = json.loads(r[1:-1])
+    #print(data)
+    
+    if (data["STATUS"]["ERROR_CODE"] != "0"):
+        _ticker_cache[ticker] = ""
+        return ""
+        
+    try:
+        fstype = data["QUOTES"][ticker]["SECURITY_TYPE"]
+    except:
+        _ticker_cache[ticker] = ""
+        return ""
+        
+    if fstype == "Equity":
+        fitype = ""
+        try:
+            fitype = data["QUOTES"][ticker]["ISSUE_DESCRIPTION"]
+        except:
+            pass
+
+        if fitype == "ETF":
+            stype = "ETF"
+        else:
+            stype = "Stock"
+    elif fstype == "MutualFund":
+        stype = "Fund"
+    else:
+        stype = fstype
+        
+    _ticker_cache[ticker] = stype
+
+    return stype
 
 def ticker_name(ticker):
     """
     Description:
-    Get ETF, fund or stock name
+    Get security name
 
     Parameters:
-    ticker - The etf, fund, stock ticker.
+    ticker - The security ticker.
 
     Returns:
     The ticker name, "" (in case the ticker can't be resolved)
@@ -81,16 +98,33 @@ def ticker_name(ticker):
     if " " in ticker:
         return None
 
-    # Ticker check    
-    tt = ticker_type(ticker)
-
-    name = None
-    if tt == "CEF" or tt == "ETF" or tt == "Index" or tt == "Mutual Fund":
-        name = fund_name(ticker)
+    # The Fidelity URL 
+    url = "https://fastquote.fidelity.com/service/quote/json?productid=embeddedquotes&symbols="
     
-    if tt == "Stock":
-        name = stock_name(ticker)
+    # Get the page
+    r = web.get_web_page(url + ticker, False)
+    #print(r[1:-1])
     
+    # Strip the '(' at beginning and the ')' at end
+    data = json.loads(r[1:-1])
+    #print(data)
+    
+    if (data["STATUS"]["ERROR_CODE"] != "0"):
+        _name_cache[ticker] = ""
+        return ""
+        
+    try:
+        fname = data["QUOTES"][ticker]["NAME"]
+        fstype = data["QUOTES"][ticker]["SECURITY_TYPE"]
+    except:
+        _name_cache[ticker] = ""
+        return ""
+      
+    if fstype != "Index":
+        name = titlecase.titlecase(fname)
+    else:
+        name = fname
+        
     if name is not None:
         _name_cache[ticker] = name
 
