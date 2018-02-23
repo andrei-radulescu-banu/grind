@@ -1,3 +1,5 @@
 # Tickerscrape
 Financial data scraped from the web. 
-- Look under doc/Morningstar.md for Morningstar web links.
+- Morningstar web links are available at doc/Morningstar.md
+- Fidelity web links are available at doc/Fidelity.md
+- Yahoo web links are available at doc/Yahoo.md
