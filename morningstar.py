@@ -25,13 +25,16 @@ def ticker_type(ticker):
     ticker - The security ticker.
 
     Returns:
-    A string with value "Cash", "CEF", "ETF", "Index", "Mutual Fund", "Stock"
+    A string with value "Cash", "CEF", "ETF", "Index", "Mutual Fund", "Other", "Stock"
     (or "" in case the ticker is neither)
     """
 
     # Special case for cash
     if ticker.lower() == "cash":
         return "Cash"
+
+    if ticker.lower() == "other":
+        return "Other"
 
     if ticker not in _ticker_cache:
         # The Morningstar URL for funds
