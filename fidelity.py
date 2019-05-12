@@ -43,7 +43,7 @@ def ticker_type(ticker):
     url = "https://fastquote.fidelity.com/service/quote/json?productid=embeddedquotes&symbols="
     
     # Get the page
-    r = grindweb.get_web_page(url + ticker, False)
+    r = grindweb.get_web_page(url + ticker)
     #print(r[1:-1])
     
     # Strip the '(' at beginning and the ')' at end
@@ -103,7 +103,7 @@ def ticker_name(ticker):
     url = "https://fastquote.fidelity.com/service/quote/json?productid=embeddedquotes&symbols="
     
     # Get the page
-    r = grindweb.get_web_page(url + ticker, False)
+    r = grindweb.get_web_page(url + ticker)
     #print(r[1:-1])
     
     # Strip the '(' at beginning and the ')' at end

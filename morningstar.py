@@ -122,7 +122,7 @@ def fund_name(ticker):
     url = "http://portfolios.morningstar.com/fund/summary?t=" + ticker
     
     # Get the page
-    web_page = grindweb.get_web_page(url, False)
+    web_page = grindweb.get_web_page(url)
 
     # Parse the contents
     soup = BeautifulSoup(web_page, 'lxml')
@@ -153,7 +153,7 @@ def stock_name(ticker):
     url = "http://performance.morningstar.com/stock/performance-return.action?t=" + ticker
     
     # Get the page
-    web_page = grindweb.get_web_page(url, False)
+    web_page = grindweb.get_web_page(url)
 
     # Parse the contents
     soup = BeautifulSoup(web_page, 'lxml')
@@ -260,7 +260,7 @@ def etf_performance_history(ticker):
     # The Morningstar URL for funds
     url = "http://performance.morningstar.com/perform/Performance/cef/performance-history.action?&ops=clear&y=10&ndec=2&align=d&t="
     
-    df = grindweb.get_web_page_table(url + ticker, False, 0)
+    df = grindweb.get_web_page_table(url + ticker)
 
     # Promote 1st row and column as labels
     df = grindweb.dataframe_promote_1st_row_and_column_as_labels(df)
@@ -289,7 +289,7 @@ def fund_performance_history(ticker):
     # The Morningstar URL for funds
     url = "http://performance.morningstar.com/Performance/fund/performance-history-1.action?&ops=clear&ndec=2&align=d&t="
     
-    df = grindweb.get_web_page_table(url + ticker, False, 0)
+    df = grindweb.get_web_page_table(url + ticker)
 
     # Promote 1st row and column as labels
     df = grindweb.dataframe_promote_1st_row_and_column_as_labels(df)
@@ -324,7 +324,7 @@ def index_performance_history(ticker):
     # The Morningstar URL for indexes
     url = "http://performance.morningstar.com/perform/Performance/index-c/performance-history-1.action?&ops=clear&y=10&ndec=2&align=d&t="
     
-    df = grindweb.get_web_page_table(url + ticker, False, 0)
+    df = grindweb.get_web_page_table(url + ticker)
 
     # Promote 1st row and column as labels
     df = grindweb.dataframe_promote_1st_row_and_column_as_labels(df)
@@ -354,7 +354,7 @@ def stock_performance_history(ticker):
     # The Morningstar URL
     url = "http://performance.morningstar.com/perform/Performance/stock/performance-history-1.action?&ops=clear&y=10&ndec=2&align=d&t="
 
-    df = grindweb.get_web_page_table(url + ticker, False, 0)
+    df = grindweb.get_web_page_table(url + ticker)
 
     # Promote 1st row and column as labels
     df = grindweb.dataframe_promote_1st_row_and_column_as_labels(df)
@@ -383,7 +383,7 @@ def fund_performance_history2(ticker):
     # The Morningstar URL for funds
     url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
     
-    df = grindweb.get_web_page_table(url + ticker, False, 12)
+    df = grindweb.get_web_page_table(url + ticker, table_idx=12)
 
     # Trim last three rows
     df.drop(df.tail(3).index,inplace=True)
@@ -493,7 +493,7 @@ def etf_trailing_total_returns(ticker):
     # The Morningstar URL for funds
     url = "http://performance.morningstar.com/Performance/cef/trailing-total-returns.action?ops=clear&ndec=2&align=d&t="    
 
-    df = grindweb.get_web_page_table(url + ticker, False, 0)
+    df = grindweb.get_web_page_table(url + ticker)
 
     # Promote 1st row and column as labels
     df = grindweb.dataframe_promote_1st_row_and_column_as_labels(df)
@@ -522,7 +522,7 @@ def fund_trailing_total_returns(ticker):
     # The Morningstar URL for funds
     url = "http://performance.morningstar.com/Performance/fund/trailing-total-returns.action?t="    
 
-    df = grindweb.get_web_page_table(url + ticker, False, 0)
+    df = grindweb.get_web_page_table(url + ticker)
 
     # Promote 1st row and column as labels
     df = grindweb.dataframe_promote_1st_row_and_column_as_labels(df)
@@ -555,7 +555,7 @@ def fund_trailing_total_returns2(ticker):
     # The Morningstar URL for funds
     url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
     
-    df = grindweb.get_web_page_table(url + ticker, False, 14)
+    df = grindweb.get_web_page_table(url + ticker, table_idx=14)
     df.iloc[0, 1] = "Total Return %"
     df.iloc[0, 2] = unidecode.unidecode(df.iloc[0, 2]).replace("\r", "").replace("\n", "")
     df.iloc[0, 3] = unidecode.unidecode(df.iloc[0, 3]).replace("\r", "").replace("\n", "")
@@ -586,7 +586,7 @@ def index_trailing_total_returns(ticker):
     # The Morningstar URL
     url = "http://performance.morningstar.com/perform/Performance/index-c/trailing-total-returns.action?ops=clear&ndec=2&align=d&t="    
 
-    df = grindweb.get_web_page_table(url + ticker, False, 0)
+    df = grindweb.get_web_page_table(url + ticker)
 
     # Promote 1st row and column as labels
     df = grindweb.dataframe_promote_1st_row_and_column_as_labels(df)
@@ -692,7 +692,7 @@ def cef_historical_quarterly_returns(ticker, years = 5, frequency = "q"):
     # The Morningstar URL for funds
     url = "http://performance.morningstar.com/perform/Performance/cef/historical-returns.action?&ops=clear&y=%s&ndec=2&freq=%s&t=" % (years, frequency)
     
-    df = grindweb.get_web_page_table(url + ticker, False, 0)
+    df = grindweb.get_web_page_table(url + ticker)
     df.fillna(value="", inplace=True)
 
     # Promote 1st row and column as labels
@@ -722,7 +722,7 @@ def fund_historical_quarterly_returns(ticker, years = 5, frequency = "q"):
     # The Morningstar URL for funds
     url = "http://performance.morningstar.com/Performance/fund/historical-returns.action?&ops=clear&y=%s&freq=%s&t=" % (years, frequency)
     
-    df = grindweb.get_web_page_table(url + ticker, False, 0)
+    df = grindweb.get_web_page_table(url + ticker)
 
     df.fillna(value="", inplace=True)
     df1 = df.drop(df.columns[[2, 3, 4, 5, 6, 7]], axis=1)
@@ -753,7 +753,7 @@ def fund2_historical_quarterly_returns(ticker):
     # The Morningstar URL for funds
     url = "http://quicktake.morningstar.com/fundnet/printreport.aspx?symbol="
     
-    df = grindweb.get_web_page_table(url + ticker, False, 16)
+    df = grindweb.get_web_page_table(url + ticker, table_idx=16)
 
     # Promote 1st row and column as labels
     df = grindweb.dataframe_promote_1st_row_and_column_as_labels(df)
@@ -780,7 +780,7 @@ def cef_quote(ticker):
     url = "http://cef.morningstar.com/cefq/cef-header?&t=" + ticker
     
     # Get the page
-    web_page = grindweb.get_web_page(url, False)
+    web_page = grindweb.get_web_page(url)
 
     # Parse the contents
     soup = BeautifulSoup(web_page, 'lxml')
@@ -856,7 +856,7 @@ def etf_quote(ticker):
     url = "http://etfs.morningstar.com/quote-banner?&t=" + ticker
     
     # Get the page
-    web_page = grindweb.get_web_page(url, False)
+    web_page = grindweb.get_web_page(url)
 
     # Parse the contents
     soup = BeautifulSoup(web_page, 'lxml')
@@ -951,7 +951,7 @@ def fund_quote(ticker):
     url = "http://quotes.morningstar.com/fund/c-header?&t=" + ticker
     
     # Get the page
-    web_page = grindweb.get_web_page(url, False)
+    web_page = grindweb.get_web_page(url)
 
     # Parse the contents
     soup = BeautifulSoup(web_page, 'lxml')
@@ -1031,7 +1031,7 @@ def stock_quote(ticker):
     url = "http://quotes.morningstar.com/stock/c-header?&t=" + ticker
     
     # Get the page
-    web_page = grindweb.get_web_page(url, False)
+    web_page = grindweb.get_web_page(url)
 
     # Parse the contents
     soup = BeautifulSoup(web_page, 'lxml')
@@ -1134,7 +1134,7 @@ def fund_asset_allocation(ticker):
     url = "http://portfolios.morningstar.com/fund/summary?t="
     
     # Get the table
-    df = grindweb.get_web_page_table(url + ticker, False, 1)
+    df = grindweb.get_web_page_table(url + ticker, table_idx=1)
 
     # Create new dataframe from rows 0, 3, 5, 7, 9, 11
     df1 = pd.DataFrame(columns = range(7), 
@@ -1186,7 +1186,7 @@ def fund_market_capitalization(ticker):
     url = "http://portfolios.morningstar.com/fund/summary?t="
     
     # Get the table
-    df = grindweb.get_web_page_table(url + ticker, False, 2)
+    df = grindweb.get_web_page_table(url + ticker, table_idx=2)
 
     # Create new dataframe from rows 0, 2, 4, 6, 8, 10
     df1 = pd.DataFrame(columns = range(4), 
@@ -1228,7 +1228,7 @@ def fund_sector_weightings(ticker):
     url = "http://portfolios.morningstar.com/fund/summary?t="
     
     # Get the table
-    df = grindweb.get_web_page_table(url + ticker, False, 5)
+    df = grindweb.get_web_page_table(url + ticker, table_idx=5)
 
     df.fillna(value="", inplace=True)
 
@@ -1295,7 +1295,7 @@ def fund_market_regions(ticker):
     url = "http://portfolios.morningstar.com/fund/summary?t="
     
     # Get the table
-    df = grindweb.get_web_page_table(url + ticker, False, 6)
+    df = grindweb.get_web_page_table(url + ticker, table_idx=6)
 
     df.fillna(value="", inplace=True)
 
@@ -1355,7 +1355,7 @@ def stock_profile(ticker):
     url = "http://quotes.morningstar.com/stockq/c-company-profile?&t="
     
     # Get the page
-    web_page = grindweb.get_web_page(url + ticker, False)
+    web_page = grindweb.get_web_page(url + ticker)
 
     # Parse the contents
     soup = BeautifulSoup(web_page, 'lxml')
@@ -1412,7 +1412,7 @@ def stock_competitors(ticker):
     url = "http://quotes.morningstar.com/stockq/c-competitors?&t="
     
     # Get the table
-    df = grindweb.get_web_page_table(url + ticker, False, 0)    
+    df = grindweb.get_web_page_table(url + ticker)
 
     # Promote 1st row and column as labels
     df = grindweb.dataframe_promote_1st_row_and_column_as_labels(df)

@@ -8,7 +8,7 @@ import six
 
 _web_cache = dict()
 
-def get_web_page(url, force):
+def get_web_page(url, force=False):
     """
     Gets a web page from the web, or from the local cache, in case it is cached.
 
@@ -26,7 +26,7 @@ def get_web_page(url, force):
     return _web_cache[url]
 
 
-def get_web_page_table(url, force, table_idx):
+def get_web_page_table(url, table_idx=0, force=False):
     """
     Gets a web page table in DataFrame format
 
