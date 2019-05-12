@@ -71,7 +71,7 @@ def get_web_page_table(url, force, table_idx):
         for column in columns:
             column_text = column.get_text()
     
-            #print("row_idx %d, cloumn_idx %d, text %s" % (row_idx, column_idx, column_text))
+            #print("row_idx %d, column_idx %d, text %s" % (row_idx, column_idx, column_text))
             df.iat[row_idx, column_idx] = column_text
             column_idx += 1
         row_idx += 1
