@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from tabulate import tabulate
-from tickerscrape import web
+import web
 import argparse
 import unidecode
 import json
