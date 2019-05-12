@@ -5,11 +5,12 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from tabulate import tabulate
-import web
 import argparse
 import unidecode
 import json
 import titlecase
+
+import grindweb
 
 """
 Module for parsing Morningstar web data.
@@ -42,7 +43,7 @@ def ticker_type(ticker):
     url = "https://fastquote.fidelity.com/service/quote/json?productid=embeddedquotes&symbols="
     
     # Get the page
-    r = web.get_web_page(url + ticker, False)
+    r = grindweb.get_web_page(url + ticker, False)
     #print(r[1:-1])
     
     # Strip the '(' at beginning and the ')' at end
@@ -102,7 +103,7 @@ def ticker_name(ticker):
     url = "https://fastquote.fidelity.com/service/quote/json?productid=embeddedquotes&symbols="
     
     # Get the page
-    r = web.get_web_page(url + ticker, False)
+    r = grindweb.get_web_page(url + ticker, False)
     #print(r[1:-1])
     
     # Strip the '(' at beginning and the ')' at end
