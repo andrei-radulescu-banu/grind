@@ -23,12 +23,20 @@ if __name__ == "__main__":
     
     for ivv_fname in ivv_fnames:
         print(ivv_fname)
+
+        # Extract the date from the csv filename
+        date = ivv_fname[ivv_fname.find('IVV_holdings_') + len('IVV_holdings_'):-len('.csv')]
+        
         df = pd.read_csv(ivv_fname, delimiter = ',', skiprows=9)
         for index, row in df.iterrows():
+            # Skip if not equity
+            if row['Asset Class'] != 'Equity':
+                continue
+            
             # Check if securities_df contains ISIN
             # Reference: https://stackoverflow.com/questions/21319929/how-to-determine-whether-a-pandas-column-contains-a-particular-value            
             if row['ISIN'] not in securities_df['ISIN'].values:
-                securities_df = securities_df.append({'Ticker':row['Ticker'], 'Name':row['Name'], 'Sector':row['Sector'], 'SEDOL':row['SEDOL'], 'ISIN':row['ISIN'], 'DateIn': 0},ignore_index=True)
+                securities_df = securities_df.append({'Ticker':row['Ticker'], 'Name':row['Name'], 'Sector':row['Sector'], 'SEDOL':row['SEDOL'], 'ISIN':row['ISIN'], 'DateIn': date},ignore_index=True)
                 
         break
 
