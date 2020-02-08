@@ -76,7 +76,7 @@ if __name__ == "__main__":
         # Find securities removed from S&P index
         for index, row in securities_df.iterrows():
             if row['ISIN'] not in df['ISIN'].values:
-                if not row['DateOut'] or str(row['DateOut']) == 'nan':
+                if (not row['DateOut']) or (str(row['DateOut']) == 'nan'):
                     if args.debug:
                         print('ISIN {}, ticker {} removed in {} from index, old DateOut {}'.format(row['ISIN'], row['Ticker'], date, row['DateOut']))
                     securities_df.loc[idx, 'DateOut'] = date
