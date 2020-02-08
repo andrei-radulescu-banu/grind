@@ -19,7 +19,9 @@ if __name__ == "__main__":
 
     ivv_fnames = glob.glob('{}/IVV_holdings_*.csv'.format(args.dir))
 
-    securities_df = pd.DataFrame(columns = ['Ticker', 'Name', 'Sector', 'SEDOL', 'ISIN', 'DateIn', 'DateOut'])
+    securities_df = pd.DataFrame(columns = ['Ticker', 'Name', 'Sector', 'SEDOL', 'ISIN', 'DateIn', 'DateOut', 'OldTicker'])
+
+    securities = dict()
     
     for ivv_fname in ivv_fnames:
         print(ivv_fname)
@@ -35,9 +37,19 @@ if __name__ == "__main__":
             
             # Check if securities_df contains ISIN
             # Reference: https://stackoverflow.com/questions/21319929/how-to-determine-whether-a-pandas-column-contains-a-particular-value            
-            if row['ISIN'] not in securities_df['ISIN'].values:
+            if row['ISIN'] not in securities:
+                # New security
                 securities_df = securities_df.append({'Ticker':row['Ticker'], 'Name':row['Name'], 'Sector':row['Sector'], 'SEDOL':row['SEDOL'], 'ISIN':row['ISIN'], 'DateIn': date},ignore_index=True)
+                securities[row['ISIN']] = row['Ticker']
+            else:
+                # Old security
+                idx = securities_df.loc[securities_df['ISIN'] == row['ISIN']].index[0]
                 
-        break
+                if securities[row['ISIN']] != row['Ticker']:
+                    print('ISIN {} changed Ticker from {} to {}'.format(row['ISIN'], securities[row['ISIN']], row['Ticker']))
+                    securities_df.loc[idx, 'Ticker'] = row['Ticker']
+                    securities_df.loc[idx, 'OldTicker'] = "{} {}".format(row['Ticker'], securities_df.loc[idx, 'OldTicker'])
+
+                securities_df.loc[idx, 'Name'] = row['Name']
 
     print(securities_df)
