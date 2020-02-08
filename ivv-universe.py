@@ -3,6 +3,7 @@
 import sys, os
 import argparse
 import datetime
+import glob
 import pandas
 import numpy as np
 
@@ -14,3 +15,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    ivv_fnames = glob.glob('{}/IVV_holdings_*.csv'.format(args.dir))
+    print(ivv_fnames)
