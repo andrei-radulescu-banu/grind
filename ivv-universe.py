@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     securities = dict()
     
-    for ivv_fname in ivv_fnames:
+    for ivv_fname in sorted(ivv_fnames):
         print(ivv_fname)
 
         # Extract the date from the csv filename
