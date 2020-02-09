@@ -8,6 +8,9 @@ import argparse
 import datetime
 from enum import Enum
 
+# Local modules
+import yahoo
+
 DirDefault = '/home/andrei/src/market-data'
 SecuritiesDefault = 'securities.csv'
 InterfaceDefault = 'yahoo'
@@ -40,8 +43,10 @@ if __name__ == "__main__":
     print(securities_df)
 
     for index, row in securities_df.iterrows():
-        if str(row['DateOut']) != 'nan':
-            # Download history from Yahoo
-            if args.debug:
-                print('Downloading {} from {}'.format(row['Ticker'], args.interface))
+        if args.interface == 'yahoo':
+            if str(row['DateOut']) != 'nan':
+                # Download history from Yahoo
+                if args.debug:
+                    print('Downloading {} from {}'.format(row['Ticker'], args.interface))
+            yahoo.download_hist_yahoo(row['Ticker'], force=args.force, debug=args.debug)
             
