@@ -46,10 +46,10 @@ if __name__ == "__main__":
     ticker_success = []
     
     for index, row in securities_df.iterrows():
+        if args.debug:
+            print('Downloading {} from {}'.format(row['Ticker'], args.interface))                
         if str(args.interface) == 'yahoo':    
             # Download history from Yahoo
-            if args.debug:
-                print('Downloading {} from {}'.format(row['Ticker'], args.interface))                
             ret = yahoo.download_hist_yahoo(row['Ticker'], ISIN=row['ISIN'], force=args.force, debug=args.debug)
             if ret:
                 ticker_success.append(row['Ticker'])
