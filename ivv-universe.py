@@ -10,7 +10,7 @@ import pandas as pd
 DirDefault = '/home/andrei/src/market-data/ivv'
 OutputDefault = 'securities.csv'
 
-if __name__ == "__main__":    
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate S&P500 Universe based on IVV ETF.')
     parser.add_argument('--dir', default=DirDefault, help='Directory of IVV csv files. Default: {}.'.format(DirDefault))
     parser.add_argument('--output', default=OutputDefault, help='Directory of IVV csv files. Default: {}.'.format(OutputDefault))
@@ -79,7 +79,7 @@ if __name__ == "__main__":
                 if (not row['DateOut']) or (str(row['DateOut']) == 'nan'):
                     if args.debug:
                         print('ISIN {}, ticker {} removed in {} from index, old DateOut {}'.format(row['ISIN'], row['Ticker'], date, row['DateOut']))
-                    securities_df.loc[idx, 'DateOut'] = date
+                    securities_df.loc[index, 'DateOut'] = date
             
     #print(securities_df)
     securities_df.to_csv(args.output)
