@@ -20,6 +20,7 @@ class DownloadInterface(Enum):
     alpha_vantage = 'alpha_vantage'
     quandl = 'quandl'
     yahoo = 'yahoo'
+    world_trading_data = 'world_trading_data'
 
     def __str__(self):
         return self.value
@@ -50,7 +51,6 @@ if __name__ == "__main__":
         if args.debug:
             print('Downloading {} from {}'.format(row['Ticker'], args.interface))                
         if str(args.interface) == 'yahoo':    
-            # Download history from Yahoo
             ret = yahoo.download_hist_yahoo(row['Ticker'], ISIN=row['ISIN'], force=args.force, debug=args.debug)
             if ret:
                 ticker_success.append(row['Ticker'])
@@ -58,8 +58,14 @@ if __name__ == "__main__":
                 ticker_fail.append(row['Ticker'])
 
         if str(args.interface) == 'alpha_vantage':
-            # Download history from Yahoo
             ret = av.download_hist_alpha_vantage(row['Ticker'], ISIN=row['ISIN'], force=args.force, debug=args.debug)
+            if ret:
+                ticker_success.append(row['Ticker'])
+            else:
+                ticker_fail.append(row['Ticker'])
+
+        if str(args.interface) == 'world_trading_data':
+            ret = av.download_hist_world_trading_data(row['Ticker'], ISIN=row['ISIN'], force=args.force, debug=args.debug)
             if ret:
                 ticker_success.append(row['Ticker'])
             else:

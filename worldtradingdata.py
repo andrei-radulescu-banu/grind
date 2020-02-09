@@ -40,7 +40,7 @@ def download_hist_world_trading_data(ticker, ISIN=None, dirname=DirDefault, forc
         'sort': 'oldest'
     }
     if debug:
-        print('Get {} from {}, params {}'.format(ticker, url, params))
+        print('Get {} from {}'.format(ticker, url))
     try:
         r = requests.get(url, params=params, timeout=1)
     except:
