@@ -69,9 +69,15 @@ if __name__ == "__main__":
 
                     oldNameField = securities_df.loc[idx, 'OldName']
                     if oldNameField and str(oldNameField) != 'nan':
-                        securities_df.loc[idx, 'OldName'] = "{}|{}".format(oldName, row['Name'])
+                        securities_df.loc[idx, 'OldName'] = "{}|{}".format(oldNameField, oldName)
                     else:
                         securities_df.loc[idx, 'OldName'] = oldName
+
+                    oldChangedField = securities_df.loc[idx, 'OldChanged']
+                    if oldChangedField and str(oldChangedField) != 'nan':
+                        securities_df.loc[idx, 'OldChanged'] = "{}|{}".format(oldChangedField, date)
+                    else:
+                        securities_df.loc[idx, 'OldChanged'] = date
 
                 securities_df.loc[idx, 'Name'] = row['Name']
 
@@ -83,7 +89,7 @@ if __name__ == "__main__":
             if row['ISIN'] not in df['ISIN'].values:
                 if (not row['DateOut']) or (str(row['DateOut']) == 'nan'):
                     if args.debug:
-                        print('ISIN {}, ticker {} removed in {} from index, old DateOut {}'.format(row['ISIN'], row['Ticker'], date, row['DateOut']))
+                        print('ISIN {}, ticker {} removed in {} from index, old DateIn {}'.format(row['ISIN'], row['Ticker'], date, row['DateIn']))
                     securities_df.loc[index, 'DateOut'] = date
             
     #print(securities_df)
