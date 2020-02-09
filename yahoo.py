@@ -8,7 +8,7 @@ import datetime
 
 DirDefault = '/home/andrei/src/market-data/stocks/yahoo'
 
-def download_hist_yahoo(ticker, dirname=DirDefault, force=False, debug=False):
+def download_hist_yahoo(ticker, ISIN=None, dirname=DirDefault, force=False, debug=False):
     # Today's date
     date = datetime.date.today()
     date_str = date.strftime("%Y%m%d")
@@ -29,6 +29,13 @@ def download_hist_yahoo(ticker, dirname=DirDefault, force=False, debug=False):
 
     # Create the yf ticker object
     yticker = yf.Ticker(ticker)
+
+    # Check the ISIN, if it was passed in
+    try:
+        if ISIN and ISIN != yticker.isin:
+            return False
+    except:
+        pass
 
     # Download the max history
     df = yticker.history(period="max")

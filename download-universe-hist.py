@@ -40,13 +40,12 @@ if __name__ == "__main__":
     securities_df = pd.read_csv(fname)
     if args.debug:
         print('Loaded {}'.format(fname))
-    print(securities_df)
+    #print(securities_df)
 
     for index, row in securities_df.iterrows():
-        if args.interface == 'yahoo':
-            if str(row['DateOut']) != 'nan':
-                # Download history from Yahoo
-                if args.debug:
-                    print('Downloading {} from {}'.format(row['Ticker'], args.interface))
-            yahoo.download_hist_yahoo(row['Ticker'], force=args.force, debug=args.debug)
+        if str(args.interface) == 'yahoo':    
+            # Download history from Yahoo
+            if args.debug:
+                print('Downloading {} from {}'.format(row['Ticker'], args.interface))
+            yahoo.download_hist_yahoo(row['Ticker'], ISIN=row['ISIN'], force=args.force, debug=args.debug)
             
