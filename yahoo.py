@@ -6,7 +6,7 @@ import pandas as pd
 import argparse
 import datetime
 
-DirDefault = '/home/andrei/src/market-data/stocks'
+DirDefault = '/home/andrei/src/market-data/stocks/yahoo'
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Download Yahoo data.')
