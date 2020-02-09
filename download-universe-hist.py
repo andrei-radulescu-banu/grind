@@ -42,10 +42,20 @@ if __name__ == "__main__":
         print('Loaded {}'.format(fname))
     #print(securities_df)
 
+    ticker_fail = []
+    ticker_success = []
+    
     for index, row in securities_df.iterrows():
         if str(args.interface) == 'yahoo':    
             # Download history from Yahoo
             if args.debug:
-                print('Downloading {} from {}'.format(row['Ticker'], args.interface))
-            yahoo.download_hist_yahoo(row['Ticker'], ISIN=row['ISIN'], force=args.force, debug=args.debug)
+                print('Downloading {} from {}'.format(row['Ticker'], args.interface))                
+            ret = yahoo.download_hist_yahoo(row['Ticker'], ISIN=row['ISIN'], force=args.force, debug=args.debug)
+            if ret:
+                ticker_success.append(row['Ticker'])
+            else:
+                ticker_fail.append(row['Ticker'])
+
+    if args.debug:
+        print('{} symbols success, {} symbols fail ({})'.format(len(ticker_success), len(ticker_fail), ticker_fail))
             
