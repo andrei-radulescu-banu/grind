@@ -1,1 +1,1 @@
-__all__ = ["fidelity", "morningstar", "web", "yahoo"]
+__all__ = ["fidelity", "morningstar", "web", "yahoo", "alphavantage", "worldtradingdata"]

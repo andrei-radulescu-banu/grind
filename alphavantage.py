@@ -35,7 +35,12 @@ def download_hist_alpha_vantage(ticker, ISIN=None, dirname=DirDefault, force=Fal
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={}&outputsize=full&apikey={}&datatype=csv'.format(ticker, alpha_vantage_api_key)
     if debug:
         print('Get {}'.format(url))
-    r = requests.get(url, timeout=1)
+    try:
+        r = requests.get(url, timeout=1)
+    except:
+        if debug:
+            print('Failed to get history for {}'.format(ticker))
+        return(False)
 
     if r.status_code != 200:
         if debug:

@@ -10,6 +10,7 @@ from enum import Enum
 
 # Local modules
 import yahoo
+import alphavantage as av
 
 DirDefault = '/home/andrei/src/market-data'
 SecuritiesDefault = 'securities.csv'
@@ -56,6 +57,14 @@ if __name__ == "__main__":
             else:
                 ticker_fail.append(row['Ticker'])
 
+        if str(args.interface) == 'alpha_vantage':
+            # Download history from Yahoo
+            ret = av.download_hist_alpha_vantage(row['Ticker'], ISIN=row['ISIN'], force=args.force, debug=args.debug)
+            if ret:
+                ticker_success.append(row['Ticker'])
+            else:
+                ticker_fail.append(row['Ticker'])
+                
     if args.debug:
         print('{} symbols success, {} symbols fail ({})'.format(len(ticker_success), len(ticker_fail), ticker_fail))
             
