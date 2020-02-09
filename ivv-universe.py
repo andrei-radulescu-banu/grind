@@ -20,9 +20,11 @@ if __name__ == "__main__":
 
     ivv_fnames = glob.glob('{}/IVV_holdings_*.csv'.format(args.dir))
 
-    securities_df = pd.DataFrame(columns=['Ticker', 'Name', 'Sector', 'SEDOL', 'ISIN', 'DateIn', 'DateOut', 'OldTicker', 'OldName'])
+    securities_df = pd.DataFrame(columns=['Ticker', 'Name', 'Sector', 'SEDOL', 'ISIN', 'DateIn', 'DateOut', 'OldTicker', 'OldName', 'OldChanged'])
 
-    securities = dict()
+    # Dictionary of all securities, indexed by ISIN, with values set to the tuple (ticker, name)
+    # securities_dict['ISIN_VALUE'] = ticker, name
+    securities_dict = dict()
     
     for ivv_fname in sorted(ivv_fnames):
         print('Reading {}'.format(ivv_fname))
@@ -42,7 +44,7 @@ if __name__ == "__main__":
             
             # Check if securities_df contains ISIN
             # Reference: https://stackoverflow.com/questions/21319929/how-to-determine-whether-a-pandas-column-contains-a-particular-value            
-            if row['ISIN'] not in securities:
+            if row['ISIN'] not in securities_dict:
                 # New security
                 securities_df = securities_df.append({'Ticker':row['Ticker'], 'Name':row['Name'], 'Sector':row['Sector'], 'SEDOL':row['SEDOL'], 'ISIN':row['ISIN'], 'DateIn': date},ignore_index=True)
                 if args.debug:
@@ -50,28 +52,31 @@ if __name__ == "__main__":
             else:
                 # Old security
                 idx = securities_df.loc[securities_df['ISIN'] == row['ISIN']].index[0]
+
+                oldTicker = securities_dict[row['ISIN']][0]
+                oldName = securities_dict[row['ISIN']][1]
                 
-                if securities[row['ISIN']] != row['Ticker']:
+                if oldTicker != row['Ticker']:
                     if args.debug:
-                        print('ISIN {} changed Ticker in {} from {} to {}'.format(row['ISIN'], date, securities[row['ISIN']], row['Ticker']))
+                        print('ISIN {} changed Ticker in {} from {} to {}'.format(row['ISIN'], date, oldTicker, row['Ticker']))
                     securities_df.loc[idx, 'Ticker'] = row['Ticker']
 
-                    oldTicker = securities_df.loc[idx, 'OldTicker']
-                    if oldTicker:
-                        securities_df.loc[idx, 'OldTicker'] = "{}|{}".format(oldTicker, row['Ticker'])
+                    oldTickerField = securities_df.loc[idx, 'OldTicker']
+                    if oldTickerField and str(oldTickerField) != 'nan':
+                        securities_df.loc[idx, 'OldTicker'] = "{}|{}".format(oldTickerField, oldTicker)
                     else:
-                        securities_df.loc[idx, 'OldTicker'] = row['Ticker']
+                        securities_df.loc[idx, 'OldTicker'] = oldTicker
 
-                    oldName = securities_df.loc[idx, 'OldName']
-                    if oldName:
+                    oldNameField = securities_df.loc[idx, 'OldName']
+                    if oldNameField and str(oldNameField) != 'nan':
                         securities_df.loc[idx, 'OldName'] = "{}|{}".format(oldName, row['Name'])
                     else:
-                        securities_df.loc[idx, 'OldName'] = row['Name']
+                        securities_df.loc[idx, 'OldName'] = oldName
 
                 securities_df.loc[idx, 'Name'] = row['Name']
 
-            #Update the latest name
-            securities[row['ISIN']] = row['Ticker']
+            # Update the securities dictionary
+            securities_dict[row['ISIN']] = row['Ticker'],row['Name']
 
         # Find securities removed from S&P index
         for index, row in securities_df.iterrows():
