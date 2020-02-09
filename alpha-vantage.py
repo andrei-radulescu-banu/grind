@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
 import sys, os
-import yfinance as yf
 import pandas as pd
 import argparse
 import datetime
+import requests
 
 DirDefault = '/home/andrei/src/market-data/stocks/alpha-vantage'
 
@@ -27,25 +27,23 @@ def download_hist_alpha_vantage(ticker, ISIN=None, dirname=DirDefault, force=Fal
     if os.path.exists(fname):
         os.unlink(fname)
 
-    # Create the yf ticker object
-    yticker = yf.Ticker(ticker)
+    alpha_vantage_api_key = os.getenv('ALPHA_VANTAGE_API_KEY')
+    if not alpha_vantage_api_key:
+        print('ALPHA_VANATGE_API_KEY environment variable not set up')
+        return False
+    
+    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={}&outputsize=full&apikey={}&datatype=csv'.format(ticker, alpha_vantage_api_key)
+    if debug:
+        print('Get {}'.format(url))
+    r = requests.get(url, timeout=1)
 
-    # Check the ISIN, if it was passed in
-    try:
-        if ISIN and ISIN != yticker.isin:
-            return False
-    except:
-        pass
-
-    # Download the max history
-    df = yticker.history(period="max")
-
-    # Check if we downloaded anything
-    if df.empty:
+    if r.status_code != 200:
+        if debug:
+            print('HTTP status code {}'.format(r.status_code))
         return False
 
-    # Save to file
-    df.to_csv(fname)
+    with open(fname, "wb") as f:
+        f.write(r.content)
         
     if debug:
         print('Saved {}'.format(fname))
