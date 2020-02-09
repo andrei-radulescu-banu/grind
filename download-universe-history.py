@@ -26,3 +26,8 @@ if __name__ == "__main__":
     if args.debug:
         print('Loaded {}'.format(fname))
     print(securities_df)
+
+    for index, row in securities_df.iterrows():
+        if str(row['DateOut']) == 'nan':
+            # Download history from Yahoo
+            print(row['Ticker'])
