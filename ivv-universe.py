@@ -7,18 +7,18 @@ import glob
 import numpy as np
 import pandas as pd
 
-DirDefault = '/home/andrei/src/market-data/ivv'
+DirDefault = '/home/andrei/src/market-data'
 OutputDefault = 'securities.csv'
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate S&P500 Universe based on IVV ETF.')
-    parser.add_argument('--dir', default=DirDefault, help='Directory of IVV csv files. Default: {}.'.format(DirDefault))
-    parser.add_argument('--output', default=OutputDefault, help='Directory of IVV csv files. Default: {}.'.format(OutputDefault))
+    parser.add_argument('--dir', default=DirDefault, help='Market data directory. Default: {}. Data is read from ivv subfolder.'.format(DirDefault))
+    parser.add_argument('--output', default=OutputDefault, help='Name of output file. Default: {}.'.format(OutputDefault))
     parser.add_argument('-d', '--debug', action='store_true', help='Enable debug messages.')
 
     args = parser.parse_args()
 
-    ivv_fnames = glob.glob('{}/IVV_holdings_*.csv'.format(args.dir))
+    ivv_fnames = glob.glob('{}/ivv/IVV_holdings_*.csv'.format(args.dir))
 
     securities_df = pd.DataFrame(columns=['Ticker', 'Name', 'Sector', 'SEDOL', 'ISIN', 'DateIn', 'DateOut', 'OldTicker', 'OldName', 'OldChanged'])
 
@@ -92,5 +92,8 @@ if __name__ == "__main__":
                         print('ISIN {}, ticker {} removed in {} from index, old DateIn {}'.format(row['ISIN'], row['Ticker'], date, row['DateIn']))
                     securities_df.loc[index, 'DateOut'] = date
             
-    #print(securities_df)
-    securities_df.to_csv(args.output)
+    print(securities_df)
+    fname = '{}/{}'.format(args.dir, args.output)
+    securities_df.to_csv(fname, index=False)
+    if args.debug:
+        print('Saved {}'.format(fname))
