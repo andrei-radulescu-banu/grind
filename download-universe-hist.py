@@ -11,6 +11,7 @@ from enum import Enum
 # Local modules
 import yahoo
 import alphavantage as av
+import worldtradingdata as wtd
 
 DirDefault = '/home/andrei/src/market-data'
 SecuritiesDefault = 'securities.csv'
@@ -65,7 +66,7 @@ if __name__ == "__main__":
                 ticker_fail.append(row['Ticker'])
 
         if str(args.interface) == 'world_trading_data':
-            ret = av.download_hist_world_trading_data(row['Ticker'], ISIN=row['ISIN'], force=args.force, debug=args.debug)
+            ret = wtd.download_hist_world_trading_data(row['Ticker'], ISIN=row['ISIN'], force=args.force, debug=args.debug)
             if ret:
                 ticker_success.append(row['Ticker'])
             else:
