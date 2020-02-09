@@ -8,6 +8,43 @@ import datetime
 
 DirDefault = '/home/andrei/src/market-data/stocks/yahoo'
 
+def download_hist_yahoo(ticker, dirname=DirDefault, force=False, debug=False):
+    # Today's date
+    date = datetime.date.today()
+    date_str = date.strftime("%Y%m%d")
+
+    # Will be saving the data in this file name
+    fname = '{}/{}_{}.csv'.format(dirname, ticker, date_str)
+
+    # Check for old data
+    if not force:
+        if os.path.exists(fname):
+            if debug:
+                print('{} already available'.format(fname))
+                return True
+
+    # Remove old data
+    if os.path.exists(fname):
+        os.unlink(fname)
+
+    # Create the yf ticker object
+    yticker = yf.Ticker(ticker)
+
+    # Download the max history
+    df = yticker.history(period="max")
+
+    # Check if we downloaded anything
+    if df.empty:
+        return False
+
+    # Save to file
+    df.to_csv(fname)
+        
+    if debug:
+        print('Saved {}'.format(fname))
+
+    return True
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Download Yahoo data.')
     parser.add_argument('-t', '--ticker', nargs='+', help='Ticker')
@@ -21,33 +58,7 @@ if __name__ == "__main__":
     date_str = date.strftime("%Y%m%d")
     
     for ticker in args.ticker:
-        # Will be saving the data in this file name
-        fname = '{}/{}_{}.csv'.format(args.dir, ticker, date_str)
-
-        # Check for old data
-        if not args.force:
-            if os.path.exists(fname):
-                if args.debug:
-                    print('{} already available'.format(fname))
-                    continue
-
-        # Remove old data
-        if os.path.exists(fname):
-            os.unlink(fname)
-
-        # Create the yf ticker object
-        yticker = yf.Ticker(ticker)
-
-        # Download the max history
-        df = yticker.history(period="max")
-
-        # Check if we downloaded anything
-        if df.empty:
-            continue
-
-        # Save to file
-        df.to_csv(fname)
-        
-        if args.debug:
-            print('Saved {}'.format(fname))
-    
+        download_hist_yahoo(ticker,
+                            dirname=args.dir,
+                            force=args.force,
+                            debug=args.debug)    
