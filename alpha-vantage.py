@@ -61,9 +61,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    date = datetime.date.today()
-    date_str = date.strftime("%Y%m%d")
-    
     for ticker in args.ticker:
         download_hist_alpha_vantage(ticker,
                                     dirname=args.dir,
