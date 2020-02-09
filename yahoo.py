@@ -11,7 +11,7 @@ DirDefault = '/home/andrei/src/market-data/stocks'
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Download Yahoo data.')
     parser.add_argument('-t', '--ticker', nargs='+', help='Ticker')
-    parser.add_argument('--dir', default=DirDefault, help='Directory of IVV csv files. Default: {}.'.format(DirDefault))
+    parser.add_argument('--dir', default=DirDefault, help='Output directory. Default: {}.'.format(DirDefault))
     parser.add_argument('-d', '--debug', action='store_true', help='Enable debug messages.')
     parser.add_argument('-f', '--force', action='store_true', help='Force a download even if the data is cached.')
 
