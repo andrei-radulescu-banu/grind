@@ -46,13 +46,18 @@ def download_hist_world_trading_data(ticker, ISIN=None, dirname=DirDefault, forc
     except:
         if debug:
             print('Failed to get history for {}'.format(ticker))
-        return(False)
+        return False
 
     if r.status_code != 200:
         if debug:
             print('HTTP status code {}'.format(r.status_code))
         return False
 
+    if 'You have reached your request limit for the day' in r.content:
+        if debug:
+            print('{}: You have reached your request limit for the day'.format(ticker))
+        return False
+    
     with open(fname, "wb") as f:
         f.write(r.content)
         
