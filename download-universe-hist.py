@@ -13,6 +13,7 @@ import yahoo
 import alphavantage as av
 import worldtradingdata as wtd
 import quandl
+import stooq
 
 DirDefault = '/home/andrei/src/market-data'
 SecuritiesDefault = 'securities.csv'
@@ -22,6 +23,7 @@ class DownloadInterface(Enum):
     alpha_vantage = 'alpha_vantage'
     quandl = 'quandl'
     yahoo = 'yahoo'
+    stooq = 'stooq'
     world_trading_data = 'world_trading_data'
 
     def __str__(self):
@@ -75,6 +77,13 @@ if __name__ == "__main__":
 
         if str(args.interface) == 'quandl':
             ret = quandl.download_hist_quandl(row['Ticker'], ISIN=row['ISIN'], force=args.force, debug=args.debug)
+            if ret:
+                ticker_success.append(row['Ticker'])
+            else:
+                ticker_fail.append(row['Ticker'])
+
+        if str(args.interface) == 'stooq':
+            ret = stooq.download_hist_stooq(row['Ticker'], ISIN=row['ISIN'], force=args.force, debug=args.debug)
             if ret:
                 ticker_success.append(row['Ticker'])
             else:
