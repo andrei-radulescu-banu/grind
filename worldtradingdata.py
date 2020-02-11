@@ -53,13 +53,21 @@ def download_hist_world_trading_data(ticker, ISIN=None, dirname=DirDefault, forc
             print('HTTP status code {}'.format(r.status_code))
         return False
 
-    if 'You have reached your request limit for the day' in r.content:
+    content = r.content
+    
+    if 'You have reached your request limit for the day' in content:
         if debug:
-            print('{}: You have reached your request limit for the day'.format(ticker))
+            print('{}: You have reached your request limit for the day.'.format(ticker))
         return False
     
+    if 'The requested stock could not be found' in content:
+        if debug:
+            print('{}: The requested stock could not be found.'.format(ticker))
+        # Overwrite the contents
+        content = 'Date,Open,Close,High,Low,Volume'
+    
     with open(fname, "wb") as f:
-        f.write(r.content)
+        f.write(content)
         
     if debug:
         print('Saved {}'.format(fname))
