@@ -12,6 +12,7 @@ from enum import Enum
 import yahoo
 import alphavantage as av
 import worldtradingdata as wtd
+import quandl
 
 DirDefault = '/home/andrei/src/market-data'
 SecuritiesDefault = 'securities.csv'
@@ -67,6 +68,13 @@ if __name__ == "__main__":
 
         if str(args.interface) == 'world_trading_data':
             ret = wtd.download_hist_world_trading_data(row['Ticker'], ISIN=row['ISIN'], force=args.force, debug=args.debug)
+            if ret:
+                ticker_success.append(row['Ticker'])
+            else:
+                ticker_fail.append(row['Ticker'])
+
+        if str(args.interface) == 'quandl':
+            ret = quandl.download_hist_quandl(row['Ticker'], ISIN=row['ISIN'], force=args.force, debug=args.debug)
             if ret:
                 ticker_success.append(row['Ticker'])
             else:
