@@ -22,26 +22,42 @@ class DownloadInterface(Enum):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Plot data history.')
-    parser.add_argument('-t', '--ticker', nargs='+', help='Ticker')
+    parser.add_argument('-t', '--ticker', help='Ticker', required=True)
     parser.add_argument('--dir', default=DirDefault, help='Market data directory. Default: {}.'.format(DirDefault))
-    parser.add_argument('-i', '--interface', default=InterfaceDefault, type=DownloadInterface, choices=list(DownloadInterface), help='Download interface. Default: {}.'.format(InterfaceDefault))
+    parser.add_argument('-i', '--interface', nargs='*', default=[InterfaceDefault], type=DownloadInterface, choices=list(DownloadInterface), help='Download interface. Default: {}.'.format(InterfaceDefault))
     parser.add_argument('-d', '--debug', action='store_true', help='Enable debug messages.')
 
     args = parser.parse_args()
 
-    slug = 'yahoo'
-    if str(args.interface) == 'alpha_vantage':
-        slug = 'alpha-vantage'
-    if str(args.interface) == 'world_trading_data':
-        slug = 'world-trading-data'
+    # gca stands for 'get current axis'
+    ax = plt.gca()
 
-    dirname = '{}/stocks/{}'.format(DirDefault, slug)
+    for interface in args.interface:
 
-    files = [f for f in os.listdir(dirname)]
+        slug = 'yahoo'
+        if str(interface) == 'alpha_vantage':
+            slug = 'alpha-vantage'
+        if str(interface) == 'world_trading_data':
+            slug = 'world-trading-data'
 
-    for ticker in args.ticker:
-        matching = [f for f in files if '{}_'.format(ticker) in f]
+        dirname = '{}/stocks/{}'.format(DirDefault, slug)
+
+        files = [f for f in os.listdir(dirname)]
+
+        matching = [str(f) for f in files if '{}_'.format(args.ticker) in f]
         if not matching:
             if args.debug:
-                print('No data for {}'.format(ticker))
+                print('No data for {}'.format(args.ticker))
                 continue
+
+        matching.sort(reverse=True)
+            
+        df = pd.read_csv('{}/{}'.format(dirname, matching[0]))
+        if df.empty:
+            if args.debug:
+                print('No data for {}'.format(args.ticker))
+            continue
+        df.plot(kind='line',x='Date',y='Close',label=interface,ax=ax)
+
+    plt.legend(loc='best')
+    plt.show()
