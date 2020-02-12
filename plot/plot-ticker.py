@@ -3,10 +3,13 @@
 import sys, os
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import argparse
 import datetime
 from enum import Enum
+
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import matplotlib.cbook as cbook
 
 DirDefault = '/home/andrei/src/market-data'
 InterfaceDefault = 'world_trading_data'
@@ -31,8 +34,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # gca stands for 'get current axis'
-    ax = plt.gca()
+    #ax = plt.gca()
 
+    fig, ax = plt.subplots()
+    
     for interface in args.interface:
 
         slug = 'yahoo'
@@ -59,6 +64,14 @@ if __name__ == "__main__":
                 print('No data for {}'.format(args.ticker))
             continue
         df.plot(kind='line',x='Date',y='Close',label=interface,ax=ax)
+
+    # format the coords message box
+    ax.fmt_xdata = mdates.DateFormatter('%Y-%m-%d')
+    ax.set_title(args.ticker)
+    
+    # rotates and right aligns the x labels, and moves the bottom of the
+    # axes up to make room for them
+    fig.autofmt_xdate()
 
     plt.legend(loc='best')
     plt.show()
