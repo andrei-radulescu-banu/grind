@@ -15,6 +15,7 @@ class DownloadInterface(Enum):
     alpha_vantage = 'alpha_vantage'
     quandl = 'quandl'
     yahoo = 'yahoo'
+    stooq = 'stooq'
     world_trading_data = 'world_trading_data'
 
     def __str__(self):
